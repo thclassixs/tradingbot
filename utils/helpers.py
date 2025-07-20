@@ -5,6 +5,7 @@ from typing import Tuple, Dict, List
 from dataclasses import dataclass
 import logging  # <-- This was the missing import
 from telegram import Bot
+from telegram.request import HTTPXRequest
 from telegram.constants import ParseMode
 
 @dataclass
@@ -59,9 +60,10 @@ class TelegramNotifier:
             bot_token: Your Telegram bot token from BotFather.
             chat_id: The ID of the chat where messages will be sent.
         """
+        request = HTTPXRequest(connect_timeout=10.0, read_timeout=10.0) 
         self.bot_token = bot_token
         self.chat_id = chat_id
-        self.bot = Bot(token=bot_token)
+        self.bot = Bot(token=bot_token, request=request)
         # Initialize a logger specific to this class
         self.logger = logging.getLogger(__name__)
         
