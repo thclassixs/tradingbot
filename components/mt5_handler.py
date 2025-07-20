@@ -19,6 +19,15 @@ class MT5Handler:
         self.is_initialized = False
         self.connection_retries = 0
         self.max_retries = 3
+        # Symbol mapping for correct broker symbols
+        self.symbol_map = {
+            'GOLD': 'XAUUSDm',
+            'BITCOIN': 'BTCUSDm',
+            'XAU': 'XAUUSDm',
+            'BTC': 'BTCUSDm',
+            'XAUUSD': 'XAUUSDm',
+            'BTCUSD': 'BTCUSDm'
+        }
         
     async def initialize(self) -> bool:
         """Initialize MT5 connection"""
@@ -49,11 +58,45 @@ class MT5Handler:
             
             self.is_initialized = True
             self.logger.info(f"MT5 initialized successfully. Account: {account_info.login}")
+            
+            # Validate symbols after initialization
+            await self._validate_symbols()
+            
             return True
             
         except Exception as e:
             self.logger.error(f"Exception during MT5 initialization: {e}")
             return False
+    
+    def _get_correct_symbol(self, symbol: str) -> str:
+        """Get the correct symbol name for the broker"""
+        # Check if symbol exists as-is
+        if mt5.symbol_info(symbol) is not None:
+            return symbol
+        
+        # Check mapped symbols
+        mapped_symbol = self.symbol_map.get(symbol.upper())
+        if mapped_symbol and mt5.symbol_info(mapped_symbol) is not None:
+            self.logger.info(f"Using mapped symbol: {symbol} -> {mapped_symbol}")
+            return mapped_symbol
+        
+        # If neither works, return original and let it fail with proper error
+        return symbol
+    
+    async def _validate_symbols(self):
+        """Validate that our target symbols are available"""
+        target_symbols = ['XAUUSDm', 'BTCUSDm']
+        
+        for symbol in target_symbols:
+            symbol_info = mt5.symbol_info(symbol)
+            if symbol_info is None:
+                self.logger.warning(f"Symbol {symbol} not available")
+            else:
+                # Try to select the symbol to make it active
+                if not mt5.symbol_select(symbol, True):
+                    self.logger.warning(f"Could not select symbol {symbol}")
+                else:
+                    self.logger.info(f"Symbol {symbol} validated and selected")
     
     def is_connected(self) -> bool:
         """Check if MT5 is connected"""
@@ -99,25 +142,45 @@ class MT5Handler:
                 self.logger.error("MT5 not connected")
                 return None
             
+            # Get correct symbol name
+            correct_symbol = self._get_correct_symbol(symbol)
+            
+            # Ensure symbol is selected
+            if not mt5.symbol_select(correct_symbol, True):
+                self.logger.error(f"Could not select symbol {correct_symbol}")
+                return None
+            
+            # Wait a moment for symbol to be active
+            await asyncio.sleep(0.1)
+            
             # Get rates
-            rates = mt5.copy_rates_from_pos(symbol, timeframe, 0, count)
+            rates = mt5.copy_rates_from_pos(correct_symbol, timeframe, 0, count)
             
             if rates is None:
                 error = mt5.last_error()
-                self.logger.error(f"Failed to get rates for {symbol}: {error}")
-                return None
+                self.logger.error(f"Failed to get rates for {correct_symbol}: {error}")
+                
+                # Try alternative method
+                rates = mt5.copy_rates_from(correct_symbol, timeframe, datetime.now(), count)
+                
+                if rates is None:
+                    self.logger.error(f"Alternative method also failed for {correct_symbol}")
+                    return None
             
             if len(rates) == 0:
-                self.logger.warning(f"No data returned for {symbol}")
+                self.logger.warning(f"No data returned for {correct_symbol}")
                 return None
             
             # Convert to DataFrame for easier processing
             df = pd.DataFrame(rates)
             df['time'] = pd.to_datetime(df['time'], unit='s')
             
+            self.logger.info(f"Successfully retrieved {len(rates)} bars for {correct_symbol}")
+            
             # Return as dictionary with numpy arrays
             return {
-                'symbol': symbol,
+                'symbol': correct_symbol,
+                'original_symbol': symbol,
                 'timeframe': timeframe,
                 'time': df['time'].values,
                 'open': df['open'].values,
@@ -136,13 +199,21 @@ class MT5Handler:
     async def get_symbol_info(self, symbol: str) -> Optional[Dict]:
         """Get symbol information"""
         try:
-            symbol_info = mt5.symbol_info(symbol)
+            correct_symbol = self._get_correct_symbol(symbol)
+            
+            # Ensure symbol is selected
+            if not mt5.symbol_select(correct_symbol, True):
+                self.logger.error(f"Could not select symbol {correct_symbol}")
+                return None
+            
+            symbol_info = mt5.symbol_info(correct_symbol)
             if symbol_info is None:
-                self.logger.error(f"Symbol {symbol} not found")
+                self.logger.error(f"Symbol {correct_symbol} not found")
                 return None
             
             return {
                 'symbol': symbol_info.name,
+                'original_symbol': symbol,
                 'bid': symbol_info.bid,
                 'ask': symbol_info.ask,
                 'spread': symbol_info.spread,
@@ -152,7 +223,11 @@ class MT5Handler:
                 'min_lot': symbol_info.volume_min,
                 'max_lot': symbol_info.volume_max,
                 'lot_step': symbol_info.volume_step,
-                'margin_required': getattr(symbol_info, 'margin_initial', 0)
+                'margin_required': getattr(symbol_info, 'margin_initial', 0),
+                'contract_size': getattr(symbol_info, 'trade_contract_size', 100000),
+                'currency_base': getattr(symbol_info, 'currency_base', ''),
+                'currency_profit': getattr(symbol_info, 'currency_profit', ''),
+                'currency_margin': getattr(symbol_info, 'currency_margin', '')
             }
             
         except Exception as e:
@@ -165,10 +240,13 @@ class MT5Handler:
             if not self.is_connected():
                 return {"success": False, "error": "MT5 not connected"}
             
+            # Get correct symbol
+            correct_symbol = self._get_correct_symbol(signal.symbol)
+            
             # Get symbol info
             symbol_info = await self.get_symbol_info(signal.symbol)
             if not symbol_info:
-                return {"success": False, "error": f"Could not get info for {signal.symbol}"}
+                return {"success": False, "error": f"Could not get info for {correct_symbol}"}
             
             # Prepare trade request
             action = mt5.TRADE_ACTION_DEAL
@@ -180,7 +258,7 @@ class MT5Handler:
             
             request = {
                 "action": action,
-                "symbol": signal.symbol,
+                "symbol": correct_symbol,
                 "volume": lot_size,
                 "type": order_type,
                 "price": price,
@@ -207,7 +285,8 @@ class MT5Handler:
                 "ticket": result.order,
                 "volume": result.volume,
                 "price": result.price,
-                "request_id": result.request_id
+                "request_id": result.request_id,
+                "symbol": correct_symbol
             }
             
         except Exception as e:
@@ -353,14 +432,16 @@ class MT5Handler:
                 'margin_free': account_info.margin_free,
                 'margin_level': account_info.margin_level,
                 'currency': account_info.currency,
-                'company': account_info.company
+                'company': account_info.company,
+                'trade_allowed': getattr(account_info, 'trade_allowed', 1),
+                'trade_expert': getattr(account_info, 'trade_expert', 1)
             }
             
         except Exception as e:
             self.logger.error(f"Error getting account info: {e}")
             return {}
     
-    async def check_market_conditions(self) -> bool:
+    async def check_market_conditions(self, symbol: str = None) -> bool:
         """Check if market conditions are suitable for trading"""
         try:
             # Check if market is open
@@ -369,12 +450,33 @@ class MT5Handler:
                 return False
             
             # Check if trading is allowed
-            if account_info.trade_allowed == 0:
+            if getattr(account_info, 'trade_allowed', 0) == 0:
                 self.logger.warning("Trading not allowed on this account")
                 return False
             
-            # Add more market condition checks here
-            # For example: spread checks, volatility checks, etc.
+            # Check if expert trading is allowed
+            if getattr(account_info, 'trade_expert', 0) == 0:
+                self.logger.warning("Expert trading not allowed on this account")
+                return False
+            
+            # If specific symbol is provided, check its trading conditions
+            if symbol:
+                correct_symbol = self._get_correct_symbol(symbol)
+                symbol_info = mt5.symbol_info(correct_symbol)
+                
+                if not symbol_info:
+                    self.logger.warning(f"Symbol {correct_symbol} not available")
+                    return False
+                
+                # Check if symbol trading is allowed
+                if symbol_info.trade_mode == mt5.SYMBOL_TRADE_MODE_DISABLED:
+                    self.logger.warning(f"Trading disabled for {correct_symbol}")
+                    return False
+                
+                # Check spread (optional - adjust threshold as needed)
+                if symbol_info.spread > 100:  # Example threshold
+                    self.logger.warning(f"High spread for {correct_symbol}: {symbol_info.spread}")
+                    # Don't return False here unless you want to block trading on high spreads
             
             return True
             
@@ -382,11 +484,105 @@ class MT5Handler:
             self.logger.error(f"Error checking market conditions: {e}")
             return False
     
+    async def get_available_symbols(self) -> List[str]:
+        """Get list of available symbols"""
+        try:
+            symbols = mt5.symbols_get()
+            if symbols is None:
+                return []
+            
+            return [symbol.name for symbol in symbols if symbol.visible]
+            
+        except Exception as e:
+            self.logger.error(f"Error getting available symbols: {e}")
+            return []
+    
+    async def test_symbols(self) -> Dict:
+        """Test connectivity to target symbols"""
+        results = {}
+        target_symbols = ['XAUUSDm', 'BTCUSDm']
+        
+        for symbol in target_symbols:
+            try:
+                # Test symbol selection
+                select_result = mt5.symbol_select(symbol, True)
+                
+                # Test symbol info
+                symbol_info = mt5.symbol_info(symbol)
+                
+                # Test market data
+                rates = mt5.copy_rates_from_pos(symbol, mt5.TIMEFRAME_M1, 0, 1)
+                
+                results[symbol] = {
+                    'selectable': select_result,
+                    'info_available': symbol_info is not None,
+                    'data_available': rates is not None and len(rates) > 0,
+                    'bid': symbol_info.bid if symbol_info else None,
+                    'ask': symbol_info.ask if symbol_info else None,
+                    'spread': symbol_info.spread if symbol_info else None
+                }
+                
+                if all([select_result, symbol_info is not None, rates is not None]):
+                    self.logger.info(f"Symbol {symbol} test: PASSED")
+                else:
+                    self.logger.warning(f"Symbol {symbol} test: FAILED")
+                    
+            except Exception as e:
+                self.logger.error(f"Error testing symbol {symbol}: {e}")
+                results[symbol] = {
+                    'selectable': False,
+                    'info_available': False,
+                    'data_available': False,
+                    'error': str(e)
+                }
+        
+        return results
+    
     async def disconnect(self):
         """Disconnect from MT5"""
         try:
             mt5.shutdown()
             self.is_initialized = False
+            self.connection_retries = 0
             self.logger.info("MT5 disconnected")
         except Exception as e:
             self.logger.error(f"Error disconnecting from MT5: {e}")
+
+# Additional utility functions for debugging
+async def test_mt5_connection():
+    """Standalone function to test MT5 connection and symbol availability"""
+    handler = MT5Handler()
+    
+    print("Testing MT5 connection...")
+    if await handler.initialize():
+        print("✓ MT5 initialized successfully")
+        
+        # Test account info
+        account_info = await handler.get_account_info()
+        print(f"✓ Account: {account_info.get('login', 'N/A')} - Balance: {account_info.get('balance', 'N/A')}")
+        
+        # Test symbols
+        print("\nTesting target symbols...")
+        symbol_results = await handler.test_symbols()
+        
+        for symbol, result in symbol_results.items():
+            status = "✓ PASS" if all([result.get('selectable'), result.get('info_available'), result.get('data_available')]) else "✗ FAIL"
+            print(f"{status} {symbol}: Select={result.get('selectable')}, Info={result.get('info_available')}, Data={result.get('data_available')}")
+            if result.get('bid'):
+                print(f"    Bid: {result.get('bid')}, Ask: {result.get('ask')}, Spread: {result.get('spread')}")
+        
+        # Test market data retrieval
+        print("\nTesting market data retrieval...")
+        for symbol in ['XAUUSDm', 'BTCUSDm']:
+            data = await handler.get_market_data(symbol, mt5.TIMEFRAME_M5, 10)
+            if data:
+                print(f"✓ {symbol}: Retrieved {len(data['close'])} bars")
+            else:
+                print(f"✗ {symbol}: Failed to retrieve data")
+        
+        await handler.disconnect()
+    else:
+        print("✗ MT5 initialization failed")
+
+if __name__ == "__main__":
+    asyncio.run(test_mt5_connection())
