@@ -6,7 +6,6 @@ import signal
 import sys
 from datetime import datetime
 import pandas as pd
-import numpy as np
 from config import Config
 from components.mt5_handler import MT5Handler
 from strategies.signal_generator import SignalGenerator
@@ -175,8 +174,6 @@ class TradingBot:
             
             self.is_initialized = True
             self.start_time = datetime.now()
-            
-            await self._send_notification("🤖 Trading Bot Initialized Successfully")
             self.logger.info("Trading bot initialization completed")
             
             return True
@@ -215,7 +212,6 @@ class TradingBot:
         try:
             self.is_running = True
             self.logger.info("🚀 Trading Bot Started")
-            await self._send_notification("🚀 Trading Bot Started")
             
             while self.is_running:
                 try:

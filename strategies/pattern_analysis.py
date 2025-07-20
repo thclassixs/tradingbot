@@ -181,35 +181,30 @@ class PatternAnalysis:
     def _calculate_pattern_strength(self, df: pd.DataFrame, idx: int, pattern_result) -> float:
         """Calculate pattern strength based on candle size and pattern result."""
         try:
-            # Ensure idx is a valid integer index
             if not isinstance(idx, int) or idx < 0 or idx >= len(df):
                 return 0.0
-                
-            # Convert pattern_result to float if it's an interval or other type
-            if hasattr(pattern_result, 'mid'):  # Handle pandas Interval
-                pattern_value = float(pattern_result.mid)
-            elif hasattr(pattern_result, '__float__'):
+
+            try:
                 pattern_value = float(pattern_result)
-            else:
-                pattern_value = float(pattern_result)
-                
+            except (TypeError, ValueError):
+                return 0.0
+
             strength = abs(pattern_value) / 200.0
 
-            # Use .iloc for position-based access
             candle_high = float(df['high'].iloc[idx])
             candle_low = float(df['low'].iloc[idx])
             candle_close = float(df['close'].iloc[idx])
             candle_open = float(df['open'].iloc[idx])
-            
+
             candle_range = candle_high - candle_low
             body_size = abs(candle_close - candle_open)
-            
+
             if candle_range > 0:
                 body_ratio = body_size / candle_range
                 strength = (strength + body_ratio) / 2
 
             return min(strength, 1.0)
-            
+
         except Exception as e:
             print(f"Error calculating pattern strength at index {idx}: {e}")
             return 0.0

@@ -1,12 +1,10 @@
 import logging
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Dict, Any, Optional
 from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler
-import json
-import traceback
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from enum import Enum
 
 class LogLevel(Enum):
@@ -177,14 +175,12 @@ class TradingLogger:
         start_message = (
             f"\n{banner}\n"
             f"🚀 TRADING BOT SESSION STARTED\n"
-            f"⏰ Timestamp: {datetime.now()}\n"
-            f"📁 Logs Directory: {os.path.abspath(self.logs_dir)}\n"
             f"{banner}"
         )
         # Log the full banner to the file
         self.main_logger.info(start_message)
         # Print a single, clean line to the console
-        print(f"Trading Bot v{Config.VERSION} Started. Logging to '{os.path.abspath(self.logs_dir)}'")
+        print(start_message)
 
     def debug(self, message: str, **kwargs):
         self._log(logging.DEBUG, message, **kwargs)
@@ -215,11 +211,7 @@ class TradingLogger:
         else:
             self.main_logger.log(level, log_message)
 
-# (The rest of the file, including ColoredFormatter, remains the same)
-# ...
 class ColoredFormatter(logging.Formatter):
-    """Colored formatter for console output"""
-    
     COLORS = {
         'DEBUG': '\033[36m',     # Cyan
         'INFO': '\033[32m',      # Green
@@ -233,6 +225,3 @@ class ColoredFormatter(logging.Formatter):
         level_color = self.COLORS.get(record.levelname, '')
         record.levelname = f"{level_color}{record.levelname: <8}{self.COLORS['RESET']}" # Padded
         return super().format(record)
-
-# Need to add Config import for the version number
-from config import Config
