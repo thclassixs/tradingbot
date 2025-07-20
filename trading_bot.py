@@ -5,34 +5,25 @@ import asyncio
 import signal
 import sys
 from datetime import datetime
-import pandas as pd
-
-# --- Corrected and Organized Imports ---
 from config import Config
 from components.mt5_handler import MT5Handler
+from strategies.signal_generator import SignalGenerator
+from strategies.risk_management import RiskManagement
 from strategies.market_structure import MarketStructure
 from strategies.volume_analysis import VolumeAnalysis
 from strategies.pattern_analysis import PatternAnalysis
 from strategies.session_analysis import SessionAnalysis
-from strategies.risk_management import RiskManagement
-from strategies.signal_generator import SignalGenerator
 from utils.logger import TradingLogger
-# Import TradeSignal from its new central location in helpers
 from utils.helpers import TelegramNotifier, TradeSignal
-
+import pandas as pd
 
 class TradingBot:
-    """
-    The main class for the trading bot. It orchestrates all other components,
-    manages the main trading loop, and handles state.
-    """
 
     def __init__(self):
-        """Initializes the bot's configuration, logger, and state variables."""
         self.config = Config()
         self.logger = TradingLogger("TradingBot")
         
-        # Core components will be initialized in the async `initialize` method
+        # Core components
         self.mt5_handler = None
         self.signal_generator = None
         self.risk_manager = None
@@ -60,7 +51,7 @@ class TradingBot:
         self._setup_signal_handlers()
 
     def _setup_signal_handlers(self):
-        """Sets up handlers for SIGINT and SIGTERM to ensure graceful shutdown."""
+        """Setup signal handlers for graceful shutdown"""
         def signal_handler(sig, frame):
             self.logger.info(f"Received signal {sig}, shutting down gracefully...")
             self.is_running = False
@@ -69,36 +60,27 @@ class TradingBot:
         signal.signal(signal.SIGTERM, signal_handler)
 
     async def initialize(self) -> bool:
-        """
-        Asynchronously initializes all components of the bot in the correct order.
-        Establishes connections and prepares the bot for the main trading loop.
-        """
+
         try:
             self.logger.info("Starting bot initialization...")
-
-            # 1. Validate configuration first
+            
+            # Validate configuration
             Config.validate_config()
             self.logger.info("Configuration validated successfully")
             
-            # 2. Initialize MT5 Handler and connect to the server
+            # Initialize core components
             self.mt5_handler = MT5Handler()
             if not await self.mt5_handler.initialize():
-                self.logger.error("Failed to initialize MT5 handler. Bot cannot start.")
+                self.logger.error("Failed to initialize MT5 handler")
                 return False
             
-            # 3. Now that we are connected, get account info and initialize Risk Management
-            account_info = await self.mt5_handler.get_account_info()
-            account_balance = account_info.get("balance", 0.0)
-            self.risk_manager = RiskManagement(account_balance=account_balance, max_risk_percent=Config.MAX_RISK_PERCENT)
-            self.logger.info(f"Risk Manager initialized with balance: {account_balance}")
-
-            # 4. Initialize all analysis modules
+            # Initialize analysis modules
             self.market_structure = MarketStructure()
             self.volume_analyzer = VolumeAnalysis()
             self.pattern_analyzer = PatternAnalysis()
             self.session_analyzer = SessionAnalysis()
             
-            # 5. Initialize Signal Generator, passing all required components
+            # Initialize signal generator with all analyzers
             self.signal_generator = SignalGenerator(
                 market_structure=self.market_structure,
                 volume_analysis=self.volume_analyzer,
@@ -106,8 +88,12 @@ class TradingBot:
                 session_analysis=self.session_analyzer,
                 risk_management=self.risk_manager
             )
-            
-            # 6. Initialize Telegram Notifier if enabled
+            # Initialize risk manager
+            account_info = await self.mt5_handler.get_account_info()
+            account_balance = account_info.get("balance", 0.0)
+            self.risk_manager = RiskManagement(account_balance=account_balance, max_risk_percent=Config.MAX_RISK_PERCENT)
+
+            # Initialize telegram notifier
             if Config.MONITORING["telegram_alerts"]:
                 self.telegram_notifier = TelegramNotifier(
                     bot_token=Config.TELEGRAM_TOKEN,
@@ -115,10 +101,10 @@ class TradingBot:
                 )
                 await self.telegram_notifier.initialize()
             
-            # 7. Run any initialization methods within the components themselves
+            # Initialize all components
             await self._initialize_components()
             
-            # 8. Create necessary data directories
+            # Create necessary directories
             import os
             os.makedirs(Config.DATA_DIR, exist_ok=True)
             os.makedirs(Config.LOGS_DIR, exist_ok=True)
@@ -127,249 +113,307 @@ class TradingBot:
             self.start_time = datetime.now()
             
             await self._send_notification("🤖 Trading Bot Initialized Successfully")
-            self.logger.info("Trading bot initialization completed.")
+            self.logger.info("Trading bot initialization completed")
             
             return True
             
         except Exception as e:
-            self.logger.error(f"A critical error occurred during initialization: {e}", exc_info=True)
-            print(f"Initialization failed: {e}")
+            self.logger.error(f"Initialization failed: {e}")
+            print(f"Initialization failed: {e}")  # Add this line for direct console output
             await self._send_notification(f"❌ Bot Initialization Failed: {str(e)}")
             return False
 
     async def _initialize_components(self):
-        """Helper method to run the async initialize method on each component if it exists."""
+        """Initialize all analysis components"""
         components = [
             self.market_structure,
             self.volume_analyzer,
             self.pattern_analyzer,
             self.session_analyzer,
-            # SignalGenerator and RiskManager don't have their own `initialize` methods currently
+            self.signal_generator,
+            self.risk_manager
         ]
         
         for component in components:
-            if hasattr(component, 'initialize') and asyncio.iscoroutinefunction(component.initialize):
+            if hasattr(component, 'initialize'):
                 await component.initialize()
                 self.logger.info(f"Initialized {component.__class__.__name__}")
 
     async def run(self):
-        """The main execution loop of the bot."""
+        """Main bot execution loop"""
         if not self.is_initialized:
-            self.logger.error("Bot not initialized. Cannot run. Call initialize() first.")
+            self.logger.error("Bot not initialized. Call initialize() first.")
             return
         
         try:
             self.is_running = True
-            self.logger.info("🚀 Trading Bot Started and entering main loop.")
+            self.logger.info("🚀 Trading Bot Started")
             await self._send_notification("🚀 Trading Bot Started")
             
             while self.is_running:
                 try:
-                    # Check if global conditions allow trading
+                    # Check if trading is allowed
                     if not await self._should_trade():
-                        await asyncio.sleep(60)  # Wait a minute before checking again
+                        await asyncio.sleep(60)  # Check every minute
                         continue
                     
-                    # Process the main trading logic for all symbols
+                    # Process trading cycle
                     await self._process_trading_cycle()
-
-                    # Send a periodic status update to Telegram
+                    # --- Send a periodic status update ---
                     summary_data = await self.get_performance_summary()
                     await self.telegram_notifier.send_status_update(
                         status="Monitoring markets...",
-                        details=summary_data
-                    )
-                    
-                    # Wait for the configured cooldown period before the next cycle
+                        details=summary_data)
+                    # Sleep for configured cooldown
                     await asyncio.sleep(Config.SIGNAL_THRESHOLDS["signal_cooldown"])
                     
                 except asyncio.CancelledError:
-                    self.logger.info("Main trading loop has been cancelled.")
+                    self.logger.info("Trading loop cancelled")
                     break
                 except Exception as e:
-                    self.logger.error(f"An error occurred in the main trading loop: {e}", exc_info=True)
+                    self.logger.error(f"Error in trading loop: {e}")
                     await self._send_notification(f"⚠️ Trading Loop Error: {str(e)}")
-                    await asyncio.sleep(30)  # Brief pause after an error
+                    await asyncio.sleep(30)  # Brief pause on error
                     
         except KeyboardInterrupt:
-            self.logger.info("Keyboard interrupt received. Shutting down.")
+            self.logger.info("Keyboard interrupt received")
         except Exception as e:
-            self.logger.critical(f"A critical error occurred in the run method: {e}", exc_info=True)
+            self.logger.critical(f"Critical error in main loop: {e}")
             await self._send_notification(f"🚨 Critical Error: {str(e)}")
         finally:
             await self.shutdown()
 
     async def _should_trade(self) -> bool:
-        """Checks global conditions (connection, session, risk) to see if bot should trade."""
+        """Check if trading conditions are met"""
         try:
+            # Check if MT5 is connected
             if not self.mt5_handler.is_connected():
-                self.logger.warning("MT5 not connected. Attempting to reconnect...")
+                self.logger.warning("MT5 not connected, attempting reconnection...")
                 if not await self.mt5_handler.reconnect():
                     return False
             
+            # Check trading sessions
             current_hour = datetime.now().hour
-            is_active, _ = Config.is_trading_session_active(current_hour)
+            is_active, session = Config.is_trading_session_active(current_hour)
+            
             if not is_active:
-                self.logger.info("Outside of active trading sessions. Pausing.")
                 return False
             
+            # Check risk limits
             if not self.risk_manager.check_daily_risk_limit(
                 trades_today=self.daily_trades,
                 max_daily_risk=Config.MAX_DAILY_RISK
             ):
-                self.logger.warning("Daily risk limit has been reached. Stopping trades for the day.")
+                self.logger.warning("Daily risk limits reached")
+                return False
+            
+            # Check market conditions
+            if not await self.mt5_handler.check_market_conditions():
                 return False
             
             return True
             
         except Exception as e:
-            self.logger.error(f"Error in _should_trade check: {e}", exc_info=True)
+            self.logger.error(f"Error checking trading conditions: {e}")
             return False
 
     async def _process_trading_cycle(self):
-        """Processes one full trading cycle across all configured symbols."""
-        symbols_to_trade = list(Config.SYMBOLS.keys()) if Config.MULTI_SYMBOL_MODE else [Config.DEFAULT_SYMBOL]
-        
-        for symbol in symbols_to_trade:
-            await self._process_symbol(symbol)
+        """Process one complete trading cycle"""
+        try:
+            symbols = list(Config.SYMBOLS.keys()) if Config.MULTI_SYMBOL_MODE else [Config.DEFAULT_SYMBOL]
+            
+            for symbol in symbols:
+                await self._process_symbol(symbol)
+                
+        except Exception as e:
+            self.logger.error(f"Error processing trading cycle: {e}")
+            raise
 
     async def _process_symbol(self, symbol: str):
-        """Processes the trading logic for a single symbol."""
+        """Process trading for a specific symbol"""
         try:
+            # Check if the market is open for this symbol
             if not await self.mt5_handler.check_market_conditions(symbol):
-                self.logger.info(f"Market for {symbol} is closed or not tradable. Skipping.")
+                self.logger.info(f"Market for {symbol} is closed or not tradable, skipping.")
                 return
 
+            # Check signal cooldown
             if not self._check_signal_cooldown(symbol):
                 return
             
+            # Get market data
             market_data = await self.mt5_handler.get_market_data(symbol)
             if not market_data:
-                self.logger.warning(f"Could not retrieve market data for {symbol}.")
+                self.logger.warning(f"No market data for {symbol}")
                 return
 
+            # Generate signals
             df = pd.DataFrame(market_data)
             dfs = {Config.PRIMARY_TIMEFRAME: df}
-            
             signal = self.signal_generator.generate_signal(dfs, Config.PRIMARY_TIMEFRAME)
             
-            if signal:
-                self.logger.info(f"Signal generated for {symbol}: {signal.direction} with confidence {signal.confidence:.2f}")
-                if await self._validate_and_execute_signal(signal):
-                    self.last_signal_time[symbol] = datetime.now()
+            if not signal:
+                return
+            
+            # Process the single signal
+            if await self._validate_and_execute_signal(signal):
+                self.last_signal_time[symbol] = datetime.now()
                     
         except Exception as e:
-            self.logger.error(f"Error processing symbol {symbol}: {e}", exc_info=True)
+            self.logger.error(f"Error processing symbol {symbol}: {e}")
 
     def _check_signal_cooldown(self, symbol: str) -> bool:
-        """Checks if the cooldown period for a symbol has passed."""
-        last_time = self.last_signal_time.get(symbol)
-        if not last_time:
+        """Check if signal cooldown period has passed"""
+        if symbol not in self.last_signal_time:
             return True
         
-        time_since = (datetime.now() - last_time).total_seconds()
-        return time_since >= Config.SIGNAL_THRESHOLDS["signal_cooldown"]
+        time_since_last = (datetime.now() - self.last_signal_time[symbol]).total_seconds()
+        return time_since_last >= Config.SIGNAL_THRESHOLDS["signal_cooldown"]
 
-    async def _validate_and_execute_signal(self, signal: TradeSignal) -> bool:
-        """Validates a signal against risk rules and executes it if valid."""
+    async def _validate_and_execute_signal(self, signal) -> bool:
+        """Validate and execute a trading signal"""
         try:
+            # Risk validation
             if not await self.risk_manager.validate_signal(signal):
-                self.logger.info(f"Signal for {signal.symbol} rejected by risk manager.")
+                self.logger.info(f"Signal rejected by risk manager: {signal.symbol}")
                 return False
             
+            # Execute trade
             execution_result = await self.mt5_handler.execute_trade(signal)
             
-            if execution_result and execution_result.get("success"):
+            if execution_result.success:
                 self.daily_trades += 1
                 await self._send_notification(
                     f"✅ Trade Executed: {signal.symbol} {signal.direction} "
                     f"@ {signal.entry_price} (Confidence: {signal.confidence:.2f})"
                 )
-                self.logger.info(f"Trade executed successfully. Ticket: {execution_result.get('ticket')}")
+                self.logger.info(f"Trade executed successfully: {execution_result.ticket}")
                 return True
             else:
-                error_msg = execution_result.get('error', 'Unknown error')
                 await self._send_notification(
-                    f"❌ Trade Execution Failed: {signal.symbol} - {error_msg}"
+                    f"❌ Trade Execution Failed: {signal.symbol} - {execution_result.error}"
                 )
-                self.logger.error(f"Trade execution failed for {signal.symbol}: {error_msg}")
+                self.logger.error(f"Trade execution failed: {execution_result.error}")
                 return False
                 
         except Exception as e:
-            self.logger.error(f"Error validating/executing signal for {signal.symbol}: {e}", exc_info=True)
+            self.logger.error(f"Error validating/executing signal: {e}")
             return False
 
     async def _send_notification(self, message: str):
-        """Sends a notification via Telegram if configured."""
+        """Send notification via configured channels"""
         try:
             if self.telegram_notifier and Config.MONITORING["telegram_alerts"]:
                 await self.telegram_notifier.send_message(message)
         except Exception as e:
-            self.logger.error(f"Failed to send notification: {e}", exc_info=True)
+            self.logger.error(f"Error sending notification: {e}")
 
     async def get_performance_summary(self) -> dict:
-        """Gathers current performance and state metrics for status updates."""
+        """Get current performance summary"""
         try:
             account_info = await self.mt5_handler.get_account_info()
-            uptime_hours = (datetime.now() - self.start_time).total_seconds() / 3600 if self.start_time else 0
+            uptime = (datetime.now() - self.start_time).total_seconds() / 3600 if self.start_time else 0
             
             return {
-                "uptime_hours": round(uptime_hours, 2),
+                "uptime_hours": round(uptime, 2),
                 "daily_trades": self.daily_trades,
                 "account_balance": account_info.get("balance", 0),
                 "account_equity": account_info.get("equity", 0),
+                "free_margin": account_info.get("margin_free", 0),
                 "open_positions": len(await self.mt5_handler.get_positions()),
-                "mt5_connected": self.mt5_handler.is_connected(),
+                "is_connected": self.mt5_handler.is_connected(),
                 "trading_mode": Config.CURRENT_MODE.value
             }
         except Exception as e:
-            self.logger.error(f"Error getting performance summary: {e}", exc_info=True)
+            self.logger.error(f"Error getting performance summary: {e}")
             return {}
 
     async def shutdown(self):
-        """Performs a graceful shutdown of the bot."""
-        if not self.is_running:
-            return
-            
+        """Graceful shutdown of the trading bot"""
         try:
             self.logger.info("Shutting down trading bot...")
             self.is_running = False
             
+            # Send shutdown notification
             await self._send_notification("🛑 Trading Bot Shutting Down")
             
+            # Close all positions if configured
+            if Config.DEBUG.get("close_positions_on_shutdown", False):
+                await self.mt5_handler.close_all_positions()
+            
+            # Disconnect MT5
             if self.mt5_handler:
                 await self.mt5_handler.disconnect()
             
+            # Final performance summary
             summary = await self.get_performance_summary()
             summary_text = (
                 f"📊 Final Performance Summary:\n"
-                f"Uptime: {summary.get('uptime_hours', 0):.2f}h | "
-                f"Trades: {summary.get('daily_trades', 0)} | "
-                f"Balance: ${summary.get('account_balance', 0):.2f}"
+                f"Uptime: {summary.get('uptime_hours', 0):.2f}h\n"
+                f"Daily Trades: {summary.get('daily_trades', 0)}\n"
+                f"Account Balance: ${summary.get('account_balance', 0):.2f}"
             )
             await self._send_notification(summary_text)
             
-            self.logger.info("Trading bot shutdown completed.")
+            self.logger.info("Trading bot shutdown completed")
             
         except Exception as e:
-            self.logger.error(f"Error during shutdown: {e}", exc_info=True)
+            self.logger.error(f"Error during shutdown: {e}")
 
-# Main execution block
+    async def manual_trade(self, symbol: str, direction: str, lot_size: float = None):
+        """Execute a manual trade (for testing/emergency)"""
+        try:
+            if not self.is_initialized:
+                return {"success": False, "error": "Bot not initialized"}
+
+            market_data = await self.mt5_handler.get_market_data(symbol)
+            current_price = market_data["close"][-1]
+            
+            signal = TradeSignal(
+                symbol=symbol,
+                direction=direction.upper(),
+                confidence=1.0,
+                entry_price=current_price,
+                stop_loss=current_price * 0.99 if direction.upper() == "BUY" else current_price * 1.01,
+                take_profit=current_price * 1.02 if direction.upper() == "BUY" else current_price * 0.98,
+                timeframe="MANUAL",
+                reasons=["Manual override"]
+            )
+            
+            return await self._validate_and_execute_signal(signal)
+            
+        except Exception as e:
+            self.logger.error(f"Error in manual trade: {e}")
+            return {"success": False, "error": str(e)}
+
+    async def health_check(self):
+        """Quick health check"""
+        return {
+            "is_running": self.is_running,
+            "is_initialized": self.is_initialized,
+            "mt5_connected": self.mt5_handler.is_connected(),
+            "current_time": datetime.now().isoformat(),
+            "should_trade": await self._should_trade(),
+            "active_symbols": list(Config.SYMBOLS.keys()) if Config.MULTI_SYMBOL_MODE else [Config.DEFAULT_SYMBOL]
+        }
+
+# Main execution
 async def main():
-    """The main entry point for the trading bot application."""
+    """Main entry point"""
     bot = TradingBot()
     
     if await bot.initialize():
         await bot.run()
     else:
-        print("Failed to initialize trading bot. Please check the logs for details.")
+        print("Failed to initialize trading bot")
         sys.exit(1)
 
 if __name__ == "__main__":
+    # Create event loop and run
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        print("\nBot stopped by user.")
+        print("\nBot stopped by user")
     except Exception as e:
-        print(f"A fatal error occurred: {e}")
+        print(f"Fatal error: {e}")
         sys.exit(1)
