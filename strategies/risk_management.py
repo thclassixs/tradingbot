@@ -83,3 +83,19 @@ class RiskManagement:
     def check_daily_risk_limit(self, trades_today: float, max_daily_risk: float) -> bool:
         """Check if daily risk limit is exceeded"""
         return trades_today < max_daily_risk
+
+    async def validate_signal(self, signal) -> bool:
+        """
+        Validate a trading signal against risk rules.
+        This is a placeholder and should be expanded with actual risk logic.
+        """
+        # Example: Check if stop loss is too close or too far
+        if signal.stop_loss is None or abs(signal.entry_price - signal.stop_loss) < 0.001:  # Example threshold
+            # Implement actual logic here (e.g., check against ATR, fixed pips)
+            return False  # Signal rejected
+
+        # Example: Ensure position size is within limits (requires symbol config)
+        # This would require passing the Config object or getting symbol info
+        # For now, let's assume it passes
+
+        return True  # Signal is valid based on risk rules

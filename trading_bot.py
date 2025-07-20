@@ -89,8 +89,10 @@ class TradingBot:
             )
             
             # Initialize risk manager
-            self.risk_manager = RiskManagement(self.mt5_handler)
-            
+            account_info = await self.mt5_handler.get_account_info() # Get account info
+            account_balance = account_info.get("balance", 0.0) # Extract balance
+            self.risk_manager = RiskManagement(account_balance=account_balance, max_risk_percent=Config.MAX_RISK_PERCENT)
+                        
             # Initialize telegram notifier
             if Config.MONITORING["telegram_alerts"]:
                 self.telegram_notifier = TelegramNotifier(
@@ -194,7 +196,10 @@ class TradingBot:
                 return False
             
             # Check risk limits
-            if not await self.risk_manager.check_daily_limits():
+            if not self.risk_manager.check_daily_risk_limit(
+                trades_today=self.daily_trades,
+                max_daily_risk=Config.MAX_DAILY_RISK
+            ):
                 self.logger.warning("Daily risk limits reached")
                 return False
             

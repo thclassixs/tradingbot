@@ -246,7 +246,7 @@ class Config:
         "timezone": "Africa/Casablanca",
         "local_trading_hours": [(9, 18), (20, 23)],  # Fixed: Changed (21, 23) to (20, 23)
         "ramadan_adjustments": True,
-        "weekend_trading": False,
+        "weekend_trading": True,
         "public_holidays": ["2025-07-30", "2025-08-14"]
     }
     
