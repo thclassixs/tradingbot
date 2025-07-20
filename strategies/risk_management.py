@@ -83,7 +83,20 @@ class RiskManagement:
     def check_daily_risk_limit(self, trades_today: float, max_daily_risk: float) -> bool:
         """Check if daily risk limit is exceeded"""
         return trades_today < max_daily_risk
-
+    
+    def calculate_atr(self, df: pd.DataFrame, period: int = 14) -> pd.Series:
+        """Calculate Average True Range"""
+        high = df['high']
+        low = df['low']
+        close = df['close'].shift(1)
+        
+        tr1 = high - low
+        tr2 = abs(high - close)
+        tr3 = abs(low - close)
+        
+        tr = pd.concat([tr1, tr2, tr3], axis=1).max(axis=1)
+        return tr.rolling(period).mean()
+    
     async def validate_signal(self, signal) -> bool:
         """
         Validate a trading signal against risk rules.

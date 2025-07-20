@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional, Dict, List, Any
 import MetaTrader5 as mt5
 import pandas as pd
@@ -444,22 +444,17 @@ class MT5Handler:
     async def check_market_conditions(self, symbol: str = None) -> bool:
         """Check if market conditions are suitable for trading"""
         try:
-            # Check if market is open
+            # Check if trading is allowed on the account
             account_info = mt5.account_info()
-            if not account_info:
-                return False
-            
-            # Check if trading is allowed
-            if getattr(account_info, 'trade_allowed', 0) == 0:
+            if not account_info or getattr(account_info, 'trade_allowed', 0) == 0:
                 self.logger.warning("Trading not allowed on this account")
                 return False
             
-            # Check if expert trading is allowed
             if getattr(account_info, 'trade_expert', 0) == 0:
                 self.logger.warning("Expert trading not allowed on this account")
                 return False
             
-            # If specific symbol is provided, check its trading conditions
+            # If a specific symbol is provided, check its conditions
             if symbol:
                 correct_symbol = self._get_correct_symbol(symbol)
                 symbol_info = mt5.symbol_info(correct_symbol)
@@ -468,16 +463,19 @@ class MT5Handler:
                     self.logger.warning(f"Symbol {correct_symbol} not available")
                     return False
                 
-                # Check if symbol trading is allowed
                 if symbol_info.trade_mode == mt5.SYMBOL_TRADE_MODE_DISABLED:
                     self.logger.warning(f"Trading disabled for {correct_symbol}")
                     return False
                 
-                # Check spread (optional - adjust threshold as needed)
-                if symbol_info.spread > 100:  # Example threshold
-                    self.logger.warning(f"High spread for {correct_symbol}: {symbol_info.spread}")
-                    # Don't return False here unless you want to block trading on high spreads
-            
+                # Check the time of the last quote to see if the market is active
+                last_quote_time = datetime.fromtimestamp(symbol_info.time)
+                time_since_last_quote = datetime.now() - last_quote_time
+                
+                # If the last quote is older than 5 minutes, consider the market stale/closed
+                if time_since_last_quote.total_seconds() > 300:
+                    self.logger.info(f"Market for {correct_symbol} appears stale. Last quote was at {last_quote_time}.")
+                    return False
+
             return True
             
         except Exception as e:

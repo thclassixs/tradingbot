@@ -53,8 +53,8 @@ class VolumeAnalysis:
     
     def analyze_volume_profile(self, df: pd.DataFrame, price_levels: int = 50) -> Dict[float, float]:
         """Create volume profile analysis"""
-        price_bins = pd.qcut(df['close'], q=price_levels, duplicates='drop', observed=False)
-        volume_profile = df.groupby(price_bins)['tick_volume'].sum()
+        price_bins = pd.qcut(df['close'], q=price_levels, duplicates='drop')
+        volume_profile = df.groupby(price_bins, observed=False)['tick_volume'].sum()
         
         return dict(volume_profile)
     
@@ -78,24 +78,19 @@ class VolumeAnalysis:
     
     def analyze_volume_delta_profile(self, df: pd.DataFrame, window: int = 20) -> Dict[str, pd.Series]:
         """Enhanced volume delta analysis with microstructure features"""
-        # Ensure volume delta is calculated first
         if 'volume_delta' not in df.columns:
             df = self.calculate_volume_delta(df)
 
         results = {}
         
-        # Buy vs Sell pressure analysis
         results['buy_pressure'] = df['volume_delta'].clip(lower=0)
         results['sell_pressure'] = df['volume_delta'].clip(upper=0).abs()
         
-        # Volume profile by price
-        price_volume = df.groupby(pd.qcut(df['close'], q=50, duplicates='drop', observed=True), observed=True)['tick_volume'].sum()
+        price_volume = df.groupby(pd.qcut(df['close'], q=50, duplicates='drop'), observed=False)['tick_volume'].sum()
         results['volume_profile'] = price_volume
         
-        # Delta Momentum
         results['delta_momentum'] = self.calculate_delta_momentum(df, window)
         
-        # Volume Exhaustion Signals
         results['volume_exhaustion'] = self.detect_volume_exhaustion(df, window)
         
         return results
@@ -104,7 +99,7 @@ class VolumeAnalysis:
         """Detect price vs volume delta divergence"""
         price_change = df['close'].pct_change(window)
         delta_change = df['volume_delta'].pct_change(window)
-        return price_change * delta_change < 0  # Divergence if signs differ
+        return price_change * delta_change < 0
 
     def cumulative_delta_by_session(self, df: pd.DataFrame, session_hours: Tuple[int, int]) -> float:
         """Calculate cumulative delta for a session"""
@@ -119,5 +114,5 @@ class VolumeAnalysis:
         mask = (df.index.hour >= session_hours[0]) & (df.index.hour < session_hours[1])
         session_df = df[mask]
         price_bins = pd.cut(session_df['close'], bins, duplicates='drop')
-        volume_profile = session_df.groupby(price_bins)['tick_volume'].sum()
+        volume_profile = session_df.groupby(price_bins, observed=False)['tick_volume'].sum()
         return dict(volume_profile)
