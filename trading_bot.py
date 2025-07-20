@@ -17,6 +17,7 @@ from strategies.session_analysis import SessionAnalysis
 from utils.logger import TradingLogger
 from utils.helpers import TelegramNotifier
 import pandas as pd
+
 class TradingBot:
 
     def __init__(self):
