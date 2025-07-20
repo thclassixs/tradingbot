@@ -123,31 +123,29 @@ class TradingBot:
         try:
             self.logger.info("Starting bot initialization...")
             
-            # Validate configuration
             Config.validate_config()
             self.logger.info("Configuration validated successfully")
             
-            # Initialize core components
             self.mt5_handler = MT5Handler()
             if not await self.mt5_handler.initialize():
                 self.logger.error("Failed to initialize MT5 handler")
                 return False
             
-            # Initialize risk manager first (needed by signal generator)
             account_info = await self.mt5_handler.get_account_info()
             account_balance = account_info.get("balance", 0.0)
+            
+            # Pass the mt5_handler instance to the RiskManagement constructor
             self.risk_manager = RiskManagement(
-                account_balance=account_balance, 
+                account_balance=account_balance,
+                mt5_handler=self.mt5_handler, 
                 max_risk_percent=Config.MAX_RISK_PERCENT
             )
             
-            # Initialize analysis modules
             self.market_structure = MarketStructure()
             self.volume_analyzer = VolumeAnalysis()
             self.pattern_analyzer = PatternAnalysis()
             self.session_analyzer = SessionAnalysis()
             
-            # Initialize signal generator with all analyzers
             self.signal_generator = SignalGenerator(
                 market_structure=self.market_structure,
                 volume_analysis=self.volume_analyzer,
@@ -156,7 +154,6 @@ class TradingBot:
                 risk_management=self.risk_manager
             )
 
-            # Initialize telegram notifier
             if Config.MONITORING["telegram_alerts"]:
                 self.telegram_notifier = TelegramNotifier(
                     bot_token=Config.TELEGRAM_TOKEN,
@@ -164,10 +161,8 @@ class TradingBot:
                 )
                 await self.telegram_notifier.initialize()
             
-            # Initialize all components
             await self._initialize_components()
             
-            # Create necessary directories
             import os
             os.makedirs(Config.DATA_DIR, exist_ok=True)
             os.makedirs(Config.LOGS_DIR, exist_ok=True)
@@ -329,7 +324,7 @@ class TradingBot:
             # Generate signals with error handling
             try:
                 dfs = {Config.PRIMARY_TIMEFRAME: df}
-                signal = self.signal_generator.generate_signal(dfs, Config.PRIMARY_TIMEFRAME)
+                signal = await self.signal_generator.generate_signal(dfs, Config.PRIMARY_TIMEFRAME, symbol)
             except Exception as signal_error:
                 self.logger.error(f"Signal generation error for {symbol}: {signal_error}")
                 # Log more details for debugging
@@ -348,7 +343,7 @@ class TradingBot:
             # Add more detailed error information
             import traceback
             self.logger.debug(f"Full traceback: {traceback.format_exc()}")
-
+            
     def _check_signal_cooldown(self, symbol: str) -> bool:
         """Check if signal cooldown period has passed"""
         if symbol not in self.last_signal_time:
@@ -368,19 +363,19 @@ class TradingBot:
             # Execute trade
             execution_result = await self.mt5_handler.execute_trade(signal)
             
-            if execution_result.success:
+            if execution_result['success']:
                 self.daily_trades += 1
                 await self._send_notification(
                     f"✅ Trade Executed: {signal.symbol} {signal.direction} "
                     f"@ {signal.entry_price} (Confidence: {signal.confidence:.2f})"
                 )
-                self.logger.info(f"Trade executed successfully: {execution_result.ticket}")
+                self.logger.info(f"Trade executed successfully: {execution_result['ticket']}")
                 return True
             else:
                 await self._send_notification(
-                    f"❌ Trade Execution Failed: {signal.symbol} - {execution_result.error}"
+                    f"❌ Trade Execution Failed: {signal.symbol} - {execution_result['error']}"
                 )
-                self.logger.error(f"Trade execution failed: {execution_result.error}")
+                self.logger.error(f"Trade execution failed: {execution_result['error']}")
                 return False
                 
         except Exception as e:

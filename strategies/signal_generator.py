@@ -35,7 +35,7 @@ class SignalGenerator:
         self.fvg_sensitivity = fvg_sensitivity
         self.order_block_sensitivity = order_block_sensitivity
 
-    def generate_signal(self, dfs: Dict[str, pd.DataFrame], timeframe: str) -> Optional[TradeSignal]:
+    async def generate_signal(self, dfs: Dict[str, pd.DataFrame], timeframe: str, symbol: str) -> Optional[TradeSignal]:
         """
         The main method to generate a trading signal. It orchestrates all analyses
         and evaluates their combined output.
@@ -64,7 +64,7 @@ class SignalGenerator:
         volume_confirmed = any(p.volume_confirmed for p in patterns)
 
         # 4. Evaluate Confluence and Generate Signal
-        signal = self._evaluate_confluence(
+        signal = await self._evaluate_confluence(
             df=df_with_delta,
             structure_breaks=structure_breaks,
             volume_profile=volume_profile,
@@ -74,15 +74,16 @@ class SignalGenerator:
             mtf_confirmed=mtf_confirmed,
             pattern_score=pattern_score,
             volume_confirmed=volume_confirmed,
-            timeframe=timeframe
+            timeframe=timeframe,
+            symbol=symbol
         )
         
         return signal
 
-    def _evaluate_confluence(self, df: pd.DataFrame, structure_breaks: List, 
+    async def _evaluate_confluence(self, df: pd.DataFrame, structure_breaks: List, 
                            volume_profile: Dict, patterns: List, order_blocks: List, 
                            fvgs: List, mtf_confirmed: bool, pattern_score: float, 
-                           volume_confirmed: bool, timeframe: str) -> Optional[TradeSignal]:
+                           volume_confirmed: bool, timeframe: str, symbol: str) -> Optional[TradeSignal]:
         """
         The core logic engine. Evaluates all analysis inputs to find a
         high-probability trade setup.
@@ -132,8 +133,9 @@ class SignalGenerator:
 
         # 5. Volume Profile Confluence
         if volume_profile:
-            poc = max(volume_profile, key=volume_profile.get, default=0)
-            if poc > 0:
+            poc_interval = max(volume_profile, key=volume_profile.get, default=None)
+            if poc_interval:
+                poc = poc_interval.mid
                 # For a buy, we want to be below the Point of Control (buying at a discount)
                 if direction == "BUY" and current_price < poc:
                     reasons.append("Price is below the Point of Control (POC), indicating potential for upward movement.")
@@ -157,11 +159,8 @@ class SignalGenerator:
         # We need to add an 'atr' column to the dataframe first
         if 'atr' not in df.columns:
              df['atr'] = self.risk_manager.calculate_atr(df) 
-        stop_loss, take_profit = self.risk_manager.calculate_dynamic_exits(df, current_price, direction)
+        stop_loss, take_profit = await self.risk_manager.calculate_dynamic_exits(df, current_price, direction, symbol)
 
-        # Assuming the symbol is passed or can be inferred. For now, hardcoding for example.
-        # In a real scenario, the symbol should come from the context.
-        symbol = "BTCUSDm" # Placeholder, this should be dynamic
 
         return TradeSignal(
             symbol=symbol,

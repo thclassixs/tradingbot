@@ -1,6 +1,7 @@
 import pandas as pd
 from dataclasses import dataclass
 from typing import Dict, Optional, Tuple
+import MetaTrader5 as mt5
 
 @dataclass
 class RiskParameters:
@@ -11,9 +12,10 @@ class RiskParameters:
     risk_reward: float
 
 class RiskManagement:
-    def __init__(self, account_balance: float, max_risk_percent: float = 2.0):
+    def __init__(self, account_balance: float, mt5_handler, max_risk_percent: float = 2.0):
         self.account_balance = account_balance
         self.max_risk_percent = max_risk_percent
+        self.mt5_handler = mt5_handler # Store the MT5 handler instance
         
     def calculate_position_size(self, entry_price: float, stop_loss: float, 
                               pip_value: float) -> RiskParameters:
@@ -48,19 +50,35 @@ class RiskManagement:
             
         return adjusted_size
     
-    def calculate_dynamic_exits(self, df: pd.DataFrame, entry_price: float, 
-                              direction: str) -> Tuple[float, float]:
-        """Calculate dynamic exit points based on market structure"""
+    async def calculate_dynamic_exits(self, df: pd.DataFrame, entry_price: float,
+                                    direction: str, symbol: str) -> Tuple[float, float]:
+        """Calculate dynamic exit points based on market structure and broker rules."""
+        # Get symbol info to find the minimum stop level
+        symbol_info = await self.mt5_handler.get_symbol_info(symbol)
+        if not symbol_info:
+            # Fallback if symbol info is not available
+            return entry_price * 0.99, entry_price * 1.01
+
+        # Calculate the minimum distance required by the broker
+        stops_level = symbol_info.get('stops_level', 10) # Default to 10 if not present
+        point = symbol_info['point']
+        min_stop_distance = stops_level * point
+
+        # Calculate the stop distance based on ATR
         atr = df['atr'].iloc[-1]
-        
-        if direction == 'long':
-            stop_loss = entry_price - (atr * 1.5)
-            take_profit = entry_price + (atr * 2.5)
-        else:
-            stop_loss = entry_price + (atr * 1.5)
-            take_profit = entry_price - (atr * 2.5)
-            
-        return stop_loss, take_profit
+        atr_stop_distance = atr * 1.5
+
+        # Use the larger of the two distances to ensure we meet the broker's requirement
+        final_stop_distance = max(min_stop_distance, atr_stop_distance)
+
+        if direction.upper() == 'BUY':
+            stop_loss = entry_price - final_stop_distance
+            take_profit = entry_price + (final_stop_distance * 2.5) # Maintain R:R
+        else: # SELL
+            stop_loss = entry_price + final_stop_distance
+            take_profit = entry_price - (final_stop_distance * 2.5) # Maintain R:R
+
+        return round(stop_loss, symbol_info['digits']), round(take_profit, symbol_info['digits'])
     
     def context_aware_position_sizing(self, base_size: float, market_context: str, session: str) -> float:
         """Adjust position size based on market context and session"""
@@ -100,15 +118,8 @@ class RiskManagement:
     async def validate_signal(self, signal) -> bool:
         """
         Validate a trading signal against risk rules.
-        This is a placeholder and should be expanded with actual risk logic.
         """
-        # Example: Check if stop loss is too close or too far
-        if signal.stop_loss is None or abs(signal.entry_price - signal.stop_loss) < 0.001:  # Example threshold
-            # Implement actual logic here (e.g., check against ATR, fixed pips)
-            return False  # Signal rejected
+        if signal.stop_loss is None or abs(signal.entry_price - signal.stop_loss) < 0.0001:
+            return False
 
-        # Example: Ensure position size is within limits (requires symbol config)
-        # This would require passing the Config object or getting symbol info
-        # For now, let's assume it passes
-
-        return True  # Signal is valid based on risk rules
+        return True

@@ -201,7 +201,6 @@ class MT5Handler:
         try:
             correct_symbol = self._get_correct_symbol(symbol)
             
-            # Ensure symbol is selected
             if not mt5.symbol_select(correct_symbol, True):
                 self.logger.error(f"Could not select symbol {correct_symbol}")
                 return None
@@ -219,6 +218,7 @@ class MT5Handler:
                 'spread': symbol_info.spread,
                 'point': symbol_info.point,
                 'digits': symbol_info.digits,
+                'stops_level': symbol_info.trade_stops_level, # Added this line
                 'trade_mode': symbol_info.trade_mode,
                 'min_lot': symbol_info.volume_min,
                 'max_lot': symbol_info.volume_max,
@@ -266,7 +266,7 @@ class MT5Handler:
                 "tp": signal.take_profit if hasattr(signal, 'take_profit') else 0,
                 "deviation": Config.MT5_CONFIG.get("deviation", 20),
                 "magic": Config.MT5_CONFIG.get("magic", 234000),
-                "comment": f"TradingBot-{signal.signal_type}",
+                "comment": f"TradingBot-{signal.direction}-{signal.timeframe}",
                 "type_time": mt5.ORDER_TIME_GTC,
                 "type_filling": mt5.ORDER_FILLING_IOC,
             }
