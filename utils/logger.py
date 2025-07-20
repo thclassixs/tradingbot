@@ -1,8 +1,3 @@
-"""
-Advanced Logging System for Trading Bot
-Handles logging, error tracking, and performance monitoring
-"""
-
 import logging
 import os
 import sys

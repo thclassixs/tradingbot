@@ -74,7 +74,7 @@ class VolumeAnalysis:
         results['sell_pressure'] = df['volume_delta'].clip(upper=0).abs()
         
         # Volume profile by price
-        price_volume = df.groupby(pd.qcut(df['close'], q=50))['tick_volume'].sum()
+        price_volume = df.groupby(pd.qcut(df['close'], q=50, duplicates='drop'), observed=True)['tick_volume'].sum()
         results['volume_profile'] = price_volume
         
         # Delta momentum
