@@ -23,11 +23,15 @@ class SignalGenerator:
         
     def generate_signal(self, df: pd.DataFrame, timeframe: str) -> Optional[TradeSignal]:
         """Generate trading signal based on all analyses"""
+        # Ensure volume delta is calculated before other volume analyses that depend on it
+        df_with_delta = self.volume_analysis.calculate_volume_delta(df.copy()) # Use a copy to avoid modifying original df
+
         # Get individual analysis results
-        structure_breaks = self.market_structure.detect_market_structure_break(df)
-        volume_profile = self.volume_analysis.analyze_volume_delta_profile(df)
-        patterns = self.pattern_analysis.analyze_patterns(df, timeframe)
-        session_stats = self.session_analysis.analyze_session_characteristics(df)
+        structure_breaks = self.market_structure.detect_market_structure_break(df_with_delta)
+        volume_profile = self.volume_analysis.analyze_volume_delta_profile(df_with_delta)
+        patterns = self.pattern_analysis.analyze_patterns(df_with_delta, timeframe)
+        # Corrected line: Use get_current_session() from SessionAnalysis
+        session_stats = self.session_analysis.get_current_session()
 
         # Multi-timeframe confirmation (example)
         mtf_confirmed = True  # Placeholder for multi-timeframe logic
@@ -38,10 +42,9 @@ class SignalGenerator:
 
         # Combine analyses for confluence
         signal = self._evaluate_confluence(
-            df, structure_breaks, volume_profile, patterns, session_stats,
+            df_with_delta, structure_breaks, volume_profile, patterns, session_stats, # Pass session_stats
             mtf_confirmed=mtf_confirmed, pattern_score=pattern_score, volume_confirmed=volume_confirmed
         )
-
         return signal
 
     def _evaluate_confluence(self, df: pd.DataFrame, structure_breaks, 

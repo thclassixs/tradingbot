@@ -240,15 +240,13 @@ class TradingBot:
 
             # Generate signals
             df = pd.DataFrame(market_data)
-            signals = await self.signal_generator.generate_signals(symbol, df)
-            if not signals:
+            signal = self.signal_generator.generate_signal(df, Config.PRIMARY_TIMEFRAME) # Assuming PRIMARY_TIMEFRAME from Config
+            if not signal:
                 return
             
-            # Process each signal
-            for signal in signals:
-                if await self._validate_and_execute_signal(signal):
-                    self.last_signal_time[symbol] = datetime.now()
-                    break  # Execute only one signal per symbol per cycle
+            # Process the single signal
+            if await self._validate_and_execute_signal(signal):
+                self.last_signal_time[symbol] = datetime.now()
                     
         except Exception as e:
             self.logger.error(f"Error processing symbol {symbol}: {e}")
