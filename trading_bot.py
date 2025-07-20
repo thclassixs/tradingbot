@@ -1,10 +1,12 @@
 """
-Main Trading Bot
+Trading Bot - Debug and Fix for Pandas Interval Issue
 """
 import asyncio
 import signal
 import sys
 from datetime import datetime
+import pandas as pd
+import numpy as np
 from config import Config
 from components.mt5_handler import MT5Handler
 from strategies.signal_generator import SignalGenerator
@@ -15,7 +17,6 @@ from strategies.pattern_analysis import PatternAnalysis
 from strategies.session_analysis import SessionAnalysis
 from utils.logger import TradingLogger
 from utils.helpers import TelegramNotifier, TradeSignal
-import pandas as pd
 
 class TradingBot:
 
@@ -59,8 +60,67 @@ class TradingBot:
         signal.signal(signal.SIGINT, signal_handler)
         signal.signal(signal.SIGTERM, signal_handler)
 
-    async def initialize(self) -> bool:
+    def _safe_dataframe_preparation(self, market_data, symbol):
+        """Safely prepare DataFrame with proper data types and error handling"""
+        try:
+            # Convert to DataFrame
+            df = pd.DataFrame(market_data)
+            
+            # Ensure datetime index
+            if 'time' in df.columns:
+                df['time'] = pd.to_datetime(df['time'])
+                df = df.set_index('time')
+            elif not isinstance(df.index, pd.DatetimeIndex):
+                df.index = pd.to_datetime(df.index)
+            
+            # Ensure numeric columns
+            numeric_columns = ['open', 'high', 'low', 'close', 'volume']
+            for col in numeric_columns:
+                if col in df.columns:
+                    df[col] = pd.to_numeric(df[col], errors='coerce')
+            
+            # Remove any NaN rows
+            df = df.dropna()
+            
+            # Sort by index to ensure chronological order
+            df = df.sort_index()
+            
+            # Add basic validation
+            if len(df) < 20:  # Minimum data points needed
+                self.logger.warning(f"Insufficient data for {symbol}: {len(df)} rows")
+                return None
+            
+            return df
+            
+        except Exception as e:
+            self.logger.error(f"Error preparing DataFrame for {symbol}: {e}")
+            return None
 
+    def _fix_pandas_interval_issues(self, df):
+        """Fix common pandas interval comparison issues"""
+        try:
+            # Convert any interval columns to numeric if needed
+            for col in df.columns:
+                if df[col].dtype == 'object':
+                    # Check if it contains intervals
+                    sample_val = df[col].iloc[0] if len(df) > 0 else None
+                    if hasattr(sample_val, 'left') and hasattr(sample_val, 'right'):
+                        # This is an interval, convert to midpoint or appropriate numeric
+                        df[col] = df[col].apply(lambda x: (x.left + x.right) / 2 if hasattr(x, 'left') else x)
+            
+            # Fix any cut/qcut operations that might create intervals
+            for col in df.select_dtypes(include=['category']).columns:
+                if hasattr(df[col].cat.categories, 'left'):
+                    # Convert categorical intervals to numeric
+                    df[col] = df[col].apply(lambda x: x.mid if hasattr(x, 'mid') else x)
+            
+            return df
+            
+        except Exception as e:
+            self.logger.error(f"Error fixing pandas intervals: {e}")
+            return df
+
+    async def initialize(self) -> bool:
         try:
             self.logger.info("Starting bot initialization...")
             
@@ -73,6 +133,14 @@ class TradingBot:
             if not await self.mt5_handler.initialize():
                 self.logger.error("Failed to initialize MT5 handler")
                 return False
+            
+            # Initialize risk manager first (needed by signal generator)
+            account_info = await self.mt5_handler.get_account_info()
+            account_balance = account_info.get("balance", 0.0)
+            self.risk_manager = RiskManagement(
+                account_balance=account_balance, 
+                max_risk_percent=Config.MAX_RISK_PERCENT
+            )
             
             # Initialize analysis modules
             self.market_structure = MarketStructure()
@@ -88,10 +156,6 @@ class TradingBot:
                 session_analysis=self.session_analyzer,
                 risk_management=self.risk_manager
             )
-            # Initialize risk manager
-            account_info = await self.mt5_handler.get_account_info()
-            account_balance = account_info.get("balance", 0.0)
-            self.risk_manager = RiskManagement(account_balance=account_balance, max_risk_percent=Config.MAX_RISK_PERCENT)
 
             # Initialize telegram notifier
             if Config.MONITORING["telegram_alerts"]:
@@ -119,7 +183,7 @@ class TradingBot:
             
         except Exception as e:
             self.logger.error(f"Initialization failed: {e}")
-            print(f"Initialization failed: {e}")  # Add this line for direct console output
+            print(f"Initialization failed: {e}")
             await self._send_notification(f"❌ Bot Initialization Failed: {str(e)}")
             return False
 
@@ -136,8 +200,11 @@ class TradingBot:
         
         for component in components:
             if hasattr(component, 'initialize'):
-                await component.initialize()
-                self.logger.info(f"Initialized {component.__class__.__name__}")
+                try:
+                    await component.initialize()
+                    self.logger.info(f"Initialized {component.__class__.__name__}")
+                except Exception as e:
+                    self.logger.error(f"Failed to initialize {component.__class__.__name__}: {e}")
 
     async def run(self):
         """Main bot execution loop"""
@@ -159,11 +226,15 @@ class TradingBot:
                     
                     # Process trading cycle
                     await self._process_trading_cycle()
-                    # --- Send a periodic status update ---
-                    summary_data = await self.get_performance_summary()
-                    await self.telegram_notifier.send_status_update(
-                        status="Monitoring markets...",
-                        details=summary_data)
+                    
+                    # Send periodic status update
+                    if hasattr(self, 'telegram_notifier') and self.telegram_notifier:
+                        summary_data = await self.get_performance_summary()
+                        await self.telegram_notifier.send_status_update(
+                            status="Monitoring markets...",
+                            details=summary_data
+                        )
+                    
                     # Sleep for configured cooldown
                     await asyncio.sleep(Config.SIGNAL_THRESHOLDS["signal_cooldown"])
                     
@@ -230,7 +301,7 @@ class TradingBot:
             raise
 
     async def _process_symbol(self, symbol: str):
-        """Process trading for a specific symbol"""
+        """Process trading for a specific symbol with enhanced error handling"""
         try:
             # Check if the market is open for this symbol
             if not await self.mt5_handler.check_market_conditions(symbol):
@@ -241,26 +312,46 @@ class TradingBot:
             if not self._check_signal_cooldown(symbol):
                 return
             
-            # Get market data
+            # Get market data with error handling
             market_data = await self.mt5_handler.get_market_data(symbol)
             if not market_data:
                 self.logger.warning(f"No market data for {symbol}")
                 return
 
-            # Generate signals
-            df = pd.DataFrame(market_data)
-            dfs = {Config.PRIMARY_TIMEFRAME: df}
-            signal = self.signal_generator.generate_signal(dfs, Config.PRIMARY_TIMEFRAME)
+            # Safely prepare DataFrame
+            df = self._safe_dataframe_preparation(market_data, symbol)
+            if df is None:
+                self.logger.warning(f"Failed to prepare DataFrame for {symbol}")
+                return
+            
+            # Fix any pandas interval issues
+            df = self._fix_pandas_interval_issues(df)
+            
+            # Log data info for debugging
+            self.logger.debug(f"Processing {symbol}: {len(df)} data points, columns: {list(df.columns)}")
+
+            # Generate signals with error handling
+            try:
+                dfs = {Config.PRIMARY_TIMEFRAME: df}
+                signal = self.signal_generator.generate_signal(dfs, Config.PRIMARY_TIMEFRAME)
+            except Exception as signal_error:
+                self.logger.error(f"Signal generation error for {symbol}: {signal_error}")
+                # Log more details for debugging
+                self.logger.debug(f"DataFrame info: shape={df.shape}, dtypes={df.dtypes.to_dict()}")
+                return
             
             if not signal:
                 return
             
-            # Process the single signal
+            # Process the signal
             if await self._validate_and_execute_signal(signal):
                 self.last_signal_time[symbol] = datetime.now()
                     
         except Exception as e:
             self.logger.error(f"Error processing symbol {symbol}: {e}")
+            # Add more detailed error information
+            import traceback
+            self.logger.debug(f"Full traceback: {traceback.format_exc()}")
 
     def _check_signal_cooldown(self, symbol: str) -> bool:
         """Check if signal cooldown period has passed"""
@@ -391,9 +482,9 @@ class TradingBot:
         return {
             "is_running": self.is_running,
             "is_initialized": self.is_initialized,
-            "mt5_connected": self.mt5_handler.is_connected(),
+            "mt5_connected": self.mt5_handler.is_connected() if self.mt5_handler else False,
             "current_time": datetime.now().isoformat(),
-            "should_trade": await self._should_trade(),
+            "should_trade": await self._should_trade() if self.is_initialized else False,
             "active_symbols": list(Config.SYMBOLS.keys()) if Config.MULTI_SYMBOL_MODE else [Config.DEFAULT_SYMBOL]
         }
 
