@@ -343,7 +343,7 @@ class TradingBot:
             # Add more detailed error information
             import traceback
             self.logger.debug(f"Full traceback: {traceback.format_exc()}")
-            
+
     def _check_signal_cooldown(self, symbol: str) -> bool:
         """Check if signal cooldown period has passed"""
         if symbol not in self.last_signal_time:
@@ -365,13 +365,15 @@ class TradingBot:
             
             if execution_result['success']:
                 self.daily_trades += 1
-                await self._send_notification(
-                    f"✅ Trade Executed: {signal.symbol} {signal.direction} "
-                    f"@ {signal.entry_price} (Confidence: {signal.confidence:.2f})"
-                )
                 self.logger.info(f"Trade executed successfully: {execution_result['ticket']}")
+                
+                # --- FIX: Call the correct alert function ---
+                if self.telegram_notifier:
+                    await self.telegram_notifier.send_trade_alert(signal)
+                
                 return True
             else:
+                # This part is for failures, so it can stay as a simple message
                 await self._send_notification(
                     f"❌ Trade Execution Failed: {signal.symbol} - {execution_result['error']}"
                 )
