@@ -36,7 +36,7 @@ class Config:
     """Main configuration class for advanced trading bot"""
     
     # Version and environment settings
-    VERSION = "1.0.0"
+    VERSION = "1.1.0"  # Incremented version
     ENVIRONMENT = "production"  # or "development"
     
     # MT5 settings - SECURITY FIX: Use environment variables
@@ -130,6 +130,40 @@ class Config:
     VOLATILITY_ADJUSTMENT = True
     HIGH_VOLATILITY_THRESHOLD = 2.0
     LOW_VOLATILITY_THRESHOLD = 0.5
+
+    # --- NEW: ENHANCED RISK CONFIG ---
+    RISK_CONFIG = {
+      "lot_mode": "dynamic",  # or "fixed"
+      "base_risk_percent": 0.25,
+      "tier_multipliers": {
+        "LOW": 1.0,
+        "MED": 2.0,
+        "HIGH": 4.0
+      },
+      "max_lot": 0.50,
+      "max_risk_per_trade_percent": 2.0,
+      "reset_model": "step_down",  # or "full_reset"
+      "streak_map": {
+        0: "LOW",
+        1: "MED",
+        2: "HIGH"
+      }
+    }
+
+    CAPITAL_CONTROLS = {
+      "max_daily_drawdown_percent": 5,
+      "max_daily_trades": 25,
+      "cooldown_after_loss_seconds": 60
+    }
+
+    EQUITY_BANDS = {
+      "step_usd": 25   # recompute base lot every $25 change in equity
+    }
+
+    TELEGRAM_COMMANDS = {
+        "/reset_risk": "reset_streak_to_low",
+        "/status": "report_current_state"
+    }
     
     # MARKET STRUCTURE SETTINGS
     SWING_DETECTION = {

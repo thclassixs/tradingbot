@@ -1,6 +1,7 @@
 import pandas as pd
 from dataclasses import dataclass
 from typing import Tuple
+from config import Config
 
 @dataclass
 class RiskParameters:
@@ -15,27 +16,44 @@ class RiskManagement:
         self.account_balance = account_balance
         self.max_risk_percent = max_risk_percent
         self.mt5_handler = mt5_handler # Store the MT5 handler instance
+        self.config = Config()
         
-    def calculate_position_size(self, entry_price: float, stop_loss: float, 
-                              pip_value: float) -> RiskParameters:
-        """Calculate optimal position size based on risk parameters"""
-        risk_amount = self.account_balance * (self.max_risk_percent / 100)
-        stop_distance = abs(entry_price - stop_loss)
+    async def calculate_position_size(self, signal) -> float:
+        """Calculate optimal position size based on risk parameters and current tier."""
+        symbol_info = await self.mt5_handler.get_symbol_info(signal.symbol)
+        if not symbol_info:
+            return 0.0
+
+        # --- FIX: Get pip_value from config, not symbol_info ---
+        symbol_config = self.config.get_symbol_config(signal.symbol)
+        pip_value = symbol_config.pip_value
+
+        # Determine risk percentage for the current tier
+        base_risk_percent = self.config.RISK_CONFIG['base_risk_percent']
+        tier_multiplier = self.config.RISK_CONFIG['tier_multipliers'][signal.risk_tier]
+        risk_percent = base_risk_percent * tier_multiplier
+
+        # Calculate risk amount
+        risk_amount = self.account_balance * (risk_percent / 100)
+        
+        # Calculate stop distance in price terms
+        stop_distance_price = abs(signal.entry_price - signal.stop_loss)
         
         # Calculate position size
-        position_size = risk_amount / (stop_distance * pip_value)
+        if stop_distance_price > 0 and pip_value > 0:
+            position_size = risk_amount / (stop_distance_price * pip_value)
+        else:
+            position_size = symbol_config.min_lot
+
+        # Clamp to min/max lot and broker rules
+        position_size = max(symbol_info['min_lot'], min(position_size, symbol_info['max_lot'], self.config.RISK_CONFIG['max_lot']))
         
-        # Calculate take profit based on RR ratio
-        take_profit = entry_price + (stop_distance * 2)  # 1:2 RR ratio
+        # Adjust for lot step
+        lot_step = symbol_info['lot_step']
+        position_size = round(position_size / lot_step) * lot_step
         
-        return RiskParameters(
-            max_risk_percent=self.max_risk_percent,
-            position_size=position_size,
-            stop_loss=stop_loss,
-            take_profit=take_profit,
-            risk_reward=2.0
-        )
-    
+        return position_size
+
     def adjust_for_market_conditions(self, base_size: float, 
                                    volatility: float, 
                                    session_multiplier: float) -> float:
@@ -65,17 +83,17 @@ class RiskManagement:
 
         # Calculate the stop distance based on ATR
         atr = df['atr'].iloc[-1]
-        atr_stop_distance = atr * 1.5
+        atr_stop_distance = self.config.ATR_SL_MULTIPLIER * atr
 
         # Use the larger of the two distances to ensure we meet the broker's requirement
         final_stop_distance = max(min_stop_distance, atr_stop_distance)
 
         if direction.upper() == 'BUY':
             stop_loss = entry_price - final_stop_distance
-            take_profit = entry_price + (final_stop_distance * 2.5) # Maintain R:R
+            take_profit = entry_price + (final_stop_distance * self.config.ATR_TP_MULTIPLIER) # Maintain R:R
         else: # SELL
             stop_loss = entry_price + final_stop_distance
-            take_profit = entry_price - (final_stop_distance * 2.5) # Maintain R:R
+            take_profit = entry_price - (final_stop_distance * self.config.ATR_TP_MULTIPLIER) # Maintain R:R
 
         return round(stop_loss, symbol_info['digits']), round(take_profit, symbol_info['digits'])
     
