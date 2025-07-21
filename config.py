@@ -90,7 +90,7 @@ class Config:
     
     # Default symbol for single-symbol mode
     DEFAULT_SYMBOL = "GOLD"
-    MULTI_SYMBOL_MODE = True
+    MULTI_SYMBOL_MODE = False
     
     # TIMEFRAME SETTINGS
     PRIMARY_TIMEFRAME = "M5"
@@ -99,18 +99,16 @@ class Config:
         "M5": 5,
         "M15": 15,
         "M30": 30,
-        "H1": 60,
-        "H4": 240,
-        "D1": 1440
+        "H1": 60
     }
     
     # Multi-timeframe analysis
-    MTF_TIMEFRAMES = ["M5", "M15", "H1", "H4"]
+    MTF_TIMEFRAMES = ["M5", "M15", "H1"]
     HTF_CONFIRMATION = True
     
     # RISK MANAGEMENT
     MAX_RISK_PERCENT = 2.0
-    MAX_DAILY_RISK = 5.0
+    MAX_DAILY_RISK = 10.0
     MAX_DRAWDOWN = 10.0
     
     POSITION_SIZING = {
@@ -119,7 +117,7 @@ class Config:
         TradingMode.AGGRESSIVE: 1.5
     }
     
-    CURRENT_MODE = TradingMode.BALANCED
+    CURRENT_MODE = TradingMode.AGGRESSIVE
     
     # ATR-based risk management
     ATR_PERIODS = 14
@@ -157,7 +155,7 @@ class Config:
     }
 
     EQUITY_BANDS = {
-      "step_usd": 25   # recompute base lot every $25 change in equity
+      "step_usd": 5   # recompute base lot every $5 change in equity
     }
 
     TELEGRAM_COMMANDS = {
