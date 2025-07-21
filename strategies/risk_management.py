@@ -1,7 +1,6 @@
 import pandas as pd
 from dataclasses import dataclass
-from typing import Dict, Optional, Tuple
-import MetaTrader5 as mt5
+from typing import Tuple
 
 @dataclass
 class RiskParameters:
