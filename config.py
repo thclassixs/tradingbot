@@ -1,8 +1,3 @@
-"""
-Trading Bot Configuration
-Centralized settings for multi-asset trading with advanced features
-"""
-
 import os
 from dataclasses import dataclass
 from typing import List, Tuple, Dict
@@ -93,7 +88,7 @@ class Config:
     MULTI_SYMBOL_MODE = True
     
     # TIMEFRAME SETTINGS
-    PRIMARY_TIMEFRAME = "M15"
+    PRIMARY_TIMEFRAME = "M5"
     TIMEFRAMES = {
         "M1": 1,
         "M5": 5,

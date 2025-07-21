@@ -74,7 +74,7 @@ class RiskManagement:
         symbol_info = await self.mt5_handler.get_symbol_info(symbol)
         if not symbol_info:
             # Fallback if symbol info is not available
-            return entry_price * 0.99, entry_price * 1.01
+            return entry_price * 0.99
 
         # Calculate the minimum distance required by the broker
         stops_level = symbol_info.get('stops_level', 10) # Default to 10 if not present
