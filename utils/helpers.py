@@ -130,6 +130,6 @@ class TelegramNotifier:
 
     async def test_connection(self) -> bool:
         """Sends a test message to confirm the Telegram connection is working."""
-        test_message = f"🚀 Trading Bot Started \n /reset_risk \n /status"
+        test_message = f"🚀 Trading Bot Started"
         return await self.send_message(test_message)
 

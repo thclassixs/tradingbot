@@ -135,7 +135,7 @@ class MT5Handler:
             self.logger.error(f"Error during reconnection: {e}")
             return False
     
-    async def get_market_data(self, symbol: str, timeframe=mt5.TIMEFRAME_M5, count: int = 100) -> Optional[Dict]:
+    async def get_market_data(self, symbol: str, timeframe=mt5.TIMEFRAME_M5, count: int = 500) -> Optional[Dict]:
         """Get market data for a symbol"""
         try:
             if not self.is_connected():

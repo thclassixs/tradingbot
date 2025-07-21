@@ -90,10 +90,10 @@ class Config:
     
     # Default symbol for single-symbol mode
     DEFAULT_SYMBOL = "GOLD"
-    MULTI_SYMBOL_MODE = False
+    MULTI_SYMBOL_MODE = True
     
     # TIMEFRAME SETTINGS
-    PRIMARY_TIMEFRAME = "M5"
+    PRIMARY_TIMEFRAME = "M15"
     TIMEFRAMES = {
         "M1": 1,
         "M5": 5,
@@ -259,7 +259,7 @@ class Config:
     }
     
     CONFLUENCE_WEIGHTS = {
-        "ml_prediction": 0.4,
+        "ml_prediction": 0.5,
         "market_structure": 0.25,
         "volume_analysis": 0.20,
         "pattern_analysis": 0.15
@@ -276,10 +276,9 @@ class Config:
     # MOROCCO-SPECIFIC SETTINGS - FIXED
     MOROCCO_CONFIG = {
         "timezone": "Africa/Casablanca",
-        "local_trading_hours": [(9, 18), (20, 23)],  # Fixed: Changed (21, 23) to (20, 23)
+        "local_trading_hours": [(9, 18), (20, 23)],
         "ramadan_adjustments": True,
         "weekend_trading": True,
-        "public_holidays": ["2025-07-30", "2025-08-14"]
     }
     
     # Session timing (UTC+1 for Morocco)
@@ -293,7 +292,6 @@ class Config:
     # MONITORING & ALERTS
     MONITORING = {
         "telegram_alerts": True,
-        "email_alerts": False,
         "performance_reporting": True,
         "daily_summary": True,
         "error_notifications": True
