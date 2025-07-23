@@ -89,11 +89,6 @@ class TelegramNotifier:
 *Confidence:* `{signal.confidence:.2%}`
 *Stop Loss:* `{signal.stop_loss:.5f}`
 *Take Profit:* `{signal.take_profit:.5f}`
-
-*Reasoning:*
-- {"\n- ".join(signal.reasons)}
-
-*Time:* `{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}`
         """
         return await self.send_message(message.strip())
 
