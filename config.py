@@ -31,7 +31,7 @@ class Config:
     """Main configuration class for advanced trading bot"""
     
     # Version and environment settings
-    VERSION = "1.1.0"  # Incremented version
+    VERSION = "1.2.0"  # Incremented version for new features
     ENVIRONMENT = "production"  # or "development"
     
     # MT5 settings - SECURITY FIX: Use environment variables
@@ -98,12 +98,12 @@ class Config:
     }
     
     # Multi-timeframe analysis
-    MTF_TIMEFRAMES = ["H1", "M15", "M5"]
+    MTF_TIMEFRAMES = ["M5", "M15", "H1"]
     HTF_CONFIRMATION = True
     
     # RISK MANAGEMENT
-    MAX_RISK_PERCENT = 1.0
-    MAX_DAILY_RISK = 5.0
+    MAX_RISK_PERCENT = 2.0
+    MAX_DAILY_RISK = 10.0
     MAX_DRAWDOWN = 10.0
     
     POSITION_SIZING = {
@@ -112,29 +112,54 @@ class Config:
         TradingMode.AGGRESSIVE: 1.5
     }
     
-    CURRENT_MODE = TradingMode.BALANCED
+    CURRENT_MODE = TradingMode.AGGRESSIVE
     
     # ATR-based risk management
     ATR_PERIODS = 14
     ATR_SL_MULTIPLIER = 1.5
     ATR_TP_MULTIPLIER = 2.5
     
+    # --- NEW: ADVANCED FEATURES CONFIG ---
+    ADVANCED_FEATURES = {
+        "auto_lot_boost": True,
+        "breakeven_trailing": True,
+        "hedge_logic": True,
+    }
+
+    AUTO_LOT_BOOST = {
+        "enabled": True,
+        "win_streak_threshold": 3,  # Number of consecutive wins to trigger boost
+        "boost_multiplier": 1.5,  # e.g., 1.5x the normal lot size
+        "reset_on_loss": True,
+    }
+
+    BREAKEVEN_TRAILING = {
+        "enabled": True,
+        "breakeven_pips": 10,  # Pips in profit to move SL to breakeven
+        "trailing_step_pips": 5,  # Pips to trail the SL by
+    }
+
+    HEDGE_LOGIC = {
+        "enabled": True,
+        "drawdown_pips_threshold": 50,  # Pips in drawdown to trigger hedge
+        "hedge_cooldown_minutes": 30,  # Time to wait before hedging the same position again
+    }
+
     # Dynamic risk adjustment
     VOLATILITY_ADJUSTMENT = True
     HIGH_VOLATILITY_THRESHOLD = 2.0
     LOW_VOLATILITY_THRESHOLD = 0.5
 
-    # --- NEW: ENHANCED RISK CONFIG ---
     RISK_CONFIG = {
       "lot_mode": "dynamic",  # or "fixed"
       "base_risk_percent": 0.25,
       "tier_multipliers": {
         "LOW": 1.0,
-        "MED": 1.5,
-        "HIGH": 2.0
+        "MED": 2.0,
+        "HIGH": 4.0
       },
       "max_lot": 0.50,
-      "max_risk_per_trade_percent": 1.0,
+      "max_risk_per_trade_percent": 2.0,
       "reset_model": "step_down",  # or "full_reset"
       "streak_map": {
         0: "LOW",
@@ -145,8 +170,8 @@ class Config:
 
     CAPITAL_CONTROLS = {
       "max_daily_drawdown_percent": 5,
-      "max_daily_trades": 5,
-      "cooldown_after_loss_seconds": 300
+      "max_daily_trades": 25,
+      "cooldown_after_loss_seconds": 60
     }
 
     EQUITY_BANDS = {
@@ -247,7 +272,7 @@ class Config:
     
     # SIGNAL GENERATION
     SIGNAL_THRESHOLDS = {
-        "min_confidence": 0.7,
+        "min_confidence": 0.65,
         "confluence_required": True,
         "min_confluence_score": 0.7,
         "signal_cooldown": 300
@@ -325,24 +350,6 @@ class Config:
     for directory in [DATA_DIR, LOGS_DIR]:
         os.makedirs(directory, exist_ok=True)
     
-    # ADVANCED FEATURES
-    ADVANCED_FEATURES = {
-        "multi_symbol_correlation": True,
-        "market_regime_detection": True,
-        "adaptive_parameters": True,
-        "news_sentiment_analysis": True,
-        "options_flow_analysis": False,
-        "session_analysis": True,
-        "liquidity_zone_detection": True,
-        "trend_context_analysis": True,
-        "pattern_confluence": True,
-        "volume_exhaustion_detection": True,
-        "absorption_detection": True,
-        "tick_by_tick_analysis": True,
-        "multi_timeframe_patterns": True,
-        "correlation_analysis": True
-    }
-    
     # PERFORMANCE OPTIMIZATION
     PERFORMANCE = {
         "parallel_processing": True,
@@ -402,7 +409,6 @@ class Config:
     @classmethod
     def get_symbol_config(cls, symbol_name: str) -> SymbolConfig:
         """Get configuration for specific symbol"""
-        # MODIFIED: Changed toUpperCase() to upper()
         return cls.SYMBOLS.get(symbol_name.upper(), cls.SYMBOLS[cls.DEFAULT_SYMBOL])
     
     @classmethod

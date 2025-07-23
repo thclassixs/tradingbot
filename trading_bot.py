@@ -1,7 +1,7 @@
 import asyncio
 import signal
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 from config import Config
 from components.mt5_handler import MT5Handler
@@ -38,6 +38,8 @@ class TradingBot:
         self.is_running = False
         self.is_initialized = False
         self.last_signal_time = {}
+        self.hedged_positions = set()
+        self.win_streak = 0
 
         # Performance tracking
         self.daily_trades = 0
@@ -59,41 +61,28 @@ class TradingBot:
     def _safe_dataframe_preparation(self, market_data, symbol):
         """Safely prepare DataFrame with proper data types and error handling"""
         try:
-            # Convert to DataFrame
             df = pd.DataFrame(market_data)
-
-            # Ensure datetime index
             if 'time' in df.columns:
                 df['time'] = pd.to_datetime(df['time'], unit='s')
                 df = df.set_index('time')
             elif not isinstance(df.index, pd.DatetimeIndex):
-                # If index is not datetime, try to convert it
                 df.index = pd.to_datetime(df.index)
 
-
-            # Ensure numeric columns
             numeric_columns = ['open', 'high', 'low', 'close', 'tick_volume']
             for col in numeric_columns:
                 if col in df.columns:
                     df[col] = pd.to_numeric(df[col], errors='coerce')
             
-            # Use 'tick_volume' if 'volume' is not present
             if 'volume' not in df.columns and 'tick_volume' in df.columns:
                 df['volume'] = df['tick_volume']
 
-            # Remove any NaN rows
             df = df.dropna()
-
-            # Sort by index to ensure chronological order
             df = df.sort_index()
 
-            # Add basic validation
-            if len(df) < 20:  # Minimum data points needed
+            if len(df) < 20:
                 self.logger.warning(f"Insufficient data for {symbol}: {len(df)} rows")
                 return None
-
             return df
-
         except Exception as e:
             self.logger.error(f"Error preparing DataFrame for {symbol}: {e}")
             return None
@@ -102,13 +91,9 @@ class TradingBot:
         """Fix common pandas interval comparison issues"""
         try:
             for col in df.columns:
-                # --- FIX: Updated to use the recommended pandas function ---
                 if isinstance(df[col].dtype, pd.CategoricalDtype):
-                    # Check if the categories are intervals
                     if isinstance(df[col].cat.categories, pd.IntervalIndex):
-                        # Convert intervals to their midpoints
                         df[col] = df[col].apply(lambda x: x.mid if pd.notna(x) else x)
-                        # Convert the column to a numeric type
                         df[col] = pd.to_numeric(df[col], errors='coerce')
             return df
         except Exception as e:
@@ -118,7 +103,6 @@ class TradingBot:
     async def initialize(self) -> bool:
         try:
             self.logger.info("Starting bot initialization...")
-
             Config.validate_config()
             self.logger.info("Configuration validated successfully")
 
@@ -157,7 +141,6 @@ class TradingBot:
                 )
                 await self.telegram_notifier.initialize()
 
-            import os
             os.makedirs(Config.DATA_DIR, exist_ok=True)
             os.makedirs(Config.LOGS_DIR, exist_ok=True)
 
@@ -165,9 +148,7 @@ class TradingBot:
             self.start_time = datetime.now()
             self.logger.info("Trading bot initialization completed")
             await self._send_notification("✅ **Trading Bot Initialized and Running**")
-
             return True
-
         except Exception as e:
             self.logger.error(f"Initialization failed: {e}")
             print(f"Initialization failed: {e}")
@@ -190,10 +171,13 @@ class TradingBot:
                         await asyncio.sleep(60)
                         continue
 
-                    await self._process_trading_cycle()
+                    # --- NEW: Concurrently manage open trades ---
+                    await asyncio.gather(
+                        self._process_trading_cycle(),
+                        self._manage_open_trades()
+                    )
 
                     await asyncio.sleep(Config.SIGNAL_THRESHOLDS["signal_cooldown"])
-
                 except asyncio.CancelledError:
                     self.logger.info("Trading loop cancelled")
                     break
@@ -201,7 +185,6 @@ class TradingBot:
                     self.logger.error(f"Error in trading loop: {e}")
                     await self._send_notification(f"⚠️ **Trading Loop Error:**\n`{str(e)}`")
                     await asyncio.sleep(30)
-
         except KeyboardInterrupt:
             self.logger.info("Keyboard interrupt received")
         finally:
@@ -221,17 +204,13 @@ class TradingBot:
                 self.logger.info("Outside of active trading sessions. Pausing.")
                 return False
             
-            # Using a simplified check against the config value
             if self.daily_trades >= Config.CAPITAL_CONTROLS["max_daily_trades"]:
                  self.logger.warning("Daily trade limit reached. Pausing until next session.")
                  return False
 
-
             if not await self.mt5_handler.check_market_conditions():
                 return False
-
             return True
-
         except Exception as e:
             self.logger.error(f"Error checking trading conditions: {e}")
             return False
@@ -243,7 +222,7 @@ class TradingBot:
         await asyncio.gather(*tasks)
 
     async def _process_symbol(self, symbol: str):
-        """Process trading for a specific symbol with enhanced error handling"""
+        """Process trading for a specific symbol"""
         try:
             if not await self.mt5_handler.check_market_conditions(symbol):
                 return
@@ -251,7 +230,6 @@ class TradingBot:
             if not self._check_signal_cooldown(symbol):
                 return
 
-            # Fetch data for all required timeframes
             dfs = {}
             for tf_name in Config.MTF_TIMEFRAMES:
                 tf_code = Config.TIMEFRAMES.get(tf_name)
@@ -266,16 +244,13 @@ class TradingBot:
                 self.logger.warning(f"Could not fetch primary timeframe data for {symbol}")
                 return
 
-            # Generate signal
             signal = await self.signal_generator.generate_signal(dfs, Config.PRIMARY_TIMEFRAME, symbol)
 
             if not signal:
                 return
 
-            # Process signal
             if await self._validate_and_execute_signal(signal):
                 self.last_signal_time[symbol] = datetime.now()
-
         except Exception as e:
             self.logger.error(f"Error processing symbol {symbol}: {e}")
             import traceback
@@ -285,7 +260,6 @@ class TradingBot:
         """Check if signal cooldown period has passed"""
         if symbol not in self.last_signal_time:
             return True
-
         time_since_last = (datetime.now() - self.last_signal_time[symbol]).total_seconds()
         return time_since_last >= Config.SIGNAL_THRESHOLDS["signal_cooldown"]
 
@@ -296,26 +270,97 @@ class TradingBot:
                 self.logger.info(f"Signal rejected by risk manager: {signal.symbol}")
                 return False
 
-            execution_result = await self.mt5_handler.execute_trade(signal)
+            execution_result = await self.mt5_handler.execute_trade(signal, win_streak=self.win_streak)
 
             if execution_result.get('success'):
                 self.daily_trades += 1
                 self.logger.info(f"Trade executed successfully: {execution_result.get('ticket')}")
-                # --- THIS IS THE KEY CHANGE ---
                 if self.telegram_notifier:
                     await self.telegram_notifier.send_trade_alert(signal)
+                
+                # --- Win Streak Logic ---
+                if signal.profit > 0:
+                    self.win_streak += 1
+                elif self.config.AUTO_LOT_BOOST["reset_on_loss"]:
+                    self.win_streak = 0
                 return True
             else:
                 error_msg = execution_result.get('error', 'Unknown execution error')
-                await self._send_notification(
-                    f"❌ **Trade Execution Failed:**\n`{signal.symbol} - {error_msg}`"
-                )
+                await self._send_notification(f"❌ **Trade Execution Failed:**\n`{signal.symbol} - {error_msg}`")
                 self.logger.error(f"Trade execution failed: {error_msg}")
                 return False
-
         except Exception as e:
             self.logger.error(f"Error validating/executing signal: {e}")
             return False
+
+    async def _manage_open_trades(self):
+        """Manage all open positions for breakeven, trailing, and hedging."""
+        if not any([self.config.BREAKEVEN_TRAILING["enabled"], self.config.HEDGE_LOGIC["enabled"]]):
+            return
+
+        open_positions = await self.mt5_handler.get_positions()
+        for pos in open_positions:
+            if self.config.BREAKEVEN_TRAILING["enabled"]:
+                await self._apply_breakeven_trailing(pos)
+            
+            if self.config.HEDGE_LOGIC["enabled"] and pos['ticket'] not in self.hedged_positions:
+                await self._apply_hedge_logic(pos)
+
+    async def _apply_breakeven_trailing(self, position: dict):
+        """Apply breakeven and trailing stop loss logic."""
+        pips_in_profit = 0
+        point = await self.mt5_handler.get_symbol_info(position['symbol'])['point']
+        
+        if position['type'] == 'BUY':
+            pips_in_profit = (position['price_current'] - position['price_open']) / point
+        else: # SELL
+            pips_in_profit = (position['price_open'] - position['price_current']) / point
+
+        # Move to Breakeven
+        if pips_in_profit >= self.config.BREAKEVEN_TRAILING["breakeven_pips"] and position['sl'] != position['price_open']:
+            await self.mt5_handler.modify_position(position['ticket'], new_sl=position['price_open'])
+            await self._send_notification(f"🔒 Moved SL to Breakeven for trade {position['ticket']}.")
+
+        # Trailing Stop
+        if pips_in_profit >= self.config.BREAKEVEN_TRAILING["breakeven_pips"] + self.config.BREAKEVEN_TRAILING["trailing_step_pips"]:
+            new_sl = 0
+            if position['type'] == 'BUY':
+                new_sl = position['price_current'] - (self.config.BREAKEVEN_TRAILING["trailing_step_pips"] * point)
+                if new_sl > position['sl']:
+                    await self.mt5_handler.modify_position(position['ticket'], new_sl=new_sl)
+            else: # SELL
+                new_sl = position['price_current'] + (self.config.BREAKEVEN_TRAILING["trailing_step_pips"] * point)
+                if new_sl < position['sl']:
+                    await self.mt5_handler.modify_position(position['ticket'], new_sl=new_sl)
+
+    async def _apply_hedge_logic(self, position: dict):
+        """Apply hedging logic if a trade is in significant drawdown."""
+        pips_in_drawdown = 0
+        point = await self.mt5_handler.get_symbol_info(position['symbol'])['point']
+
+        if position['type'] == 'BUY':
+            pips_in_drawdown = (position['price_open'] - position['price_current']) / point
+        else: # SELL
+            pips_in_drawdown = (position['price_current'] - position['price_open']) / point
+
+        if pips_in_drawdown >= self.config.HEDGE_LOGIC["drawdown_pips_threshold"]:
+            hedge_direction = "SELL" if position['type'] == 'BUY' else "BUY"
+            hedge_signal = TradeSignal(
+                symbol=position['symbol'],
+                direction=hedge_direction,
+                confidence=1.0, # Hedge is a forced action
+                entry_price=position['price_current'],
+                stop_loss=0, # No SL/TP for hedge trades initially
+                take_profit=0,
+                timeframe="HEDGE",
+                reasons=[f"Hedging position {position['ticket']} due to significant drawdown."]
+            )
+            
+            hedge_result = await self.mt5_handler.execute_trade(hedge_signal)
+            if hedge_result.get('success'):
+                self.hedged_positions.add(position['ticket'])
+                self.hedged_positions.add(hedge_result['ticket']) # Add the new hedge trade as well
+                await self._send_notification(f"🛡️ Hedged position {position['ticket']} with new trade {hedge_result['ticket']}.")
 
     async def _send_notification(self, message: str):
         """Send notification via configured channels"""
