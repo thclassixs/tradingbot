@@ -67,26 +67,35 @@ class RiskManagement:
     
     async def calculate_dynamic_exits(self, df: pd.DataFrame, entry_price: float,
                                     direction: str, symbol: str) -> Tuple[float, float]:
-        """Calculate dynamic exit points based on market structure and broker rules."""
+        """Calculate dynamic exit points based on SYMBOL-SPECIFIC ATR multipliers."""
         symbol_info = await self.mt5_handler.get_symbol_info(symbol)
         if not symbol_info:
-            return entry_price * 0.99, entry_price * 1.01
+            # Fallback with a sensible default if symbol info is not available
+            sl = entry_price * 0.99 if direction.upper() == 'BUY' else entry_price * 1.01
+            tp = entry_price * 1.02 if direction.upper() == 'BUY' else entry_price * 0.98
+            return sl, tp
 
-        stops_level = symbol_info.get('stops_level', 10) 
+        # --- KEY CHANGE: Use symbol-specific config ---
+        symbol_config = Config.get_symbol_config(symbol)
+        sl_multiplier = symbol_config.atr_sl_multiplier
+        tp_multiplier = symbol_config.atr_tp_multiplier
+        # ---
+
+        stops_level = symbol_info.get('stops_level', 10)
         point = symbol_info['point']
         min_stop_distance = stops_level * point
 
         atr = df['atr'].iloc[-1]
-        atr_stop_distance = self.config.ATR_SL_MULTIPLIER * atr
+        atr_stop_distance = sl_multiplier * atr
 
         final_stop_distance = max(min_stop_distance, atr_stop_distance)
 
         if direction.upper() == 'BUY':
             stop_loss = entry_price - final_stop_distance
-            take_profit = entry_price + (final_stop_distance * self.config.ATR_TP_MULTIPLIER)
+            take_profit = entry_price + (final_stop_distance / sl_multiplier * tp_multiplier)
         else: # SELL
             stop_loss = entry_price + final_stop_distance
-            take_profit = entry_price - (final_stop_distance * self.config.ATR_TP_MULTIPLIER)
+            take_profit = entry_price - (final_stop_distance / sl_multiplier * tp_multiplier)
 
         return round(stop_loss, symbol_info['digits']), round(take_profit, symbol_info['digits'])
     
