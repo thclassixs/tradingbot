@@ -1,7 +1,7 @@
 import asyncio
 import signal
-import sys
-from datetime import datetime, timedelta
+import sys , os
+from datetime import datetime
 import pandas as pd
 from config import Config
 from components.mt5_handler import MT5Handler
