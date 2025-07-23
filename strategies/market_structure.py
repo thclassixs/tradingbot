@@ -42,16 +42,20 @@ class MarketStructure:
         Identify swing highs and lows with a strength threshold.
         """
         highs, lows = [], []
-        
+
         for i in range(self.min_swing_length, len(df) - self.min_swing_length):
             is_high = df['high'].iloc[i] == df['high'].iloc[i-self.min_swing_length:i+self.min_swing_length+1].max()
-            is_low = df['low'].iloc[i] == df['low'].iloc[i-self.min_swing_length:i+self.min_swing_length+1].min()
+            strength_check_high = df['high'].iloc[i] - df['low'].iloc[i-self.min_swing_length:i+self.min_swing_length+1].min() > df['close'].iloc[i] * self.swing_strength_threshold
 
-            if is_high:
+            if is_high and strength_check_high:
                 highs.append(i)
-            if is_low:
+
+            is_low = df['low'].iloc[i] == df['low'].iloc[i-self.min_swing_length:i+self.min_swing_length+1].min()
+            strength_check_low = df['high'].iloc[i-self.min_swing_length:i+self.min_swing_length+1].max() - df['low'].iloc[i] > df['close'].iloc[i] * self.swing_strength_threshold
+
+            if is_low and strength_check_low:
                 lows.append(i)
-        
+
         return highs, lows
 
     def multi_timeframe_swing_points(self, dfs: Dict[str, pd.DataFrame]) -> Dict[str, Tuple[List[int], List[int]]]:
@@ -66,7 +70,7 @@ class MarketStructure:
         Calculates dynamic support and resistance levels using clustering.
         """
         highs, lows = self.identify_swing_points(df)
-        
+
         support_prices = df['low'].iloc[lows].values.reshape(-1, 1)
         resistance_prices = df['high'].iloc[highs].values.reshape(-1, 1)
 
@@ -98,36 +102,40 @@ class MarketStructure:
 
     def detect_market_structure_break(self, df: pd.DataFrame) -> List[Dict]:
         """
-        Detect breaks in market structure (BOS and CHoCH).
+        Detect breaks in market structure, filtering by a minimum break size.
         """
         breaks = []
         highs, lows = self.identify_swing_points(df)
-        
-        swing_points = sorted([(idx, df['high'].iloc[idx], 'high') for idx in highs] + 
+
+        all_swing_points = sorted([(idx, df['high'].iloc[idx], 'high') for idx in highs] +
                                   [(idx, df['low'].iloc[idx], 'low') for idx in lows])
 
-        if len(swing_points) < 2:
+        if len(all_swing_points) < 2:
             return breaks
 
-        # Simplified BOS/CHoCH detection
+        # Simplified break detection
         last_high = None
         last_low = None
-        for i in range(len(df)):
-            if i in highs:
-                if last_high and df['high'].iloc[i] > last_high[1]:
-                    breaks.append({'index': i, 'type': 'BOS', 'price': df['high'].iloc[i], 'direction': 'bullish'})
-                last_high = (i, df['high'].iloc[i])
-            if i in lows:
-                if last_low and df['low'].iloc[i] < last_low[1]:
-                     breaks.append({'index': i, 'type': 'BOS', 'price': df['low'].iloc[i], 'direction': 'bearish'})
-                last_low = (i, df['low'].iloc[i])
-        
+
+        for idx, price, type in all_swing_points:
+            if type == 'high':
+                if last_low is not None and price > last_low[1] + self.min_break_size:
+                     if last_high is None or price > last_high[1]:
+                        breaks.append({'index': idx, 'type': 'bullish', 'price': price})
+                last_high = (idx, price)
+            elif type == 'low':
+                if last_high is not None and price < last_high[1] - self.min_break_size:
+                    if last_low is None or price < last_low[1]:
+                        breaks.append({'index': idx, 'type': 'bearish', 'price': price})
+                last_low = (idx, price)
+
+
         return breaks
 
     def identify_fair_value_gaps(self, df: pd.DataFrame) -> List[Dict]:
         """Identify fair value gaps in price action"""
         fvgs = []
-        
+
         for i in range(1, len(df)-1):
             # Bullish FVG
             if df['low'].iloc[i+1] > df['high'].iloc[i-1]:
@@ -135,8 +143,6 @@ class MarketStructure:
                     'type': 'bullish',
                     'start_idx': i-1,
                     'end_idx': i+1,
-                    'top': df['low'].iloc[i+1],
-                    'bottom': df['high'].iloc[i-1],
                     'gap_size': df['low'].iloc[i+1] - df['high'].iloc[i-1]
                 })
             # Bearish FVG
@@ -145,35 +151,48 @@ class MarketStructure:
                     'type': 'bearish',
                     'start_idx': i-1,
                     'end_idx': i+1,
-                    'top': df['low'].iloc[i-1],
-                    'bottom': df['high'].iloc[i+1],
                     'gap_size': df['low'].iloc[i-1] - df['high'].iloc[i+1]
                 })
-                
+
         return fvgs
-    
+
     def detect_liquidity_zones(self, df: pd.DataFrame, window: int = 20) -> List[Dict]:
         """Detect liquidity zones where price consolidates and volume is high"""
         zones = []
-        for i in range(window, len(df)):
-            section = df.iloc[i-window:i]
-            price_std = section['close'].std()
-            avg_volume = section['tick_volume'].mean()
-            if price_std < section['close'].mean() * 0.002 and avg_volume > df['tick_volume'].mean() * 1.5: # MODIFIED
+        # Calculate rolling standard deviation of price and rolling mean of volume
+        price_std = df['close'].rolling(window=window).std()
+        avg_volume = df['tick_volume'].rolling(window=window).mean()
+
+        # Identify zones where price is consolidating (low std dev) and volume is high
+        # The constant 0.002 is a sensitivity factor for consolidation
+        consolidation_threshold = df['close'].rolling(window=window).mean() * 0.002
+        # The constant 1.5 is a sensitivity factor for volume spikes
+        volume_threshold = avg_volume * 1.5
+
+        # Vectorized check for zones
+        is_liquidity_zone = (price_std < consolidation_threshold) & (df['tick_volume'] > volume_threshold)
+
+        zone_indices = np.where(is_liquidity_zone)[0]
+
+        for i in zone_indices:
+             if i > window:
                 zones.append({
                     'start_idx': i-window,
                     'end_idx': i,
-                    'avg_price': section['close'].mean(),
-                    'avg_volume': avg_volume
+                    'avg_price': df['close'].iloc[i-window:i].mean(),
+                    'avg_volume': df['tick_volume'].iloc[i-window:i].mean()
                 })
         return zones
 
     def analyze_trend_context(self, df: pd.DataFrame, window: int = 50) -> str:
         """Analyze overall trend context (uptrend, downtrend, range)"""
+        if len(df) < window:
+            return "Range" # Not enough data for trend analysis
+
         sma = df['close'].rolling(window).mean()
-        if df['close'].iloc[-1] > sma.iloc[-1]:
+        if df['close'].iloc[-1] > sma.iloc[-1] * 1.001: # Add a small buffer to avoid noise
             return "Uptrend"
-        elif df['close'].iloc[-1] < sma.iloc[-1]:
+        elif df['close'].iloc[-1] < sma.iloc[-1] * 0.999: # Add a small buffer
             return "Downtrend"
         else:
             return "Range"
@@ -190,32 +209,29 @@ class MarketStructure:
             points.append(StructurePoint(idx, df['low'].iloc[idx], 'low', strength, True))
         return points
 
-    def detect_order_blocks(self, df: pd.DataFrame, min_size: float = 15) -> List[OrderBlock]:
+    def detect_order_blocks(self, df: pd.DataFrame, min_size_pips: float = 15) -> List[OrderBlock]:
         """Detect institutional order blocks (basic version)"""
         blocks = []
-        highs, lows = self.identify_swing_points(df)
-        
-        # Bullish Order Blocks
-        for low in lows:
-            if low > 0 and df['close'].iloc[low-1] < df['open'].iloc[low-1]: # Previous candle is bearish
-                blocks.append(OrderBlock(
-                    start_idx=low-1,
-                    end_idx=low-1,
-                    high=df['high'].iloc[low-1],
-                    low=df['low'].iloc[low-1],
-                    type='bullish',
-                    strength=df['high'].iloc[low-1] - df['low'].iloc[low-1]
-                ))
 
-        # Bearish Order Blocks
-        for high in highs:
-            if high > 0 and df['close'].iloc[high-1] > df['open'].iloc[high-1]: # Previous candle is bullish
-                blocks.append(OrderBlock(
-                    start_idx=high-1,
-                    end_idx=high-1,
-                    high=df['high'].iloc[high-1],
-                    low=df['low'].iloc[high-1],
-                    type='bearish',
-                    strength=df['high'].iloc[high-1] - df['low'].iloc[high-1]
-                ))
+        # Find the last down-candle before a strong up-move (Bullish OB)
+        # and the last up-candle before a strong down-move (Bearish OB)
+        for i in range(1, len(df)-1):
+            # Potential Bullish OB: A down candle followed by a strong up candle
+            if df['close'].iloc[i-1] < df['open'].iloc[i-1] and df['close'].iloc[i] > df['open'].iloc[i]:
+                move_size = df['close'].iloc[i] - df['open'].iloc[i]
+                if move_size / df['close'].iloc[i] > (min_size_pips * 0.0001): # Assuming pips for forex
+                    blocks.append(OrderBlock(
+                        start_idx=i-1, end_idx=i-1,
+                        high=df['high'].iloc[i-1], low=df['low'].iloc[i-1],
+                        type='bullish', strength=move_size
+                    ))
+            # Potential Bearish OB: An up candle followed by a strong down candle
+            if df['close'].iloc[i-1] > df['open'].iloc[i-1] and df['close'].iloc[i] < df['open'].iloc[i]:
+                move_size = df['open'].iloc[i] - df['close'].iloc[i]
+                if move_size / df['close'].iloc[i] > (min_size_pips * 0.0001):
+                    blocks.append(OrderBlock(
+                        start_idx=i-1, end_idx=i-1,
+                        high=df['high'].iloc[i-1], low=df['low'].iloc[i-1],
+                        type='bearish', strength=move_size
+                    ))
         return blocks
