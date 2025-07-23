@@ -103,7 +103,6 @@ class TradingBot:
             os.makedirs(Config.DATA_DIR, exist_ok=True)
             os.makedirs(Config.LOGS_DIR, exist_ok=True)
 
-            # Load existing open positions to track
             open_positions = await self.mt5_handler.get_positions()
             self.open_trade_tickets = {pos['ticket'] for pos in open_positions}
             self.logger.info(f"Tracking {len(self.open_trade_tickets)} existing open positions.")
@@ -165,7 +164,6 @@ class TradingBot:
             current_hour = datetime.now().hour
             is_active, _ = Config.is_trading_session_active(current_hour)
             if not is_active:
-                self.logger.info("Outside of active trading sessions. Pausing.")
                 return False
             
             if self.daily_trades >= Config.CAPITAL_CONTROLS["max_daily_trades"]:
@@ -297,6 +295,7 @@ class TradingBot:
             return
 
         point = symbol_info['point']
+        digits = symbol_info['digits']
         stops_level = symbol_info['stops_level']
         min_stop_distance = stops_level * point
         
@@ -305,41 +304,37 @@ class TradingBot:
         
         if position['type'] == 'BUY':
             pips_in_profit = (position['price_current'] - position['price_open']) / point
-            current_price = symbol_info['bid'] # Price to close a BUY
-        else: # SELL
+            current_price = symbol_info['bid']
+        else:
             pips_in_profit = (position['price_open'] - position['price_current']) / point
-            current_price = symbol_info['ask'] # Price to close a SELL
+            current_price = symbol_info['ask']
 
         # --- Breakeven Logic ---
-        # Check if profit is sufficient and SL is not already at breakeven
         if pips_in_profit >= self.config.BREAKEVEN_TRAILING["breakeven_pips"] and position['sl'] != position['price_open']:
-            new_sl = position['price_open']
-            # Check if breakeven SL respects broker's stops_level
-            if (position['type'] == 'BUY' and current_price - new_sl > min_stop_distance) or \
-               (position['type'] == 'SELL' and new_sl - current_price > min_stop_distance):
+            new_sl = round(position['price_open'], digits)
+            
+            is_valid = (position['type'] == 'BUY' and current_price - new_sl >= min_stop_distance) or \
+                       (position['type'] == 'SELL' and new_sl - current_price >= min_stop_distance)
+                       
+            if is_valid:
                 await self.mt5_handler.modify_position(position['ticket'], new_sl=new_sl)
                 await self._send_notification(f"🔒 Moved SL to Breakeven for trade {position['ticket']}.")
+            else:
+                self.logger.warning(f"Could not move SL to breakeven for {position['ticket']}: Too close to market price.")
+
 
         # --- Trailing Stop Logic ---
-        # Check if profit is sufficient for trailing
         if pips_in_profit >= self.config.BREAKEVEN_TRAILING["breakeven_pips"] + self.config.BREAKEVEN_TRAILING["trailing_step_pips"]:
             trailing_distance = self.config.BREAKEVEN_TRAILING["trailing_step_pips"] * point
-            new_sl = 0
-
+            
             if position['type'] == 'BUY':
-                # Calculate potential new SL and check if it's an improvement
-                potential_sl = position['price_current'] - trailing_distance
-                if potential_sl > position['sl']:
-                    # Check if the new SL respects the broker's stops_level
-                    if current_price - potential_sl > min_stop_distance:
-                        await self.mt5_handler.modify_position(position['ticket'], new_sl=potential_sl)
+                potential_sl = round(position['price_current'] - trailing_distance, digits)
+                if potential_sl > position['sl'] and current_price - potential_sl >= min_stop_distance:
+                    await self.mt5_handler.modify_position(position['ticket'], new_sl=potential_sl)
             else: # SELL
-                # Calculate potential new SL and check if it's an improvement
-                potential_sl = position['price_current'] + trailing_distance
-                if potential_sl < position['sl'] or position['sl'] == 0.0:
-                     # Check if the new SL respects the broker's stops_level
-                    if potential_sl - current_price > min_stop_distance:
-                        await self.mt5_handler.modify_position(position['ticket'], new_sl=potential_sl)
+                potential_sl = round(position['price_current'] + trailing_distance, digits)
+                if (potential_sl < position['sl'] or position['sl'] == 0.0) and potential_sl - current_price >= min_stop_distance:
+                    await self.mt5_handler.modify_position(position['ticket'], new_sl=potential_sl)
 
 
     async def _apply_hedge_logic(self, position: dict):
