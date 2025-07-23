@@ -103,7 +103,7 @@ class Config:
     
     # RISK MANAGEMENT
     MAX_RISK_PERCENT = 2.0
-    MAX_DAILY_RISK = 10.0
+    MAX_DAILY_RISK = 24.0
     MAX_DRAWDOWN = 10.0
     
     POSITION_SIZING = {

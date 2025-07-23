@@ -3,6 +3,7 @@ import pandas as pd
 from typing import List, Dict, Tuple
 from dataclasses import dataclass
 from sklearn.cluster import DBSCAN
+from config import Config
 
 @dataclass
 class StructurePoint:
@@ -20,6 +21,7 @@ class OrderBlock:
     low: float
     type: str  # 'bullish' or 'bearish'
     strength: float
+    mitigated: bool = False
 
 @dataclass
 class SupportResistanceZone:
@@ -36,6 +38,7 @@ class MarketStructure:
         self.order_blocks: List[OrderBlock] = []
         self.dbscan_eps = dbscan_eps
         self.dbscan_min_samples = dbscan_min_samples
+        self.config = Config()
 
     def identify_swing_points(self, df: pd.DataFrame) -> Tuple[List[int], List[int]]:
         """
@@ -44,188 +47,191 @@ class MarketStructure:
         highs, lows = [], []
         
         for i in range(self.min_swing_length, len(df) - self.min_swing_length):
-            if (df['high'].iloc[i] == df['high'].iloc[i-self.min_swing_length:i+self.min_swing_length+1].max() and
-                df['high'].iloc[i] - df['low'].iloc[i-self.min_swing_length:i+self.min_swing_length+1].min() > df['close'].iloc[i] * self.swing_strength_threshold):
+            is_high = df['high'].iloc[i] == df['high'].iloc[i-self.min_swing_length:i+self.min_swing_length+1].max()
+            is_significant_high = (df['high'].iloc[i] - df['low'].iloc[i-self.min_swing_length:i+self.min_swing_length+1].min()) > (df['close'].iloc[i] * self.swing_strength_threshold)
+
+            if is_high and is_significant_high:
                 highs.append(i)
+
+            is_low = df['low'].iloc[i] == df['low'].iloc[i-self.min_swing_length:i+self.min_swing_length+1].min()
+            is_significant_low = (df['high'].iloc[i-self.min_swing_length:i+self.min_swing_length+1].max() - df['low'].iloc[i]) > (df['close'].iloc[i] * self.swing_strength_threshold)
                 
-            if (df['low'].iloc[i] == df['low'].iloc[i-self.min_swing_length:i+self.min_swing_length+1].min() and
-                df['high'].iloc[i-self.min_swing_length:i+self.min_swing_length+1].max() - df['low'].iloc[i] > df['close'].iloc[i] * self.swing_strength_threshold):
+            if is_low and is_significant_low:
                 lows.append(i)
         
         return highs, lows
 
-    def multi_timeframe_swing_points(self, dfs: Dict[str, pd.DataFrame]) -> Dict[str, Tuple[List[int], List[int]]]:
-        """Detect swing points across multiple timeframes."""
-        mtf_swings = {}
-        for tf, df in dfs.items():
-            mtf_swings[tf] = self.identify_swing_points(df)
-        return mtf_swings
-
-    def enhanced_dynamic_support_resistance(self, df: pd.DataFrame) -> List[SupportResistanceZone]:
+    def detect_market_structure(self, df: pd.DataFrame) -> List[Dict]:
         """
-        Calculates dynamic support and resistance levels using clustering.
+        Detects Break of Structure (BOS) and Change of Character (CHoCH).
         """
+        events = []
         highs, lows = self.identify_swing_points(df)
         
-        support_prices = df['low'].iloc[lows].values.reshape(-1, 1)
-        resistance_prices = df['high'].iloc[highs].values.reshape(-1, 1)
+        swing_highs = sorted([{'index': i, 'price': df['high'].iloc[i]} for i in highs], key=lambda x: x['index'])
+        swing_lows = sorted([{'index': i, 'price': df['low'].iloc[i]} for i in lows], key=lambda x: x['index'])
 
-        zones = []
+        # Simplified trend detection
+        last_swing_high = swing_highs[-1] if swing_highs else None
+        last_swing_low = swing_lows[-1] if swing_lows else None
 
-        if len(support_prices) > self.dbscan_min_samples:
-            db_support = DBSCAN(eps=self.dbscan_eps, min_samples=self.dbscan_min_samples).fit(support_prices)
-            for label in set(db_support.labels_):
-                if label != -1:
-                    cluster_prices = support_prices[db_support.labels_ == label]
-                    zones.append(SupportResistanceZone(
-                        level=cluster_prices.mean(),
-                        strength=len(cluster_prices),
-                        type='support'
-                    ))
+        if not last_swing_high or not last_swing_low:
+            return []
 
-        if len(resistance_prices) > self.dbscan_min_samples:
-            db_resistance = DBSCAN(eps=self.dbscan_eps, min_samples=self.dbscan_min_samples).fit(resistance_prices)
-            for label in set(db_resistance.labels_):
-                if label != -1:
-                    cluster_prices = resistance_prices[db_resistance.labels_ == label]
-                    zones.append(SupportResistanceZone(
-                        level=cluster_prices.mean(),
-                        strength=len(cluster_prices),
-                        type='resistance'
-                    ))
-
-        return zones
-
-    def detect_market_structure_break(self, df: pd.DataFrame) -> List[Dict]:
-        """
-        Detect breaks in market structure, filtering by a minimum break size.
-        """
-        breaks = []
-        highs, lows = self.identify_swing_points(df)
+        # Bullish trend if last swing high is higher than previous, and last swing low is higher than previous
+        is_uptrend = (len(swing_highs) > 1 and len(swing_lows) > 1 and 
+                      swing_highs[-1]['price'] > swing_highs[-2]['price'] and 
+                      swing_lows[-1]['price'] > swing_lows[-2]['price'])
         
-        all_swing_points = sorted([(idx, df['high'].iloc[idx], 'high') for idx in highs] + 
-                                  [(idx, df['low'].iloc[idx], 'low') for idx in lows])
+        # Bearish trend
+        is_downtrend = (len(swing_highs) > 1 and len(swing_lows) > 1 and 
+                        swing_highs[-1]['price'] < swing_highs[-2]['price'] and 
+                        swing_lows[-1]['price'] < swing_lows[-2]['price'])
 
-        if len(all_swing_points) < 2:
-            return breaks
+        for i in range(1, len(df)):
+            if is_uptrend:
+                # BOS: Closing above the last swing high
+                if df['close'].iloc[i] > last_swing_high['price'] and df['close'].iloc[i-1] <= last_swing_high['price']:
+                    events.append({'type': 'BOS', 'direction': 'bullish', 'index': i, 'price': df['close'].iloc[i]})
+                # CHoCH: Closing below the last swing low
+                if df['close'].iloc[i] < last_swing_low['price'] and df['close'].iloc[i-1] >= last_swing_low['price']:
+                    events.append({'type': 'CHoCH', 'direction': 'bearish', 'index': i, 'price': df['close'].iloc[i]})
 
-        for i in range(1, len(all_swing_points)):
-            prev_idx, prev_price, prev_type = all_swing_points[i-1]
-            curr_idx, curr_price, curr_type = all_swing_points[i]
-
-            if prev_type == 'high' and curr_type == 'low':
-                if df['low'].iloc[curr_idx] < df['low'].iloc[prev_idx] - self.min_break_size:
-                     breaks.append({
-                        'index': curr_idx,
-                        'type': 'bearish',
-                        'price': df['low'].iloc[curr_idx]
-                    })
-            elif prev_type == 'low' and curr_type == 'high':
-                if df['high'].iloc[curr_idx] > df['high'].iloc[prev_idx] + self.min_break_size:
-                    breaks.append({
-                        'index': curr_idx,
-                        'type': 'bullish',
-                        'price': df['high'].iloc[curr_idx]
-                    })
+            elif is_downtrend:
+                # BOS: Closing below the last swing low
+                if df['close'].iloc[i] < last_swing_low['price'] and df['close'].iloc[i-1] >= last_swing_low['price']:
+                    events.append({'type': 'BOS', 'direction': 'bearish', 'index': i, 'price': df['close'].iloc[i]})
+                # CHoCH: Closing above the last swing high
+                if df['close'].iloc[i] > last_swing_high['price'] and df['close'].iloc[i-1] <= last_swing_high['price']:
+                    events.append({'type': 'CHoCH', 'direction': 'bullish', 'index': i, 'price': df['close'].iloc[i]})
         
-        for i in range(1, len(highs)):
-            if df['low'].iloc[highs[i]] < df['low'].iloc[highs[i-1]] - self.min_break_size:
-                breaks.append({
-                    'index': highs[i],
-                    'type': 'bearish',
-                    'price': df['low'].iloc[highs[i]]
-                })
-                
-        for i in range(1, len(lows)):
-            if df['high'].iloc[lows[i]] > df['high'].iloc[lows[i-1]] + self.min_break_size:
-                breaks.append({
-                    'index': lows[i],
-                    'type': 'bullish',
-                    'price': df['high'].iloc[lows[i]]
-                })
+        return events
 
-        return breaks
-    
+
     def identify_fair_value_gaps(self, df: pd.DataFrame) -> List[Dict]:
         """Identify fair value gaps in price action"""
         fvgs = []
         
         for i in range(1, len(df)-1):
+            # Bullish FVG
             if df['low'].iloc[i+1] > df['high'].iloc[i-1]:
                 fvgs.append({
                     'type': 'bullish',
                     'start_idx': i-1,
                     'end_idx': i+1,
+                    'high': df['high'].iloc[i-1],
+                    'low': df['low'].iloc[i+1],
                     'gap_size': df['low'].iloc[i+1] - df['high'].iloc[i-1]
                 })
+            # Bearish FVG
             elif df['high'].iloc[i+1] < df['low'].iloc[i-1]:
                 fvgs.append({
                     'type': 'bearish',
                     'start_idx': i-1,
                     'end_idx': i+1,
+                    'high': df['high'].iloc[i+1],
+                    'low': df['low'].iloc[i-1],
                     'gap_size': df['low'].iloc[i-1] - df['high'].iloc[i+1]
                 })
                 
         return fvgs
-    
-    def detect_liquidity_zones(self, df: pd.DataFrame, window: int = 20) -> List[Dict]:
-        """Detect liquidity zones where price consolidates and volume is high"""
+
+    def detect_liquidity_zones(self, df: pd.DataFrame, lookback: int = 20, consolidation_threshold: float = 0.002, volume_multiplier: float = 1.5) -> List[Dict]:
+        """Detects liquidity zones based on price consolidation and high volume."""
         zones = []
-        for i in range(window, len(df)):
-            section = df.iloc[i-window:i]
-            price_std = section['close'].std()
-            avg_volume = section['tick_volume'].mean()
-            if price_std < section['close'].mean() * 0.002 and avg_volume > section['tick_volume'].mean() * 1.5:
-                zones.append({
-                    'start_idx': i-window,
-                    'end_idx': i,
-                    'avg_price': section['close'].mean(),
-                    'avg_volume': avg_volume
-                })
+        rolling_avg_vol = df['tick_volume'].rolling(window=lookback).mean()
+
+        for i in range(lookback, len(df)):
+            price_range = df.iloc[i-lookback:i]
+            price_std_dev = price_range['close'].std()
+            price_mean = price_range['close'].mean()
+
+            # Check for consolidation (low price volatility)
+            if price_std_dev < price_mean * consolidation_threshold:
+                # Check for high volume
+                if df['tick_volume'].iloc[i] > rolling_avg_vol.iloc[i] * volume_multiplier:
+                    zones.append({
+                        'start_idx': i-lookback,
+                        'end_idx': i,
+                        'avg_price': price_mean,
+                        'volume': df['tick_volume'].iloc[i],
+                        'type': 'consolidation_high_volume'
+                    })
         return zones
+    
+    def detect_inducement(self, df: pd.DataFrame, highs: List[int], lows: List[int]) -> List[Dict]:
+        """
+        Detects inducement points (minor highs/lows) before a major swing.
+        """
+        inducement_points = []
+
+        # For an uptrend, look for a minor low before a new high is made
+        for i in range(1, len(highs)):
+            prev_high_idx = highs[i-1]
+            curr_high_idx = highs[i]
+            
+            # Find the lowest point between the two highs
+            intermediate_lows = [l for l in lows if prev_high_idx < l < curr_high_idx]
+            if intermediate_lows:
+                inducement_low = min(intermediate_lows, key=lambda l: df['low'].iloc[l])
+                inducement_points.append({'type': 'inducement_low', 'index': inducement_low, 'price': df['low'].iloc[inducement_low]})
+
+        # For a downtrend, look for a minor high before a new low is made
+        for i in range(1, len(lows)):
+            prev_low_idx = lows[i-1]
+            curr_low_idx = lows[i]
+            
+            # Find the highest point between the two lows
+            intermediate_highs = [h for h in highs if prev_low_idx < h < curr_low_idx]
+            if intermediate_highs:
+                inducement_high = max(intermediate_highs, key=lambda h: df['high'].iloc[h])
+                inducement_points.append({'type': 'inducement_high', 'index': inducement_high, 'price': df['high'].iloc[inducement_high]})
+        
+        return inducement_points
 
     def analyze_trend_context(self, df: pd.DataFrame, window: int = 50) -> str:
         """Analyze overall trend context (uptrend, downtrend, range)"""
         sma = df['close'].rolling(window).mean()
-        if df['close'].iloc[-1] > sma.iloc[-1]:
+        if df['close'].iloc[-1] > sma.iloc[-1] and sma.iloc[-1] > sma.iloc[-2]:
             return "Uptrend"
-        elif df['close'].iloc[-1] < sma.iloc[-1]:
+        elif df['close'].iloc[-1] < sma.iloc[-1] and sma.iloc[-1] < sma.iloc[-2]:
             return "Downtrend"
         else:
             return "Range"
 
-    def enhanced_swing_point_detection(self, df: pd.DataFrame) -> List[StructurePoint]:
-        """Detect swing highs/lows with strength scoring"""
-        points = []
-        highs, lows = self.identify_swing_points(df)
-        for idx in highs:
-            strength = (df['high'].iloc[idx] - df['low'].iloc[idx]) / df['close'].iloc[idx]
-            points.append(StructurePoint(idx, df['high'].iloc[idx], 'high', strength, True))
-        for idx in lows:
-            strength = (df['high'].iloc[idx] - df['low'].iloc[idx]) / df['close'].iloc[idx]
-            points.append(StructurePoint(idx, df['low'].iloc[idx], 'low', strength, True))
-        return points
-
-    def detect_order_blocks(self, df: pd.DataFrame, min_size: float = 15) -> List[OrderBlock]:
-        """Detect institutional order blocks (basic version)"""
+    def detect_order_blocks(self, df: pd.DataFrame, min_size_pips: int = 15) -> List[OrderBlock]:
+        """Detect institutional order blocks"""
         blocks = []
-        highs, lows = self.identify_swing_points(df)
-        for i in range(1, len(highs)):
-            size = abs(df['high'].iloc[highs[i]] - df['low'].iloc[highs[i-1]])
-            if size >= min_size:
-                blocks.append(OrderBlock(
-                    start_idx=highs[i-1],
-                    end_idx=highs[i],
-                    high=df['high'].iloc[highs[i]],
-                    low=df['low'].iloc[highs[i-1]],
-                    type='bullish' if df['close'].iloc[highs[i]] > df['open'].iloc[highs[i]] else 'bearish',
-                    strength=size
-                ))
-        return blocks
+        
+        # Get pip value from config
+        # Assuming a default symbol if not specified, or you can pass it as an argument
+        symbol_config = self.config.get_symbol_config(self.config.DEFAULT_SYMBOL)
+        pip_value = symbol_config.pip_value
 
-    def multi_timeframe_swing_points(self, dfs: Dict[str, pd.DataFrame]) -> Dict[str, Tuple[List[int], List[int]]]:
-        """Detect swing points across multiple timeframes (placeholder)"""
-        mtf_swings = {}
-        for tf, df in dfs.items():
-            mtf_swings[tf] = self.identify_swing_points(df)
-        return mtf_swings
+        for i in range(1, len(df)):
+            # Bullish Order Block: A down candle before a strong up move
+            if df['close'].iloc[i] > df['open'].iloc[i] and df['close'].iloc[i-1] < df['open'].iloc[i-1]:
+                move_size = df['high'].iloc[i] - df['low'].iloc[i-1]
+                if move_size > min_size_pips * pip_value:
+                    blocks.append(OrderBlock(
+                        start_idx=i-1,
+                        end_idx=i-1,
+                        high=df['high'].iloc[i-1],
+                        low=df['low'].iloc[i-1],
+                        type='bullish',
+                        strength=move_size
+                    ))
+            
+            # Bearish Order Block: An up candle before a strong down move
+            if df['close'].iloc[i] < df['open'].iloc[i] and df['close'].iloc[i-1] > df['open'].iloc[i-1]:
+                move_size = df['high'].iloc[i-1] - df['low'].iloc[i]
+                if move_size > min_size_pips * pip_value:
+                    blocks.append(OrderBlock(
+                        start_idx=i-1,
+                        end_idx=i-1,
+                        high=df['high'].iloc[i-1],
+                        low=df['low'].iloc[i-1],
+                        type='bearish',
+                        strength=move_size
+                    ))
+        return blocks
