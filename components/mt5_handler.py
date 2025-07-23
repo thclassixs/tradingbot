@@ -16,6 +16,7 @@ class MT5Handler:
     def __init__(self):
         """Initialize MT5 Handler"""
         self.logger = TradingLogger("MT5Handler")
+        self.mt5 = mt5  # MODIFIED: Assign mt5 to the instance
         self.is_initialized = False
         self.connection_retries = 0
         self.max_retries = 3
@@ -32,26 +33,26 @@ class MT5Handler:
     async def initialize(self) -> bool:
         """Initialize MT5 connection"""
         try:
-            if not mt5.initialize():
-                error = mt5.last_error()
+            if not self.mt5.initialize():
+                error = self.mt5.last_error()
                 self.logger.error(f"MT5 initialization failed: {error}")
                 return False
             
             # Login if credentials are provided
             if Config.MT5_CONFIG["login"] and Config.MT5_CONFIG["password"]:
-                login_result = mt5.login(
+                login_result = self.mt5.login(
                     login=Config.MT5_CONFIG["login"],
                     password=Config.MT5_CONFIG["password"],
                     server=Config.MT5_CONFIG["server"]
                 )
                 
                 if not login_result:
-                    error = mt5.last_error()
+                    error = self.mt5.last_error()
                     self.logger.error(f"MT5 login failed: {error}")
                     return False
             
             # Verify connection
-            account_info = mt5.account_info()
+            account_info = self.mt5.account_info()
             if account_info is None:
                 self.logger.error("Failed to get account info")
                 return False
@@ -71,12 +72,12 @@ class MT5Handler:
     def _get_correct_symbol(self, symbol: str) -> str:
         """Get the correct symbol name for the broker"""
         # Check if symbol exists as-is
-        if mt5.symbol_info(symbol) is not None:
+        if self.mt5.symbol_info(symbol) is not None:
             return symbol
         
         # Check mapped symbols
         mapped_symbol = self.symbol_map.get(symbol.upper())
-        if mapped_symbol and mt5.symbol_info(mapped_symbol) is not None:
+        if mapped_symbol and self.mt5.symbol_info(mapped_symbol) is not None:
             self.logger.info(f"Using mapped symbol: {symbol} -> {mapped_symbol}")
             return mapped_symbol
         
@@ -88,12 +89,12 @@ class MT5Handler:
         target_symbols = ['XAUUSDm', 'BTCUSDm']
         
         for symbol in target_symbols:
-            symbol_info = mt5.symbol_info(symbol)
+            symbol_info = self.mt5.symbol_info(symbol)
             if symbol_info is None:
                 self.logger.warning(f"Symbol {symbol} not available")
             else:
                 # Try to select the symbol to make it active
-                if not mt5.symbol_select(symbol, True):
+                if not self.mt5.symbol_select(symbol, True):
                     self.logger.warning(f"Could not select symbol {symbol}")
                 else:
                     self.logger.info(f"Symbol {symbol} validated and selected")
@@ -104,7 +105,7 @@ class MT5Handler:
             if not self.is_initialized:
                 return False
             
-            account_info = mt5.account_info()
+            account_info = self.mt5.account_info()
             return account_info is not None
             
         except Exception:
@@ -121,7 +122,7 @@ class MT5Handler:
             self.logger.info(f"Reconnecting to MT5 (attempt {self.connection_retries})")
             
             # Shutdown and reinitialize
-            mt5.shutdown()
+            self.mt5.shutdown()
             await asyncio.sleep(2)
             
             success = await self.initialize()
@@ -135,9 +136,12 @@ class MT5Handler:
             self.logger.error(f"Error during reconnection: {e}")
             return False
     
-    async def get_market_data(self, symbol: str, timeframe=mt5.TIMEFRAME_M5, count: int = 500) -> Optional[Dict]:
+    async def get_market_data(self, symbol: str, timeframe=None, count: int = 500) -> Optional[Dict]: # MODIFIED
         """Get market data for a symbol"""
         try:
+            if timeframe is None:
+                timeframe = self.mt5.TIMEFRAME_M5
+
             if not self.is_connected():
                 self.logger.error("MT5 not connected")
                 return None
@@ -146,7 +150,7 @@ class MT5Handler:
             correct_symbol = self._get_correct_symbol(symbol)
             
             # Ensure symbol is selected
-            if not mt5.symbol_select(correct_symbol, True):
+            if not self.mt5.symbol_select(correct_symbol, True):
                 self.logger.error(f"Could not select symbol {correct_symbol}")
                 return None
             
@@ -154,14 +158,14 @@ class MT5Handler:
             await asyncio.sleep(0.1)
             
             # Get rates
-            rates = mt5.copy_rates_from_pos(correct_symbol, timeframe, 0, count)
+            rates = self.mt5.copy_rates_from_pos(correct_symbol, timeframe, 0, count)
             
             if rates is None:
-                error = mt5.last_error()
+                error = self.mt5.last_error()
                 self.logger.error(f"Failed to get rates for {correct_symbol}: {error}")
                 
                 # Try alternative method
-                rates = mt5.copy_rates_from(correct_symbol, timeframe, datetime.now(), count)
+                rates = self.mt5.copy_rates_from(correct_symbol, timeframe, datetime.now(), count)
                 
                 if rates is None:
                     self.logger.error(f"Alternative method also failed for {correct_symbol}")
@@ -201,11 +205,11 @@ class MT5Handler:
         try:
             correct_symbol = self._get_correct_symbol(symbol)
             
-            if not mt5.symbol_select(correct_symbol, True):
+            if not self.mt5.symbol_select(correct_symbol, True):
                 self.logger.error(f"Could not select symbol {correct_symbol}")
                 return None
             
-            symbol_info = mt5.symbol_info(correct_symbol)
+            symbol_info = self.mt5.symbol_info(correct_symbol)
             if symbol_info is None:
                 self.logger.error(f"Symbol {correct_symbol} not found")
                 return None
@@ -249,8 +253,8 @@ class MT5Handler:
                 return {"success": False, "error": f"Could not get info for {correct_symbol}"}
             
             # Prepare trade request
-            action = mt5.TRADE_ACTION_DEAL
-            order_type = mt5.ORDER_TYPE_BUY if signal.direction == "BUY" else mt5.ORDER_TYPE_SELL
+            action = self.mt5.TRADE_ACTION_DEAL
+            order_type = self.mt5.ORDER_TYPE_BUY if signal.direction == "BUY" else self.mt5.ORDER_TYPE_SELL
             price = symbol_info['ask'] if signal.direction == "BUY" else symbol_info['bid']
             
             # Calculate lot size
@@ -267,14 +271,14 @@ class MT5Handler:
                 "deviation": Config.MT5_CONFIG.get("deviation", 20),
                 "magic": Config.MT5_CONFIG.get("magic", 234000),
                 "comment": f"TradingBot-{signal.direction}-{signal.timeframe}",
-                "type_time": mt5.ORDER_TIME_GTC,
-                "type_filling": mt5.ORDER_FILLING_IOC,
+                "type_time": self.mt5.ORDER_TIME_GTC,
+                "type_filling": self.mt5.ORDER_FILLING_IOC,
             }
             
             # Send trade request
-            result = mt5.order_send(request)
+            result = self.mt5.order_send(request)
             
-            if result.retcode != mt5.TRADE_RETCODE_DONE:
+            if result.retcode != self.mt5.TRADE_RETCODE_DONE:
                 error_msg = f"Trade failed: {result.retcode} - {result.comment}"
                 self.logger.error(error_msg)
                 return {"success": False, "error": error_msg, "retcode": result.retcode}
@@ -301,7 +305,7 @@ class MT5Handler:
             
             # Apply risk management
             if hasattr(signal, 'risk_percentage') and signal.risk_percentage:
-                account_info = mt5.account_info()
+                account_info = self.mt5.account_info()
                 if account_info:
                     risk_amount = account_info.equity * (signal.risk_percentage / 100)
                     
@@ -329,7 +333,7 @@ class MT5Handler:
     async def get_positions(self) -> List[Dict]:
         """Get all open positions"""
         try:
-            positions = mt5.positions_get()
+            positions = self.mt5.positions_get()
             if positions is None:
                 return []
             
@@ -338,7 +342,7 @@ class MT5Handler:
                 position_list.append({
                     'ticket': pos.ticket,
                     'symbol': pos.symbol,
-                    'type': 'BUY' if pos.type == mt5.POSITION_TYPE_BUY else 'SELL',
+                    'type': 'BUY' if pos.type == self.mt5.POSITION_TYPE_BUY else 'SELL',
                     'volume': pos.volume,
                     'price_open': pos.price_open,
                     'price_current': pos.price_current,
@@ -359,7 +363,7 @@ class MT5Handler:
     async def close_position(self, ticket: int) -> Dict:
         """Close a specific position"""
         try:
-            position = mt5.positions_get(ticket=ticket)
+            position = self.mt5.positions_get(ticket=ticket)
             if not position:
                 return {"success": False, "error": "Position not found"}
             
@@ -367,11 +371,11 @@ class MT5Handler:
             symbol_info = await self.get_symbol_info(pos.symbol)
             
             # Prepare close request
-            close_type = mt5.ORDER_TYPE_SELL if pos.type == mt5.POSITION_TYPE_BUY else mt5.ORDER_TYPE_BUY
-            close_price = symbol_info['bid'] if pos.type == mt5.POSITION_TYPE_BUY else symbol_info['ask']
+            close_type = self.mt5.ORDER_TYPE_SELL if pos.type == self.mt5.POSITION_TYPE_BUY else self.mt5.ORDER_TYPE_BUY
+            close_price = symbol_info['bid'] if pos.type == self.mt5.POSITION_TYPE_BUY else symbol_info['ask']
             
             request = {
-                "action": mt5.TRADE_ACTION_DEAL,
+                "action": self.mt5.TRADE_ACTION_DEAL,
                 "symbol": pos.symbol,
                 "volume": pos.volume,
                 "type": close_type,
@@ -380,13 +384,13 @@ class MT5Handler:
                 "deviation": Config.MT5_CONFIG.get("deviation", 20),
                 "magic": Config.MT5_CONFIG.get("magic", 234000),
                 "comment": "TradingBot-Close",
-                "type_time": mt5.ORDER_TIME_GTC,
-                "type_filling": mt5.ORDER_FILLING_IOC,
+                "type_time": self.mt5.ORDER_TIME_GTC,
+                "type_filling": self.mt5.ORDER_FILLING_IOC,
             }
             
-            result = mt5.order_send(request)
+            result = self.mt5.order_send(request)
             
-            if result.retcode != mt5.TRADE_RETCODE_DONE:
+            if result.retcode != self.mt5.TRADE_RETCODE_DONE:
                 error_msg = f"Close failed: {result.retcode} - {result.comment}"
                 return {"success": False, "error": error_msg}
             
@@ -419,7 +423,7 @@ class MT5Handler:
     async def get_account_info(self) -> Dict:
         """Get account information"""
         try:
-            account_info = mt5.account_info()
+            account_info = self.mt5.account_info()
             if account_info is None:
                 return {}
             
@@ -445,7 +449,7 @@ class MT5Handler:
         """Check if market conditions are suitable for trading"""
         try:
             # Check if trading is allowed on the account
-            account_info = mt5.account_info()
+            account_info = self.mt5.account_info()
             if not account_info or getattr(account_info, 'trade_allowed', 0) == 0:
                 self.logger.warning("Trading not allowed on this account")
                 return False
@@ -457,13 +461,13 @@ class MT5Handler:
             # If a specific symbol is provided, check its conditions
             if symbol:
                 correct_symbol = self._get_correct_symbol(symbol)
-                symbol_info = mt5.symbol_info(correct_symbol)
+                symbol_info = self.mt5.symbol_info(correct_symbol)
                 
                 if not symbol_info:
                     self.logger.warning(f"Symbol {correct_symbol} not available")
                     return False
                 
-                if symbol_info.trade_mode == mt5.SYMBOL_TRADE_MODE_DISABLED:
+                if symbol_info.trade_mode == self.mt5.SYMBOL_TRADE_MODE_DISABLED:
                     self.logger.warning(f"Trading disabled for {correct_symbol}")
                     return False
                 
@@ -485,7 +489,7 @@ class MT5Handler:
     async def get_available_symbols(self) -> List[str]:
         """Get list of available symbols"""
         try:
-            symbols = mt5.symbols_get()
+            symbols = self.mt5.symbols_get()
             if symbols is None:
                 return []
             
@@ -503,13 +507,13 @@ class MT5Handler:
         for symbol in target_symbols:
             try:
                 # Test symbol selection
-                select_result = mt5.symbol_select(symbol, True)
+                select_result = self.mt5.symbol_select(symbol, True)
                 
                 # Test symbol info
-                symbol_info = mt5.symbol_info(symbol)
+                symbol_info = self.mt5.symbol_info(symbol)
                 
                 # Test market data
-                rates = mt5.copy_rates_from_pos(symbol, mt5.TIMEFRAME_M1, 0, 1)
+                rates = self.mt5.copy_rates_from_pos(symbol, self.mt5.TIMEFRAME_M1, 0, 1)
                 
                 results[symbol] = {
                     'selectable': select_result,
@@ -539,7 +543,7 @@ class MT5Handler:
     async def disconnect(self):
         """Disconnect from MT5"""
         try:
-            mt5.shutdown()
+            self.mt5.shutdown()
             self.is_initialized = False
             self.connection_retries = 0
             self.logger.info("MT5 disconnected")
