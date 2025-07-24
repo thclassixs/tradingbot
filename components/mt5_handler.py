@@ -178,7 +178,7 @@ class MT5Handler:
                 "sl": signal.stop_loss, "tp": signal.take_profit,
                 "deviation": Config.EXECUTION.get("max_slippage", 20),
                 "magic": Config.MT5_CONFIG.get("magic", 234000),
-                "comment": f"TradingBot-{signal.direction}",
+                "comment": f"Classixs-{signal.direction}",
                 "type_time": mt5.ORDER_TIME_GTC,
                 "type_filling": mt5.ORDER_FILLING_IOC,
             }

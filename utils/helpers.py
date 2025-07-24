@@ -3,7 +3,7 @@ import numpy as np
 from datetime import datetime, time
 from typing import Tuple, Dict, List
 from dataclasses import dataclass
-import logging
+import logging  # <-- This was the missing import
 from telegram import Bot
 from telegram.request import HTTPXRequest
 from telegram.constants import ParseMode
@@ -47,74 +47,88 @@ def is_session_active(current_time: datetime) -> Tuple[bool, str]:
         return True, "New York"
     return False, "Inactive"
 
+# --- Telegram Notifier Class ---
+
 class TelegramNotifier:
     """Handles all notifications sent to a Telegram chat."""
 
     def __init__(self, bot_token: str, chat_id: str):
-        if not bot_token or not chat_id:
-            raise ValueError("Telegram bot_token and chat_id are required.")
-        # Increased timeouts for more reliability
-        request = HTTPXRequest(connect_timeout=15.0, read_timeout=15.0)
-        self.bot = Bot(token=bot_token, request=request)
+        """
+        Initializes the Telegram notifier.
+        
+        Args:
+            bot_token: Your Telegram bot token from BotFather.
+            chat_id: The ID of the chat where messages will be sent.
+        """
+        request = HTTPXRequest(connect_timeout=10.0, read_timeout=10.0) 
+        self.bot_token = bot_token
         self.chat_id = chat_id
+        self.bot = Bot(token=bot_token, request=request)
+        # Initialize a logger specific to this class
         self.logger = logging.getLogger(__name__)
-
+        
     async def initialize(self):
         """Tests the connection to Telegram upon startup."""
         return await self.test_connection()
 
-    async def send_message(self, message: str, parse_mode: str = "Markdown") -> bool:
-        """Sends a message to the configured Telegram chat."""
+    async def send_message(self, message: str, parse_mode: str = "HTML") -> bool:
+        """
+        Sends a message to the configured Telegram chat.
+        
+        Returns:
+            True if the message was sent successfully, False otherwise.
+        """
         try:
             await self.bot.send_message(
                 chat_id=self.chat_id,
                 text=message,
-                parse_mode=parse_mode
+                parse_mode=ParseMode.HTML if parse_mode == "HTML" else ParseMode.MARKDOWN
             )
             self.logger.info("Telegram message sent successfully.")
             return True
         except Exception as e:
-            self.logger.error(f"Error sending Telegram message: {e}", exc_info=True)
+            self.logger.error(f"Error sending Telegram message: {str(e)}", exc_info=True)
             return False
 
     async def send_trade_alert(self, signal: TradeSignal) -> bool:
         """Sends a beautifully formatted alert for an executed trade."""
         emoji = "🟢" if signal.direction.upper() == "BUY" else "🔴"
         message = f"""
-{emoji} *TRADE ALERT* {emoji}
+{emoji} <b>TRADE ALERT</b> {emoji}
 
-*Symbol:* `{signal.symbol}`
-*Action:* `{signal.direction.upper()}`
-*Entry Price:* `{signal.entry_price:.5f}`
-*Confidence:* `{signal.confidence:.2%}`
-*Stop Loss:* `{signal.stop_loss:.5f}`
-*Take Profit:* `{signal.take_profit:.5f}`
+<b>Symbol:</b> {signal.symbol}
+<b>Action:</b> {signal.direction.upper()}
+<b>Entry Price:</b> {signal.entry_price:.5f}
+<b>Confidence:</b> {signal.confidence:.2%}
+<b>Stop Loss:</b> {signal.stop_loss:.5f}
+<b>Take Profit:</b> {signal.take_profit:.5f}
+
+<b>Reason:</b>
+- {"\n- ".join(signal.reasons)}
+
+<b>Time:</b> {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         """
         return await self.send_message(message.strip())
 
     async def send_status_update(self, status: str, details: Dict = None) -> bool:
         """Sends a periodic status update of the bot's health and performance."""
         message = f"""
-ℹ️ *BOT STATUS UPDATE* ℹ️
+ℹ️ <b>BOT STATUS UPDATE</b> ℹ️
 
-*Status:* {status}
-*Time:* `{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}`
+<b>Status:</b> {status}
+<b>Time:</b> {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         """
-
+        
         if details:
-            message += "\n\n*PERFORMANCE:*"
+            message += "\n\n<b>PERFORMANCE:</b>"
             for key, value in details.items():
+                # Format the key to be more readable
                 formatted_key = key.replace('_', ' ').title()
-                message += f"\n• *{formatted_key}:* `{value}`"
-
+                message += f"\n• <b>{formatted_key}:</b> {value}"
+        
         return await self.send_message(message.strip())
 
     async def test_connection(self) -> bool:
         """Sends a test message to confirm the Telegram connection is working."""
-        try:
-            bot_info = await self.bot.get_me()
-            self.logger.info(f"Successfully connected to Telegram bot: {bot_info.username}")
-            return True
-        except Exception as e:
-            self.logger.error(f"Failed to connect to Telegram: {e}")
-            return False
+        test_message = f"🚀 Trading Bot Started"
+        return await self.send_message(test_message)

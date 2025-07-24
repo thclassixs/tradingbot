@@ -1,0 +1,1434 @@
+2025-07-23 15:19:58 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 15:19:58 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 15:19:58 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 15:19:58 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 15:19:58 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 15:19:58 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 15:20:00 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 15:20:00 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 15:20:00 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:20:00 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:20:00 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:20:00 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:20:00 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:20:00 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:20:00 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:20:00 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:20:00 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:20:00 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:20:00 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:20:00 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:20:00 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:20:01 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:20:01 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: MT5Handler.execute_trade() got an unexpected keyword argument 'win_streak'
+2025-07-23 15:20:01 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:20:01 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:20:01 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: MT5Handler.execute_trade() got an unexpected keyword argument 'win_streak'
+2025-07-23 15:23:57 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 15:23:57 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 15:23:57 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 15:24:04 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 15:24:04 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 15:24:04 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 15:24:05 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 15:24:05 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 15:24:05 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:24:05 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:24:05 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:24:05 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:24:05 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:24:05 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:24:05 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:24:05 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:24:05 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:24:05 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:24:05 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:24:05 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:24:06 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:24:06 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:24:06 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:24:06 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:24:06 | INFO | MT5Handler.main | Trade executed successfully: 2416114366
+2025-07-23 15:24:06 | INFO | TradingBot.main | Trade executed successfully: 2416114366
+2025-07-23 15:24:06 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:24:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:24:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:24:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:24:07 | INFO | MT5Handler.main | Trade executed successfully: 2416114635
+2025-07-23 15:24:07 | INFO | TradingBot.main | Trade executed successfully: 2416114635
+2025-07-23 15:24:07 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:24:08 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:25:56 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 15:25:56 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 15:25:56 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 15:25:56 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 15:25:56 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 15:25:56 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 15:25:57 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 15:25:57 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 15:25:57 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:25:57 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:25:57 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:25:57 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:25:57 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:25:57 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:25:57 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:25:57 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:25:57 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:25:57 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:25:57 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:25:57 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:25:57 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:25:57 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:25:58 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:25:58 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:25:58 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:25:58 | INFO | MT5Handler.main | Trade executed successfully: 2416126877
+2025-07-23 15:25:58 | INFO | TradingBot.main | Trade executed successfully: 2416126877
+2025-07-23 15:25:58 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:25:59 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:25:59 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:25:59 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:25:59 | INFO | MT5Handler.main | Trade executed successfully: 2416126965
+2025-07-23 15:25:59 | INFO | TradingBot.main | Trade executed successfully: 2416126965
+2025-07-23 15:25:59 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:25:59 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:27:28 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 15:27:28 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 15:27:28 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 15:27:28 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 15:27:28 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 15:27:28 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 15:27:30 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 15:27:30 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 15:27:30 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:27:30 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:27:30 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:27:30 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:27:30 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:27:30 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:27:30 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:27:30 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:27:30 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:27:30 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:27:30 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:27:30 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:27:30 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:27:30 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:27:31 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:27:31 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:27:31 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:27:31 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:27:31 | INFO | MT5Handler.main | Trade executed successfully: 2416140206
+2025-07-23 15:27:31 | INFO | TradingBot.main | Trade executed successfully: 2416140206
+2025-07-23 15:27:31 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:28:00 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:00 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:00 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:00 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:00 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:28:00 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:28:00 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:00 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:28:00 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:00 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:28:01 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:01 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:28:01 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:01 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:28:02 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:02 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:02 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:02 | INFO | MT5Handler.main | Trade executed successfully: 2416144917
+2025-07-23 15:28:02 | INFO | TradingBot.main | Trade executed successfully: 2416144917
+2025-07-23 15:28:02 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:28:02 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:02 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:02 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:03 | INFO | MT5Handler.main | Trade executed successfully: 2416145001
+2025-07-23 15:28:03 | INFO | TradingBot.main | Trade executed successfully: 2416145001
+2025-07-23 15:28:03 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:28:03 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:28:33 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:33 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:33 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:33 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:33 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:28:33 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:28:33 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:33 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:28:33 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:33 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:28:33 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:33 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:28:33 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:33 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:28:34 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:34 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:34 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:28:34 | INFO | MT5Handler.main | Trade executed successfully: 2416148583
+2025-07-23 15:28:34 | INFO | TradingBot.main | Trade executed successfully: 2416148583
+2025-07-23 15:28:34 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:28:35 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:35 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:35 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:28:35 | INFO | MT5Handler.main | Trade executed successfully: 2416148684
+2025-07-23 15:28:35 | INFO | TradingBot.main | Trade executed successfully: 2416148684
+2025-07-23 15:28:35 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:28:35 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:29:03 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:03 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:03 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:03 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:03 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:29:03 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:29:03 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:03 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:29:03 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:03 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:29:03 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:03 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:29:03 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:03 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:29:04 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:04 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:04 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:04 | INFO | MT5Handler.main | Trade executed successfully: 2416152173
+2025-07-23 15:29:04 | INFO | TradingBot.main | Trade executed successfully: 2416152173
+2025-07-23 15:29:04 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:29:04 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:04 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:04 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:05 | INFO | MT5Handler.main | Trade executed successfully: 2416152329
+2025-07-23 15:29:05 | INFO | TradingBot.main | Trade executed successfully: 2416152329
+2025-07-23 15:29:05 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:29:05 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:35 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:35 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:29:36 | INFO | MT5Handler.main | Trade executed successfully: 2416155847
+2025-07-23 15:29:36 | INFO | TradingBot.main | Trade executed successfully: 2416155847
+2025-07-23 15:29:36 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:29:36 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:36 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:36 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:29:36 | INFO | MT5Handler.main | Trade executed successfully: 2416155907
+2025-07-23 15:29:36 | INFO | TradingBot.main | Trade executed successfully: 2416155907
+2025-07-23 15:29:36 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:29:37 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:30:06 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:30:06 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:30:06 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:06 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:06 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:30:06 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:30:07 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:30:07 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:30:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:07 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:30:07 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:30:07 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:30:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:07 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:30:08 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:30:08 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:30:08 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:30:08 | INFO | MT5Handler.main | Trade executed successfully: 2416158536
+2025-07-23 15:30:08 | INFO | TradingBot.main | Trade executed successfully: 2416158536
+2025-07-23 15:30:08 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:30:08 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:08 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:08 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:09 | INFO | MT5Handler.main | Trade executed successfully: 2416158660
+2025-07-23 15:30:09 | INFO | TradingBot.main | Trade executed successfully: 2416158660
+2025-07-23 15:30:09 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:30:09 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:30:37 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:30:37 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:30:37 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:37 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:37 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:30:37 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:30:37 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:30:37 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:30:37 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:37 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:30:37 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:30:37 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:30:37 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:37 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:30:38 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:30:38 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:38 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:38 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:30:39 | INFO | MT5Handler.main | Trade executed successfully: 2416161673
+2025-07-23 15:30:39 | INFO | TradingBot.main | Trade executed successfully: 2416161673
+2025-07-23 15:30:39 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:31:07 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:07 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:07 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:31:07 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:31:07 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:07 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:31:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:07 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:31:07 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:07 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:31:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:07 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:31:08 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:08 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:08 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:08 | INFO | MT5Handler.main | Trade executed successfully: 2416165049
+2025-07-23 15:31:08 | INFO | TradingBot.main | Trade executed successfully: 2416165049
+2025-07-23 15:31:08 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:31:09 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:09 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:09 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:09 | INFO | MT5Handler.main | Trade executed successfully: 2416165154
+2025-07-23 15:31:09 | INFO | TradingBot.main | Trade executed successfully: 2416165154
+2025-07-23 15:31:09 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:31:10 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:31:39 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:39 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:39 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:39 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:39 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:31:39 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:31:39 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:39 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:31:39 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:39 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:31:39 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:39 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:31:40 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:40 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:31:40 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:40 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:40 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:31:40 | INFO | MT5Handler.main | Trade executed successfully: 2416167972
+2025-07-23 15:31:40 | INFO | TradingBot.main | Trade executed successfully: 2416167972
+2025-07-23 15:31:40 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:31:41 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:41 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:41 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:31:41 | INFO | MT5Handler.main | Trade executed successfully: 2416168097
+2025-07-23 15:31:41 | INFO | TradingBot.main | Trade executed successfully: 2416168097
+2025-07-23 15:31:42 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:31:42 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:32:11 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:11 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:11 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:11 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:11 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:32:11 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:32:11 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:11 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:32:11 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:12 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:32:12 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:12 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:32:12 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:12 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:32:12 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:12 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:12 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:12 | INFO | MT5Handler.main | Trade executed successfully: 2416175211
+2025-07-23 15:32:12 | INFO | TradingBot.main | Trade executed successfully: 2416175211
+2025-07-23 15:32:12 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:32:13 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:13 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:13 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:13 | INFO | MT5Handler.main | Trade executed successfully: 2416175283
+2025-07-23 15:32:13 | INFO | TradingBot.main | Trade executed successfully: 2416175283
+2025-07-23 15:32:13 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:32:14 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:32:43 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:43 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:43 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:43 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:43 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:32:43 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:32:43 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:43 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:32:43 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:44 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:32:44 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:44 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:32:44 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:44 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:32:44 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:44 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:44 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:32:44 | INFO | MT5Handler.main | Trade executed successfully: 2416180885
+2025-07-23 15:32:44 | INFO | TradingBot.main | Trade executed successfully: 2416180885
+2025-07-23 15:32:44 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:32:45 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:45 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:45 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:32:45 | INFO | MT5Handler.main | Trade executed successfully: 2416181025
+2025-07-23 15:32:45 | INFO | TradingBot.main | Trade executed successfully: 2416181025
+2025-07-23 15:32:45 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:32:45 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:33:15 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:15 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:15 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:15 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:15 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:33:15 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:33:15 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:15 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:33:15 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:15 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:33:15 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:15 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:33:15 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:16 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:33:16 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:16 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:16 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:16 | INFO | MT5Handler.main | Trade executed successfully: 2416186462
+2025-07-23 15:33:16 | INFO | TradingBot.main | Trade executed successfully: 2416186462
+2025-07-23 15:33:16 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:33:17 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:17 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:17 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:17 | INFO | MT5Handler.main | Trade executed successfully: 2416186541
+2025-07-23 15:33:17 | INFO | TradingBot.main | Trade executed successfully: 2416186541
+2025-07-23 15:33:17 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:33:18 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:33:47 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:47 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:47 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:47 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:47 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:33:47 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:33:47 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:47 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:33:47 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:47 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:33:47 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:47 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:33:47 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:48 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:33:48 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:48 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:48 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:33:48 | INFO | MT5Handler.main | Trade executed successfully: 2416191479
+2025-07-23 15:33:48 | INFO | TradingBot.main | Trade executed successfully: 2416191479
+2025-07-23 15:33:48 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:33:49 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:49 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:49 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:33:49 | INFO | MT5Handler.main | Trade executed successfully: 2416191529
+2025-07-23 15:33:49 | INFO | TradingBot.main | Trade executed successfully: 2416191529
+2025-07-23 15:33:49 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:33:49 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:34:19 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:34:19 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:34:19 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:34:19 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:34:19 | [31mERROR   [0m | TradingBot.main | Error in trading loop: 'coroutine' object is not subscriptable
+2025-07-23 15:34:19 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:34:19 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:34:19 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:34:19 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:34:19 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:34:19 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:34:19 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:34:20 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:34:20 | INFO | MT5Handler.main | Successfully retrieved 500 bars for XAUUSDm
+2025-07-23 15:34:21 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:34:21 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:34:21 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:34:21 | INFO | MT5Handler.main | Trade executed successfully: 2416195227
+2025-07-23 15:34:21 | INFO | TradingBot.main | Trade executed successfully: 2416195227
+2025-07-23 15:34:21 | INFO | MT5Handler.main | Successfully retrieved 500 bars for BTCUSDm
+2025-07-23 15:34:21 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:34:21 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:34:21 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:34:22 | INFO | MT5Handler.main | Trade executed successfully: 2416195330
+2025-07-23 15:34:22 | INFO | TradingBot.main | Trade executed successfully: 2416195330
+2025-07-23 15:34:22 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:34:22 | [31mERROR   [0m | TradingBot.main | Error validating/executing signal: 'TradeSignal' object has no attribute 'profit'
+2025-07-23 15:34:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:35:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:36:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:37:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:38:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:39:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:40:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:41:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:42:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:43:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:44:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:45:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:46:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:47:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:48:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:49:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:50:52 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 15:51:58 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 15:51:58 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 15:51:58 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 15:51:58 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 15:51:58 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 15:51:58 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 15:51:58 | [31mERROR   [0m | TradingBot.main | Initialization failed: 'MT5Handler' object has no attribute 'get_account_info'
+2025-07-23 15:54:12 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 15:54:12 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 15:54:12 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 15:54:12 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 15:54:12 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 15:54:12 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 15:54:12 | [31mERROR   [0m | TradingBot.main | Initialization failed: 'MT5Handler' object has no attribute 'get_account_info'
+2025-07-23 15:54:34 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 15:54:34 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 15:54:34 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 15:54:34 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 15:54:34 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 15:54:34 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 15:54:34 | [31mERROR   [0m | TradingBot.main | Initialization failed: 'MT5Handler' object has no attribute 'get_account_info'
+2025-07-23 15:56:55 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 15:56:55 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 15:56:55 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 15:56:55 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 15:56:55 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 15:56:55 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 15:56:57 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 15:56:57 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 15:56:57 | [31mERROR   [0m | TradingBot.main | Error checking trading conditions: 'MT5Handler' object has no attribute 'check_market_conditions'
+2025-07-23 15:57:57 | [33mWARNING [0m | TradingBot.main | MT5 not connected, attempting reconnection...
+2025-07-23 15:57:57 | INFO | MT5Handler.main | Reconnecting to MT5 (attempt 1)
+2025-07-23 15:58:04 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 15:58:04 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 15:58:04 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 15:58:04 | INFO | MT5Handler.main | Reconnection successful
+2025-07-23 15:58:04 | [31mERROR   [0m | TradingBot.main | Error checking trading conditions: 'MT5Handler' object has no attribute 'check_market_conditions'
+2025-07-23 15:58:39 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 15:58:39 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 15:58:39 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 15:58:39 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 15:58:39 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 15:58:39 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 15:58:40 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 15:58:40 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 15:58:40 | INFO | MT5Handler.main | Position 2416114635 modified successfully.
+2025-07-23 15:58:40 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:58:40 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:58:40 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:58:40 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:58:40 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:58:40 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:58:41 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416114635: Invalid stops
+2025-07-23 15:58:41 | INFO | MT5Handler.main | Position 2416175211 modified successfully.
+2025-07-23 15:58:41 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:58:41 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:58:41 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:58:41 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:58:41 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 15:58:41 | INFO | TradingBot.main | Trade executed successfully: 2416401733
+2025-07-23 15:58:42 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:58:42 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:58:42 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 15:58:42 | INFO | TradingBot.main | Trade executed successfully: 2416401845
+2025-07-23 15:58:42 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416175211: Invalid stops
+2025-07-23 15:58:43 | INFO | MT5Handler.main | Position 2416180885 modified successfully.
+2025-07-23 15:58:43 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416180885: Invalid stops
+2025-07-23 15:58:43 | INFO | MT5Handler.main | Position 2416186462 modified successfully.
+2025-07-23 15:58:43 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416186462: Invalid stops
+2025-07-23 15:58:43 | INFO | MT5Handler.main | Position 2416191479 modified successfully.
+2025-07-23 15:58:43 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416191479: Invalid stops
+2025-07-23 15:58:43 | INFO | MT5Handler.main | Position 2416195227 modified successfully.
+2025-07-23 15:58:44 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416195227: Invalid stops
+2025-07-23 16:00:33 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 16:00:33 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 16:00:33 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 16:00:34 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 16:00:34 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 16:00:34 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 16:00:36 | INFO | TradingBot.main | Tracking 29 existing open positions.
+2025-07-23 16:00:36 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 16:00:36 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 16:00:37 | INFO | MT5Handler.main | Position 2416114635 modified successfully.
+2025-07-23 16:00:37 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416186462: Invalid stops
+2025-07-23 16:00:37 | INFO | TradingBot.main | Trade 2416114635 was a WIN. Current streak: 1
+2025-07-23 16:00:37 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:00:37 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:00:37 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:00:37 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:00:37 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:00:37 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:00:37 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:00:37 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:00:38 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:00:38 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:00:38 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:00:38 | INFO | TradingBot.main | Trade executed successfully: 2416416832
+2025-07-23 16:00:39 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:00:39 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:00:39 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:00:39 | INFO | TradingBot.main | Trade executed successfully: 2416416918
+2025-07-23 16:02:01 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 16:02:01 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 16:02:01 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 16:02:05 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 16:02:05 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 16:02:05 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 16:02:07 | INFO | TradingBot.main | Tracking 30 existing open positions.
+2025-07-23 16:02:07 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 16:02:07 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 16:02:07 | INFO | MT5Handler.main | Position 2416114366 modified successfully.
+2025-07-23 16:02:07 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:02:07 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:02:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:02:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:02:07 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:02:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:02:07 | INFO | MT5Handler.main | Position 2416114366 modified successfully.
+2025-07-23 16:02:07 | INFO | MT5Handler.main | Position 2416126877 modified successfully.
+2025-07-23 16:02:07 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:02:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:02:08 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:02:08 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:02:08 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:02:08 | INFO | TradingBot.main | Trade executed successfully: 2416430289
+2025-07-23 16:02:09 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:02:09 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:02:09 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:02:09 | INFO | TradingBot.main | Trade executed successfully: 2416430378
+2025-07-23 16:02:09 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416126877: Invalid request
+2025-07-23 16:02:09 | INFO | MT5Handler.main | Position 2416148583 modified successfully.
+2025-07-23 16:02:09 | INFO | MT5Handler.main | Position 2416148583 modified successfully.
+2025-07-23 16:02:10 | INFO | MT5Handler.main | Position 2416167972 modified successfully.
+2025-07-23 16:02:10 | INFO | MT5Handler.main | Position 2416167972 modified successfully.
+2025-07-23 16:02:10 | INFO | MT5Handler.main | Position 2416186462 modified successfully.
+2025-07-23 16:02:10 | INFO | MT5Handler.main | Position 2416195227 modified successfully.
+2025-07-23 16:02:10 | INFO | MT5Handler.main | Position 2416401733 modified successfully.
+2025-07-23 16:02:11 | INFO | MT5Handler.main | Position 2416401733 modified successfully.
+2025-07-23 16:02:11 | INFO | MT5Handler.main | Position 2416416832 modified successfully.
+2025-07-23 16:02:11 | INFO | MT5Handler.main | Position 2416416832 modified successfully.
+2025-07-23 16:05:38 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 16:05:38 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 16:05:38 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 16:05:38 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 16:05:38 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 16:05:38 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 16:05:41 | INFO | TradingBot.main | Tracking 0 existing open positions.
+2025-07-23 16:05:41 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 16:05:41 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 16:05:41 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:05:41 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:05:41 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:05:41 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:05:41 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:05:41 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:05:41 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:05:41 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:05:42 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:05:42 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:05:42 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:05:42 | INFO | TradingBot.main | Trade executed successfully: 2416461963
+2025-07-23 16:05:42 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:05:42 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:05:42 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:05:42 | INFO | TradingBot.main | Trade executed successfully: 2416462012
+2025-07-23 16:10:43 | INFO | MT5Handler.main | Position 2416462012 modified successfully.
+2025-07-23 16:10:43 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:10:43 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:10:43 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:10:43 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:10:44 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:10:44 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:10:44 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:10:44 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:10:44 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:10:44 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:10:44 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:10:44 | INFO | TradingBot.main | Trade executed successfully: 2416504959
+2025-07-23 16:10:45 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:10:45 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:10:45 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:10:45 | INFO | TradingBot.main | Trade executed successfully: 2416505057
+2025-07-23 16:10:45 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416462012: Invalid stops
+2025-07-23 16:15:45 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416462012: No changes
+2025-07-23 16:15:45 | INFO | TradingBot.main | Trade 2416461963 was a LOSS. Resetting win streak from 0 to 0.
+2025-07-23 16:15:45 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:15:45 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:15:45 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:15:45 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:15:45 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:15:45 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:15:45 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:15:45 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:15:46 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:15:46 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:15:46 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:15:46 | INFO | TradingBot.main | Trade executed successfully: 2416540480
+2025-07-23 16:15:47 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:15:47 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:15:47 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:15:47 | INFO | TradingBot.main | Trade executed successfully: 2416540529
+2025-07-23 16:15:47 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416462012: Invalid stops
+2025-07-23 16:15:48 | INFO | MT5Handler.main | Position 2416505057 modified successfully.
+2025-07-23 16:20:48 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416462012: No changes
+2025-07-23 16:20:48 | INFO | TradingBot.main | Trade 2416505057 was a LOSS. Resetting win streak from 0 to 0.
+2025-07-23 16:20:48 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:20:48 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:20:48 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:20:48 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:20:48 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:20:48 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:20:49 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:20:49 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:20:49 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:20:49 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:20:49 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:20:49 | INFO | TradingBot.main | Trade executed successfully: 2416582021
+2025-07-23 16:20:50 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:20:50 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:20:50 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:20:50 | INFO | TradingBot.main | Trade executed successfully: 2416582115
+2025-07-23 16:20:51 | INFO | MT5Handler.main | Position 2416462012 modified successfully.
+2025-07-23 16:20:51 | INFO | MT5Handler.main | Position 2416504959 modified successfully.
+2025-07-23 16:20:52 | INFO | MT5Handler.main | Position 2416540480 modified successfully.
+2025-07-23 16:25:53 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416504959: No changes
+2025-07-23 16:25:53 | INFO | TradingBot.main | Trade 2416462012 was a WIN. Current streak: 1
+2025-07-23 16:25:53 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:25:53 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:25:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:25:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:25:53 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:25:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:25:53 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:25:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:25:54 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:25:54 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:25:54 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:25:54 | INFO | TradingBot.main | Trade executed successfully: 2416608757
+2025-07-23 16:25:54 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:25:54 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:25:54 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:25:55 | INFO | TradingBot.main | Trade executed successfully: 2416608800
+2025-07-23 16:25:55 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416504959: Invalid stops
+2025-07-23 16:25:55 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416540480: No changes
+2025-07-23 16:30:55 | INFO | TradingBot.main | Trade 2416540480 was a WIN. Current streak: 2
+2025-07-23 16:30:55 | INFO | TradingBot.main | Trade 2416608800 was a LOSS. Resetting win streak from 2 to 0.
+2025-07-23 16:30:55 | INFO | TradingBot.main | Trade 2416540529 was a LOSS. Resetting win streak from 0 to 0.
+2025-07-23 16:30:55 | INFO | TradingBot.main | Trade 2416582115 was a LOSS. Resetting win streak from 0 to 0.
+2025-07-23 16:30:55 | INFO | TradingBot.main | Trade 2416582021 was a LOSS. Resetting win streak from 0 to 0.
+2025-07-23 16:30:55 | INFO | TradingBot.main | Trade 2416608757 was a WIN. Current streak: 1
+2025-07-23 16:30:55 | INFO | TradingBot.main | Trade 2416504959 was a WIN. Current streak: 2
+2025-07-23 16:30:55 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:30:55 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:30:55 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:30:55 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:30:55 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:30:55 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:30:55 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:30:55 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:30:56 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:30:56 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:30:56 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:30:56 | INFO | TradingBot.main | Trade executed successfully: 2416636127
+2025-07-23 16:30:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:30:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:30:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:30:57 | INFO | TradingBot.main | Trade executed successfully: 2416636174
+2025-07-23 16:33:02 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 16:33:02 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 16:33:02 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 16:33:06 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 16:33:06 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 16:33:06 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 16:33:08 | INFO | TradingBot.main | Tracking 2 existing open positions.
+2025-07-23 16:33:08 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 16:33:08 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 16:33:08 | INFO | MT5Handler.main | Position 2416636127 modified successfully.
+2025-07-23 16:33:08 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:33:08 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:33:08 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:33:08 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:33:08 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:33:08 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:33:08 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416636127: Invalid stops
+2025-07-23 16:33:08 | INFO | MT5Handler.main | Position 2416636174 modified successfully.
+2025-07-23 16:33:08 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:33:08 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:33:09 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:33:09 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:33:09 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:33:09 | INFO | TradingBot.main | Trade executed successfully: 2416651450
+2025-07-23 16:33:09 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:33:09 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:33:09 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:33:10 | INFO | TradingBot.main | Trade executed successfully: 2416651515
+2025-07-23 16:34:23 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 16:34:23 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 16:34:23 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 16:34:23 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 16:34:23 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 16:34:23 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 16:34:24 | INFO | TradingBot.main | Tracking 2 existing open positions.
+2025-07-23 16:34:24 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 16:34:24 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 16:34:24 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:34:24 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:34:24 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:34:24 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:34:24 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:34:24 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:34:24 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:34:24 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:34:25 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:34:25 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:34:25 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:34:25 | INFO | TradingBot.main | Trade executed successfully: 2416658031
+2025-07-23 16:34:26 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:34:26 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:34:26 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:34:26 | INFO | TradingBot.main | Trade executed successfully: 2416658119
+2025-07-23 16:39:27 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:39:27 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:39:27 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:39:27 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:39:27 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:39:27 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:39:27 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:39:27 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:39:28 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:39:28 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:39:28 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:39:28 | INFO | TradingBot.main | Trade executed successfully: 2416695620
+2025-07-23 16:39:29 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:39:29 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:39:29 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:39:29 | INFO | TradingBot.main | Trade executed successfully: 2416695690
+2025-07-23 16:42:21 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 16:42:21 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 16:42:21 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 16:42:21 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 16:42:21 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 16:42:21 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 16:42:24 | INFO | TradingBot.main | Tracking 6 existing open positions.
+2025-07-23 16:42:24 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 16:42:25 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 16:42:25 | INFO | MT5Handler.main | Position 2416656126 modified successfully.
+2025-07-23 16:42:25 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:42:25 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:42:25 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:42:25 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:42:25 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:42:25 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:42:25 | INFO | MT5Handler.main | Position 2416656126 modified successfully.
+2025-07-23 16:42:25 | INFO | MT5Handler.main | Position 2416658031 modified successfully.
+2025-07-23 16:42:25 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:42:25 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:42:26 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:42:26 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:42:26 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:42:26 | INFO | TradingBot.main | Trade executed successfully: 2416715345
+2025-07-23 16:42:26 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:42:26 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:42:26 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:42:27 | INFO | TradingBot.main | Trade executed successfully: 2416715395
+2025-07-23 16:42:28 | INFO | MT5Handler.main | Position 2416658031 modified successfully.
+2025-07-23 16:42:28 | INFO | MT5Handler.main | Position 2416658119 modified successfully.
+2025-07-23 16:42:29 | INFO | MT5Handler.main | Position 2416658119 modified successfully.
+2025-07-23 16:42:29 | INFO | MT5Handler.main | Position 2416695620 modified successfully.
+2025-07-23 16:42:29 | INFO | MT5Handler.main | Position 2416695620 modified successfully.
+2025-07-23 16:42:29 | INFO | MT5Handler.main | Position 2416695690 modified successfully.
+2025-07-23 16:42:30 | INFO | MT5Handler.main | Position 2416695690 modified successfully.
+2025-07-23 16:47:31 | INFO | MT5Handler.main | Position 2416715345 modified successfully.
+2025-07-23 16:47:31 | INFO | TradingBot.main | Trade 2416715395 was a WIN. Current streak: 1
+2025-07-23 16:47:31 | INFO | TradingBot.main | Trade 2416695620 was a WIN. Current streak: 2
+2025-07-23 16:47:31 | INFO | TradingBot.main | Trade 2416658119 was a WIN. Current streak: 3
+2025-07-23 16:47:31 | INFO | TradingBot.main | Trade 2416656167 was a WIN. Current streak: 4
+2025-07-23 16:47:31 | INFO | TradingBot.main | Trade 2416695690 was a WIN. Current streak: 5
+2025-07-23 16:47:31 | INFO | TradingBot.main | Trade 2416658031 was a WIN. Current streak: 6
+2025-07-23 16:47:31 | INFO | TradingBot.main | Trade 2416656126 was a WIN. Current streak: 7
+2025-07-23 16:47:31 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:47:31 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:47:31 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:47:31 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:47:31 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:47:31 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:47:31 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:47:31 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:47:32 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:47:32 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:47:32 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:47:32 | INFO | MT5Handler.main | Auto-Lot Boost Applied! Streak: 7
+2025-07-23 16:47:32 | INFO | TradingBot.main | Trade executed successfully: 2416763907
+2025-07-23 16:47:32 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:47:32 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:47:32 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:47:32 | INFO | MT5Handler.main | Auto-Lot Boost Applied! Streak: 7
+2025-07-23 16:47:33 | INFO | TradingBot.main | Trade executed successfully: 2416764533
+2025-07-23 16:47:33 | INFO | MT5Handler.main | Position 2416715345 modified successfully.
+2025-07-23 16:52:33 | INFO | TradingBot.main | Trade 2416715345 was a WIN. Current streak: 8
+2025-07-23 16:52:33 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:52:33 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:52:33 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:52:33 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:52:33 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:52:33 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:52:33 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:52:33 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:52:34 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:52:34 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:52:34 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:52:34 | INFO | MT5Handler.main | Auto-Lot Boost Applied! Streak: 8
+2025-07-23 16:52:34 | INFO | TradingBot.main | Trade executed successfully: 2416817700
+2025-07-23 16:52:35 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:52:35 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:52:35 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:52:35 | INFO | MT5Handler.main | Auto-Lot Boost Applied! Streak: 8
+2025-07-23 16:52:35 | INFO | TradingBot.main | Trade executed successfully: 2416817786
+2025-07-23 16:57:36 | INFO | MT5Handler.main | Position 2416763907 modified successfully.
+2025-07-23 16:57:36 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:57:36 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:57:36 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:57:36 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:57:36 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:57:36 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:57:36 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:57:36 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:57:37 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:57:37 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:57:37 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 16:57:37 | INFO | MT5Handler.main | Auto-Lot Boost Applied! Streak: 8
+2025-07-23 16:57:37 | INFO | TradingBot.main | Trade executed successfully: 2416919663
+2025-07-23 16:57:37 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:57:37 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:57:37 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 16:57:37 | INFO | MT5Handler.main | Auto-Lot Boost Applied! Streak: 8
+2025-07-23 16:57:38 | INFO | TradingBot.main | Trade executed successfully: 2416920903
+2025-07-23 16:57:38 | INFO | MT5Handler.main | Position 2416763907 modified successfully.
+2025-07-23 16:57:38 | INFO | MT5Handler.main | Position 2416764533 modified successfully.
+2025-07-23 16:57:39 | INFO | MT5Handler.main | Position 2416764533 modified successfully.
+2025-07-23 16:57:39 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416817700: Invalid request
+2025-07-23 16:57:40 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2416817700: Invalid request
+2025-07-23 16:57:40 | INFO | MT5Handler.main | Position 2416817786 modified successfully.
+2025-07-23 16:57:41 | INFO | MT5Handler.main | Position 2416817786 modified successfully.
+2025-07-23 17:02:41 | INFO | TradingBot.main | Trade 2416763907 was a WIN. Current streak: 9
+2025-07-23 17:02:41 | INFO | TradingBot.main | Trade 2416817700 was a WIN. Current streak: 10
+2025-07-23 17:02:41 | INFO | TradingBot.main | Trade 2416919663 was a WIN. Current streak: 11
+2025-07-23 17:02:41 | INFO | TradingBot.main | Trade 2416764533 was a WIN. Current streak: 12
+2025-07-23 17:02:41 | INFO | TradingBot.main | Trade 2416817786 was a WIN. Current streak: 13
+2025-07-23 17:02:41 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:02:41 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:02:41 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:02:41 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:02:41 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:02:41 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:02:41 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:02:41 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:02:42 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:02:42 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:02:42 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:02:42 | INFO | MT5Handler.main | Auto-Lot Boost Applied! Streak: 13
+2025-07-23 17:02:42 | INFO | TradingBot.main | Trade executed successfully: 2417067421
+2025-07-23 17:02:43 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:02:43 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:02:43 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:02:43 | INFO | MT5Handler.main | Auto-Lot Boost Applied! Streak: 13
+2025-07-23 17:02:43 | INFO | TradingBot.main | Trade executed successfully: 2417067795
+2025-07-23 17:07:44 | INFO | MT5Handler.main | Position 2417067421 modified successfully.
+2025-07-23 17:07:44 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:07:44 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:07:44 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:07:44 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:07:44 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:07:44 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:07:44 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:07:44 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:07:45 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:07:45 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:07:45 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:07:45 | INFO | MT5Handler.main | Auto-Lot Boost Applied! Streak: 13
+2025-07-23 17:07:46 | INFO | TradingBot.main | Trade executed successfully: 2417196340
+2025-07-23 17:07:46 | INFO | MT5Handler.main | Position 2417067421 modified successfully.
+2025-07-23 17:12:46 | INFO | TradingBot.main | Trade 2417067795 was a LOSS. Resetting win streak from 13 to 0.
+2025-07-23 17:12:46 | INFO | TradingBot.main | Trade 2417196340 was a LOSS. Resetting win streak from 0 to 0.
+2025-07-23 17:12:46 | INFO | TradingBot.main | Trade 2417067421 was a WIN. Current streak: 1
+2025-07-23 17:12:46 | INFO | TradingBot.main | Trade 2416920903 was a LOSS. Resetting win streak from 1 to 0.
+2025-07-23 17:12:46 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:12:46 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:12:46 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:12:46 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:12:46 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:12:46 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:12:46 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:12:46 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:12:47 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:12:47 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:12:47 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:12:47 | INFO | TradingBot.main | Trade executed successfully: 2417297257
+2025-07-23 17:12:48 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:12:48 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:12:48 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:12:48 | INFO | TradingBot.main | Trade executed successfully: 2417297541
+2025-07-23 17:17:49 | INFO | MT5Handler.main | Position 2417297257 modified successfully.
+2025-07-23 17:17:49 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:17:49 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:17:49 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:17:49 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:17:49 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:17:49 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:17:49 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:17:49 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:17:50 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:17:50 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:17:50 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:17:50 | INFO | TradingBot.main | Trade executed successfully: 2417386858
+2025-07-23 17:17:50 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:17:50 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:17:50 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:17:51 | INFO | TradingBot.main | Trade executed successfully: 2417387145
+2025-07-23 17:17:51 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2417297257: Invalid stops
+2025-07-23 17:22:51 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2417297257: Invalid stops
+2025-07-23 17:22:51 | INFO | MT5Handler.main | Position 2417386858 modified successfully.
+2025-07-23 17:22:51 | INFO | TradingBot.main | Trade 2417297541 was a LOSS. Resetting win streak from 0 to 0.
+2025-07-23 17:22:51 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:22:51 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:22:51 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:22:51 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:22:51 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:22:51 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:22:51 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:22:51 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:22:52 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:22:52 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:22:52 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:22:52 | INFO | TradingBot.main | Trade executed successfully: 2417482364
+2025-07-23 17:22:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:22:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:22:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:22:53 | INFO | TradingBot.main | Trade executed successfully: 2417482568
+2025-07-23 17:27:54 | INFO | MT5Handler.main | Position 2417297257 modified successfully.
+2025-07-23 17:27:54 | INFO | MT5Handler.main | Position 2417482568 modified successfully.
+2025-07-23 17:27:54 | INFO | TradingBot.main | Trade 2417386858 was a LOSS. Resetting win streak from 0 to 0.
+2025-07-23 17:27:54 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:27:54 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:27:54 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:27:54 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:27:54 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:27:54 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:27:54 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:27:54 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:27:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:27:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:27:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:27:56 | INFO | TradingBot.main | Trade executed successfully: 2417547386
+2025-07-23 17:27:56 | INFO | MT5Handler.main | Position 2417482568 modified successfully.
+2025-07-23 17:32:56 | INFO | TradingBot.main | Trade 2417482568 was a WIN. Current streak: 1
+2025-07-23 17:32:56 | INFO | TradingBot.main | Trade 2417297257 was a WIN. Current streak: 2
+2025-07-23 17:32:56 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:32:56 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:32:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:32:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:32:56 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:32:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:32:57 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:32:57 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:32:57 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:32:57 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:32:57 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:32:57 | INFO | TradingBot.main | Trade executed successfully: 2417609460
+2025-07-23 17:32:58 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:32:58 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:32:58 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:32:58 | INFO | TradingBot.main | Trade executed successfully: 2417609568
+2025-07-23 17:37:59 | INFO | TradingBot.main | Trade 2417387145 was a LOSS. Resetting win streak from 2 to 0.
+2025-07-23 17:37:59 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:37:59 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:37:59 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:37:59 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:37:59 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:37:59 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:37:59 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:37:59 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:38:00 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:38:00 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:38:00 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:38:01 | INFO | TradingBot.main | Trade executed successfully: 2417674216
+2025-07-23 17:43:01 | INFO | MT5Handler.main | Position 2417609568 modified successfully.
+2025-07-23 17:43:01 | INFO | TradingBot.main | Trade 2417482364 was a LOSS. Resetting win streak from 0 to 0.
+2025-07-23 17:43:01 | INFO | TradingBot.main | Trade 2417609460 was a LOSS. Resetting win streak from 0 to 0.
+2025-07-23 17:43:01 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:43:01 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:43:01 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:43:01 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:43:01 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:43:01 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:43:01 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:43:01 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:43:02 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:43:02 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:43:02 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:43:02 | INFO | TradingBot.main | Trade executed successfully: 2417741018
+2025-07-23 17:43:03 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:43:03 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:43:03 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:43:03 | INFO | TradingBot.main | Trade executed successfully: 2417741132
+2025-07-23 17:43:04 | INFO | MT5Handler.main | Position 2417609568 modified successfully.
+2025-07-23 17:43:04 | INFO | MT5Handler.main | Position 2417674216 modified successfully.
+2025-07-23 17:43:04 | INFO | MT5Handler.main | Position 2417674216 modified successfully.
+2025-07-23 17:48:05 | INFO | MT5Handler.main | Position 2417741018 modified successfully.
+2025-07-23 17:48:05 | INFO | TradingBot.main | Trade 2417609568 was a WIN. Current streak: 1
+2025-07-23 17:48:05 | INFO | TradingBot.main | Trade 2417674216 was a WIN. Current streak: 2
+2025-07-23 17:48:05 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:48:05 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:48:05 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:48:05 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:48:05 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:48:05 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:48:05 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:48:05 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:48:06 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:48:06 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:48:06 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 17:48:06 | INFO | TradingBot.main | Trade executed successfully: 2417791670
+2025-07-23 17:48:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:48:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:48:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 17:48:07 | INFO | TradingBot.main | Trade executed successfully: 2417791788
+2025-07-23 17:48:07 | [31mERROR   [0m | MT5Handler.main | Failed to modify position 2417741018: Invalid request
+2025-07-23 17:53:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 17:54:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 17:55:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 17:56:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 17:57:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 17:58:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 17:59:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 18:00:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 18:01:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 18:02:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 18:03:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 18:04:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 18:05:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 18:06:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 18:07:07 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:01:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:02:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:03:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:04:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:05:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:06:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:07:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:08:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:09:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:10:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:11:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:12:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:13:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:14:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:15:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:16:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:17:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:18:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:19:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:20:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:21:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:22:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:23:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:24:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:25:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:26:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:27:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:28:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:29:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:30:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:31:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:32:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:33:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:34:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:35:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:36:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:37:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:38:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:39:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:40:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:41:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:42:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:43:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:44:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:45:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:46:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:47:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:48:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:49:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:50:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:51:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:52:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:53:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:54:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:55:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:56:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:57:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:58:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 19:59:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:00:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:01:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:02:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:03:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:04:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:05:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:06:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:07:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:08:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:09:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:10:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:11:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:12:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:13:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:14:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:15:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:16:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:17:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:18:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:19:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:20:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:21:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:22:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:23:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:24:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:25:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:26:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:27:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:28:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:29:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:30:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:31:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:32:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:33:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:34:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:35:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:36:00 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:37:01 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:38:01 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:39:01 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:40:01 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:41:01 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:42:01 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:43:01 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:44:01 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:45:01 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:46:01 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 20:47:01 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 21:49:45 | [33mWARNING [0m | TradingBot.main | MT5 not connected, attempting reconnection...
+2025-07-23 21:49:45 | INFO | MT5Handler.main | Reconnecting to MT5 (attempt 1)
+2025-07-23 21:49:50 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 21:49:50 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 21:49:50 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 21:49:50 | INFO | MT5Handler.main | Reconnection successful
+2025-07-23 21:49:50 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 21:50:50 | [33mWARNING [0m | TradingBot.main | Daily trade limit reached. Pausing until next session.
+2025-07-23 22:17:48 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 22:17:48 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 22:17:48 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 22:17:52 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 22:17:52 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 22:17:52 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 22:17:52 | [31mERROR   [0m | TradingBot.main | Initialization failed: type object 'Config' has no attribute 'MAX_RISK_PERCENT' | exc_info=True
+2025-07-23 22:18:19 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 22:18:19 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 22:18:19 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 22:18:19 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 22:18:19 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 22:18:19 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 22:18:19 | [31mERROR   [0m | TradingBot.main | Initialization failed: type object 'Config' has no attribute 'MAX_RISK_PERCENT' | exc_info=True
+2025-07-23 22:21:50 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 22:21:50 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 22:21:50 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 22:21:50 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 22:21:50 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 22:21:50 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 22:21:52 | INFO | TradingBot.main | Tracking 0 existing open positions.
+2025-07-23 22:21:52 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 22:21:52 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 22:21:52 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 22:21:52 | INFO | MT5Handler.main | Market for GOLD appears stale. Last quote was at 2025-07-23 21:57:58.
+2025-07-23 22:21:52 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:21:52 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:21:52 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:21:52 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:21:52 | INFO | SignalGenerator.main | [BITCOIN] Running BTC breakout strategy...
+2025-07-23 22:21:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:21:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:21:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:21:53 | INFO | TradingBot.main | Trade executed successfully: 2419076621
+2025-07-23 22:26:53 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 22:26:53 | INFO | MT5Handler.main | Market for GOLD appears stale. Last quote was at 2025-07-23 21:57:58.
+2025-07-23 22:26:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:26:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:26:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:26:53 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:26:53 | INFO | SignalGenerator.main | [BITCOIN] Running BTC breakout strategy...
+2025-07-23 22:26:54 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:26:54 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:26:54 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:26:54 | INFO | TradingBot.main | Trade executed successfully: 2419084973
+2025-07-23 22:28:54 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 22:28:54 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 22:28:54 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 22:28:54 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 22:28:54 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 22:28:54 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 22:28:55 | INFO | TradingBot.main | Tracking 12 existing open positions.
+2025-07-23 22:28:55 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 22:28:55 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 22:28:56 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 22:28:56 | INFO | MT5Handler.main | Market for GOLD appears stale. Last quote was at 2025-07-23 21:57:58.
+2025-07-23 22:28:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:28:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:28:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:28:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:28:56 | INFO | SignalGenerator.main | [BITCOIN] Running BTC breakout strategy...
+2025-07-23 22:28:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:28:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:28:56 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:28:57 | INFO | TradingBot.main | Trade executed successfully: 2419088428
+2025-07-23 22:35:00 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 22:35:00 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 22:35:00 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 22:35:04 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 22:35:04 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 22:35:04 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 22:35:06 | INFO | TradingBot.main | Tracking 13 existing open positions.
+2025-07-23 22:35:06 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 22:35:06 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 22:35:06 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 22:35:06 | INFO | MT5Handler.main | Market for GOLD appears stale. Last quote was at 2025-07-23 21:57:58.
+2025-07-23 22:35:06 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:35:06 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:35:06 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:35:06 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:35:06 | INFO | SignalGenerator.main | [BITCOIN] Running BTC breakout strategy...
+2025-07-23 22:35:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:35:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:35:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:35:07 | INFO | TradingBot.main | Trade executed successfully: 2419097271
+2025-07-23 22:40:07 | INFO | TradingBot.main | Trade 2419076621 was a LOSS. Resetting win streak from 0 to 0.
+2025-07-23 22:40:07 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 22:40:07 | INFO | MT5Handler.main | Market for GOLD appears stale. Last quote was at 2025-07-23 21:57:58.
+2025-07-23 22:40:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:40:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:40:07 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:40:08 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:40:08 | INFO | SignalGenerator.main | [BITCOIN] Running BTC breakout strategy...
+2025-07-23 22:40:08 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:40:08 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:40:08 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:40:08 | INFO | TradingBot.main | Trade executed successfully: 2419104888
+2025-07-23 22:45:09 | INFO | TradingBot.main | Trade 2419084973 was a LOSS. Resetting win streak from 0 to 0.
+2025-07-23 22:45:09 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 22:45:09 | INFO | MT5Handler.main | Market for GOLD appears stale. Last quote was at 2025-07-23 21:57:58.
+2025-07-23 22:45:09 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:45:09 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:45:09 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:45:09 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:45:09 | INFO | SignalGenerator.main | [BITCOIN] Running BTC breakout strategy...
+2025-07-23 22:49:44 | INFO | TradingBot.main | 
+============================================================
+🚀 TRADING BOT SESSION STARTED
+============================================================
+2025-07-23 22:49:44 | INFO | TradingBot.main | Starting bot initialization...
+2025-07-23 22:49:44 | INFO | TradingBot.main | Configuration validated successfully
+2025-07-23 22:49:44 | INFO | MT5Handler.main | MT5 initialized successfully. Account: 248184948
+2025-07-23 22:49:44 | INFO | MT5Handler.main | Symbol XAUUSDm validated and selected
+2025-07-23 22:49:44 | INFO | MT5Handler.main | Symbol BTCUSDm validated and selected
+2025-07-23 22:49:45 | INFO | TradingBot.main | Tracking 0 existing open positions.
+2025-07-23 22:49:45 | INFO | TradingBot.main | Trading bot initialization completed
+2025-07-23 22:49:46 | INFO | TradingBot.main | 🚀 Trading Bot Started
+2025-07-23 22:49:46 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 22:49:46 | INFO | MT5Handler.main | Market for GOLD appears stale. Last quote was at 2025-07-23 21:57:58.
+2025-07-23 22:49:46 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:49:46 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:49:46 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:49:46 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:49:46 | INFO | SignalGenerator.main | [BITCOIN] Running BTC breakout strategy...
+2025-07-23 22:54:46 | INFO | MT5Handler.main | Using mapped symbol: GOLD -> XAUUSDm
+2025-07-23 22:54:46 | INFO | MT5Handler.main | Market for GOLD appears stale. Last quote was at 2025-07-23 21:57:58.
+2025-07-23 22:54:46 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:54:46 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:54:46 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:54:47 | INFO | MT5Handler.main | Using mapped symbol: BITCOIN -> BTCUSDm
+2025-07-23 22:54:47 | INFO | SignalGenerator.main | [BITCOIN] Running BTC breakout strategy...
