@@ -19,6 +19,7 @@ class TradeSignal:
     take_profit: float
     timeframe: str
     reasons: List[str]
+    risk_tier: str # Added risk_tier
 
 def calculate_atr(df: pd.DataFrame, period: int = 14) -> pd.Series:
     """Calculate Average True Range (ATR)"""

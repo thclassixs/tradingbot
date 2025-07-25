@@ -2,6 +2,7 @@ import pandas as pd
 from dataclasses import dataclass
 from typing import Tuple
 from config import Config
+from strategies.gann_calculator import GannCalculator # Import GannCalculator
 
 @dataclass
 class RiskParameters:
@@ -17,36 +18,39 @@ class RiskManagement:
         self.max_risk_percent = max_risk_percent
         self.mt5_handler = mt5_handler # Store the MT5 handler instance
         self.config = Config()
+        self.gann_calculator = GannCalculator() # Initialize GannCalculator
         
-    async def calculate_position_size(self, signal, win_streak: int = 0) -> float:
-        """Calculate optimal position size based on risk parameters, current tier, and win streak."""
+    async def calculate_position_size(self, signal) -> float:
+        """Calculate optimal position size based on risk parameters and current tier."""
         symbol_info = await self.mt5_handler.get_symbol_info(signal.symbol)
         if not symbol_info:
             return 0.0
 
+        # --- FIX: Get pip_value from config, not symbol_info ---
         symbol_config = self.config.get_symbol_config(signal.symbol)
         pip_value = symbol_config.pip_value
 
+        # Determine risk percentage for the current tier
         base_risk_percent = self.config.RISK_CONFIG['base_risk_percent']
         tier_multiplier = self.config.RISK_CONFIG['tier_multipliers'][signal.risk_tier]
         risk_percent = base_risk_percent * tier_multiplier
 
+        # Calculate risk amount
         risk_amount = self.account_balance * (risk_percent / 100)
         
+        # Calculate stop distance in price terms
         stop_distance_price = abs(signal.entry_price - signal.stop_loss)
         
+        # Calculate position size
         if stop_distance_price > 0 and pip_value > 0:
             position_size = risk_amount / (stop_distance_price * pip_value)
         else:
             position_size = symbol_config.min_lot
 
-        # --- NEW: Auto-Lot Boost Logic ---
-        if self.config.AUTO_LOT_BOOST["enabled"] and win_streak >= self.config.AUTO_LOT_BOOST["win_streak_threshold"]:
-            position_size *= self.config.AUTO_LOT_BOOST["boost_multiplier"]
-            print(f"Auto-Lot Boost applied! New position size: {position_size}")
-
+        # Clamp to min/max lot and broker rules
         position_size = max(symbol_info['min_lot'], min(position_size, symbol_info['max_lot'], self.config.RISK_CONFIG['max_lot']))
         
+        # Adjust for lot step
         lot_step = symbol_info['lot_step']
         position_size = round(position_size / lot_step) * lot_step
         
@@ -67,35 +71,47 @@ class RiskManagement:
     
     async def calculate_dynamic_exits(self, df: pd.DataFrame, entry_price: float,
                                     direction: str, symbol: str) -> Tuple[float, float]:
-        """Calculate dynamic exit points based on SYMBOL-SPECIFIC ATR multipliers."""
+        """Calculate dynamic exit points based on market structure and broker rules."""
+        
+        # Use Gann Calculator if enabled in config
+        if self.config.RISK_MANAGEMENT.get("USE_GANN_EXIT", False):
+            if direction.upper() == 'BUY':
+                take_profit = self.gann_calculator.calculate_gann_tp(entry_price)
+                stop_loss = self.gann_calculator.calculate_gann_sl(entry_price)
+            else: # SELL
+                take_profit = self.gann_calculator.calculate_gann_sl(entry_price)
+                stop_loss = self.gann_calculator.calculate_gann_tp(entry_price)
+
+            symbol_info = await self.mt5_handler.get_symbol_info(symbol)
+            if not symbol_info:
+                return entry_price * 0.99, entry_price * 1.01
+
+            return round(stop_loss, symbol_info['digits']), round(take_profit, symbol_info['digits'])
+
+        # Fallback to ATR-based exits
         symbol_info = await self.mt5_handler.get_symbol_info(symbol)
         if not symbol_info:
-            # Fallback with a sensible default if symbol info is not available
-            sl = entry_price * 0.99 if direction.upper() == 'BUY' else entry_price * 1.01
-            tp = entry_price * 1.02 if direction.upper() == 'BUY' else entry_price * 0.98
-            return sl, tp
+            # Fallback if symbol info is not available
+            return entry_price * 0.99, entry_price * 1.01
 
-        # --- KEY CHANGE: Use symbol-specific config ---
-        symbol_config = Config.get_symbol_config(symbol)
-        sl_multiplier = symbol_config.atr_sl_multiplier
-        tp_multiplier = symbol_config.atr_tp_multiplier
-        # ---
-
-        stops_level = symbol_info.get('stops_level', 10)
+        # Calculate the minimum distance required by the broker
+        stops_level = symbol_info.get('stops_level', 10) # Default to 10 if not present
         point = symbol_info['point']
         min_stop_distance = stops_level * point
 
+        # Calculate the stop distance based on ATR
         atr = df['atr'].iloc[-1]
-        atr_stop_distance = sl_multiplier * atr
+        atr_stop_distance = self.config.RISK_MANAGEMENT["ATR_SL_MULTIPLIER"] * atr
 
+        # Use the larger of the two distances to ensure we meet the broker's requirement
         final_stop_distance = max(min_stop_distance, atr_stop_distance)
 
         if direction.upper() == 'BUY':
             stop_loss = entry_price - final_stop_distance
-            take_profit = entry_price + (final_stop_distance / sl_multiplier * tp_multiplier)
+            take_profit = entry_price + (final_stop_distance * self.config.RISK_MANAGEMENT["ATR_TP_MULTIPLIER"]) # Maintain R:R
         else: # SELL
             stop_loss = entry_price + final_stop_distance
-            take_profit = entry_price - (final_stop_distance / sl_multiplier * tp_multiplier)
+            take_profit = entry_price - (final_stop_distance * self.config.RISK_MANAGEMENT["ATR_TP_MULTIPLIER"]) # Maintain R:R
 
         return round(stop_loss, symbol_info['digits']), round(take_profit, symbol_info['digits'])
     

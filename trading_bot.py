@@ -1,5 +1,5 @@
 """
-Trading Bot - Enhanced with Ultimate Bot Logic
+Trading Bot - Debug and Fix for Pandas Interval Issue
 """
 import asyncio
 import signal
@@ -41,13 +41,11 @@ class TradingBot:
         self.is_running = False
         self.is_initialized = False
         self.last_signal_time = {}
-        self.trade_history = []
         
         # Performance tracking
         self.daily_trades = 0
         self.daily_pnl = 0.0
         self.start_time = None
-        self.win_rate = 0.0
         
         # Setup signal handlers for graceful shutdown
         self._setup_signal_handlers()
@@ -140,7 +138,7 @@ class TradingBot:
             self.risk_manager = RiskManagement(
                 account_balance=account_balance,
                 mt5_handler=self.mt5_handler, 
-                max_risk_percent=Config.MAX_RISK_PERCENT
+                max_risk_percent=self.config.RISK_MANAGEMENT["MAX_RISK_PERCENT"]
             )
             
             self.market_structure = MarketStructure()
@@ -266,7 +264,7 @@ class TradingBot:
             # Check risk limits
             if not self.risk_manager.check_daily_risk_limit(
                 trades_today=self.daily_trades,
-                max_daily_risk=Config.MAX_DAILY_RISK
+                max_daily_risk=self.config.RISK_MANAGEMENT["MAX_DAILY_RISK"]
             ):
                 self.logger.warning("Daily risk limits reached")
                 return False
@@ -408,6 +406,7 @@ class TradingBot:
                 "free_margin": account_info.get("margin_free", 0),
                 "open_positions": len(await self.mt5_handler.get_positions()),
                 "is_connected": self.mt5_handler.is_connected(),
+                "trading_mode": self.config.RISK_MANAGEMENT["CURRENT_MODE"].value
             }
         except Exception as e:
             self.logger.error(f"Error getting performance summary: {e}")
