@@ -21,7 +21,7 @@ class Backtester:
     A class to backtest the trading bot's strategy on historical data.
     """
 
-    def __init__(self, start_date: str, end_date: str, symbol: str, timeframe: str, initial_balance: float = 10000.0):
+    def __init__(self, start_date: str, end_date: str, symbol: str, timeframe: str, initial_balance: float = 100.0):
         """
         Initializes the Backtester.
         """

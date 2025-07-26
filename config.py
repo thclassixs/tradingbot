@@ -104,7 +104,7 @@ class Config:
         "ATR_PERIODS": 14,
         "ATR_SL_MULTIPLIER": 1.5,
         "ATR_TP_MULTIPLIER": 2.5,
-        "USE_GANN_EXIT": True # Enable/Disable Gann Exit Method
+        "USE_GANN_EXIT": True
     }
     
     POSITION_SIZING = 1.5
@@ -344,7 +344,7 @@ class Config:
     
     # DEVELOPMENT & DEBUG
     DEBUG = {
-        "debug_mode": False,
+        "debug_mode": True,
         "verbose_logging": True,
         "save_debug_data": False,
         "backtesting_mode": False,
@@ -419,7 +419,6 @@ class Config:
     
     @classmethod
     def load_encrypted_credentials(cls):
-        """Load encrypted credentials from environment variables"""
         return {
             "login": cls.MT5_CONFIG["login"],
             "password": cls.MT5_CONFIG["password"],

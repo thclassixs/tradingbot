@@ -1,6 +1,3 @@
-"""
-Trading Bot - Debug and Fix for Pandas Interval Issue
-"""
 import asyncio
 import signal
 import sys
