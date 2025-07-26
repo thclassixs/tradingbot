@@ -229,7 +229,7 @@ class Config:
     FEATURE_ENGINEERING = {
         "lookback_periods": [3, 5, 10, 20],
         "technical_indicators": True,
-        "market_structure_features": True,
+        "market_data_features": True,
         "volume_features": True,
         "pattern_features": True,
         "time_features": True
@@ -245,7 +245,7 @@ class Config:
     
     CONFLUENCE_WEIGHTS = {
         "ml_prediction": 0.5,
-        "market_structure": 0.25,
+        "market_data": 0.25,
         "volume_analysis": 0.20,
         "pattern_analysis": 0.15
     }

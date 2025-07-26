@@ -7,7 +7,7 @@ from config import Config
 from components.mt5_handler import MT5Handler
 from strategies.signal_generator import SignalGenerator
 from strategies.risk_management import RiskManagement
-from strategies.market_structure import MarketStructure
+from strategies.market_data import MarketStructure
 from strategies.volume_analysis import VolumeAnalysis
 from strategies.pattern_analysis import PatternAnalysis
 from strategies.session_analysis import SessionAnalysis
@@ -26,7 +26,7 @@ class TradingBot:
         self.risk_manager = None
         
         # Analysis modules
-        self.market_structure = None
+        self.market_data = None
         self.volume_analyzer = None
         self.pattern_analyzer = None
         self.session_analyzer = None
@@ -138,13 +138,13 @@ class TradingBot:
                 max_risk_percent=self.config.RISK_MANAGEMENT["MAX_RISK_PERCENT"]
             )
             
-            self.market_structure = MarketStructure()
+            self.market_data = MarketStructure()
             self.volume_analyzer = VolumeAnalysis()
             self.pattern_analyzer = PatternAnalysis()
             self.session_analyzer = SessionAnalysis()
             
             self.signal_generator = SignalGenerator(
-                market_structure=self.market_structure,
+                market_data=self.market_data,
                 volume_analysis=self.volume_analyzer,
                 pattern_analysis=self.pattern_analyzer,
                 session_analysis=self.session_analyzer,
@@ -179,7 +179,7 @@ class TradingBot:
     async def _initialize_components(self):
         """Initialize all analysis components"""
         components = [
-            self.market_structure,
+            self.market_data,
             self.volume_analyzer,
             self.pattern_analyzer,
             self.session_analyzer,

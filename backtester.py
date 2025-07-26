@@ -9,7 +9,7 @@ from config import Config
 from components.mt5_handler import MT5Handler
 from strategies.signal_generator import SignalGenerator
 from strategies.risk_management import RiskManagement
-from strategies.market_structure import MarketStructure
+from strategies.market_data import MarketStructure
 from strategies.volume_analysis import VolumeAnalysis
 from strategies.pattern_analysis import PatternAnalysis
 from strategies.session_analysis import SessionAnalysis
@@ -38,12 +38,12 @@ class Backtester:
         self.config = Config()
         self.mt5_handler = MT5Handler()
         self.risk_manager = RiskManagement(account_balance=self.initial_balance, mt5_handler=self.mt5_handler, max_risk_percent=self.config.RISK_MANAGEMENT["MAX_RISK_PERCENT"])
-        self.market_structure = MarketStructure()
+        self.market_data = MarketStructure()
         self.volume_analyzer = VolumeAnalysis()
         self.pattern_analyzer = PatternAnalysis()
         self.session_analyzer = SessionAnalysis()
         self.signal_generator = SignalGenerator(
-            market_structure=self.market_structure,
+            market_data=self.market_data,
             volume_analysis=self.volume_analyzer,
             pattern_analysis=self.pattern_analyzer,
             session_analysis=self.session_analyzer,

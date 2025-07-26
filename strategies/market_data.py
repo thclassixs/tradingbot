@@ -100,7 +100,7 @@ class MarketStructure:
 
         return zones
 
-    def detect_market_structure_break(self, df: pd.DataFrame) -> List[Dict]:
+    def detect_market_data_break(self, df: pd.DataFrame) -> List[Dict]:
         """
         Detect breaks in market structure, filtering by a minimum break size.
         """

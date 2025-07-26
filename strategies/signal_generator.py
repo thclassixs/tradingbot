@@ -1,10 +1,8 @@
 import pandas as pd
-import numpy as np
-from dataclasses import dataclass
 from typing import Dict, List, Optional
 
 # Import the analysis and risk management modules
-from .market_structure import MarketStructure
+from .market_data import MarketStructure
 from .volume_analysis import VolumeAnalysis
 from .pattern_analysis import PatternAnalysis
 from .session_analysis import SessionAnalysis
@@ -18,12 +16,12 @@ class SignalGenerator:
     Generates high-confidence trading signals by finding confluence
     among various analytical methods.
     """
-    def __init__(self, market_structure: MarketStructure, volume_analysis: VolumeAnalysis, 
+    def __init__(self, market_data: MarketStructure, volume_analysis: VolumeAnalysis, 
                  pattern_analysis: PatternAnalysis, session_analysis: SessionAnalysis, 
                  risk_management: RiskManagement, htf_timeframe: str = 'H1', 
                  fvg_sensitivity: float = 0.002, order_block_sensitivity: float = 0.005):
         """Initializes the SignalGenerator with all required analysis components."""
-        self.market_structure = market_structure
+        self.market_data = market_data
         self.volume_analysis = volume_analysis
         self.pattern_analysis = pattern_analysis
         self.session_analysis = session_analysis
@@ -53,11 +51,11 @@ class SignalGenerator:
         # 2. Perform Primary Analyses on the main timeframe
         df_with_delta = self.volume_analysis.calculate_volume_delta(df.copy())
         
-        structure_breaks = self.market_structure.detect_market_structure_break(df_with_delta)
+        structure_breaks = self.market_data.detect_market_data_break(df_with_delta)
         volume_profile = self.volume_analysis.analyze_volume_profile(df_with_delta)
         patterns = self.pattern_analysis.analyze_patterns(df_with_delta, timeframe)
-        order_blocks = self.market_structure.detect_order_blocks(df_with_delta)
-        fvgs = self.market_structure.identify_fair_value_gaps(df_with_delta)
+        order_blocks = self.market_data.detect_order_blocks(df_with_delta)
+        fvgs = self.market_data.identify_fair_value_gaps(df_with_delta)
         
         # 3. Score the analyses
         pattern_score = self.pattern_analysis.pattern_confluence(patterns)
@@ -99,8 +97,6 @@ class SignalGenerator:
         confidence_factors = 1
         
         current_price = df['close'].iloc[-1]
-
-        # --- Confluence Checks ---
 
         # 1. Candlestick Pattern Confirmation
         if pattern_score > 0.6 and volume_confirmed:
@@ -184,7 +180,7 @@ class SignalGenerator:
 
     def higher_timeframe_confirmation(self, df: pd.DataFrame, htf_df: pd.DataFrame) -> bool:
         """Confirms if the short-term signal aligns with the long-term trend."""
-        htf_trend = self.market_structure.analyze_trend_context(htf_df)
+        htf_trend = self.market_data.analyze_trend_context(htf_df)
         
         # Determine the direction of the most recent candle on the lower timeframe
         ltf_direction = "Uptrend" if df['close'].iloc[-1] > df['open'].iloc[-1] else "Downtrend"
