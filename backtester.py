@@ -37,7 +37,7 @@ class Backtester:
         self.logger = TradingLogger("Backtester")
         self.config = Config()
         self.mt5_handler = MT5Handler()
-        self.risk_manager = RiskManagement(account_balance=self.initial_balance, mt5_handler=self.mt5_handler, max_risk_percent=self.config.MAX_RISK_PERCENT)
+        self.risk_manager = RiskManagement(account_balance=self.initial_balance, mt5_handler=self.mt5_handler, max_risk_percent=self.config.RISK_MANAGEMENT["MAX_RISK_PERCENT"])
         self.market_structure = MarketStructure()
         self.volume_analyzer = VolumeAnalysis()
         self.pattern_analyzer = PatternAnalysis()
@@ -259,8 +259,8 @@ class Backtester:
 
 if __name__ == "__main__":
     # --- Configuration ---
-    START_DATE = "2023-01-01"
-    END_DATE = "2023-06-30"
+    START_DATE = "2025-05-01"
+    END_DATE = "2025-06-30"
     SYMBOL = "XAUUSDm"
     TIMEFRAME = "H1"  # M1, M5, M15, M30, H1
     INITIAL_BALANCE = 10000.0
