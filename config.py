@@ -1,12 +1,7 @@
 import os
 from dataclasses import dataclass
-from typing import List, Tuple, Dict
+from typing import Tuple, Dict
 from enum import Enum
-
-class TradingMode(Enum):
-    CONSERVATIVE = "conservative"
-    BALANCED = "balanced"
-    AGGRESSIVE = "aggressive"
 
 class MarketSession(Enum):
     LONDON = "london"
@@ -31,14 +26,14 @@ class Config:
     """Main configuration class for advanced trading bot"""
     
     # Version and environment settings
-    VERSION = "1.1.0"  # Incremented version
-    ENVIRONMENT = "production"  # or "development"
+    VERSION = "1.1.0"
+    ENVIRONMENT = "production"
     
     # MT5 settings - SECURITY FIX: Use environment variables
     MT5_CONFIG = {
-        "login": int(os.getenv("MT5_LOGIN", "248184948")),
-        "password": os.getenv("MT5_PASSWORD", "Classixs12340&"),
-        "server": os.getenv("MT5_SERVER", "Exness-MT5Trial"),
+        "login": os.getenv("MT5_LOGIN"),
+        "password": os.getenv("MT5_PASSWORD"),
+        "server": os.getenv("MT5_SERVER"),
         "timeout": 60000,
         "retry_count": 3
     }
@@ -106,18 +101,13 @@ class Config:
         "MAX_RISK_PERCENT": 2.0,
         "MAX_DAILY_RISK": 10.0,
         "MAX_DRAWDOWN": 10.0,
-        "CURRENT_MODE": TradingMode.AGGRESSIVE,
         "ATR_PERIODS": 14,
         "ATR_SL_MULTIPLIER": 1.5,
         "ATR_TP_MULTIPLIER": 2.5,
         "USE_GANN_EXIT": True # Enable/Disable Gann Exit Method
     }
     
-    POSITION_SIZING = {
-        TradingMode.CONSERVATIVE: 0.5,
-        TradingMode.BALANCED: 1.0,
-        TradingMode.AGGRESSIVE: 1.5
-    }
+    POSITION_SIZING = 1.5
     
     # Dynamic risk adjustment
     VOLATILITY_ADJUSTMENT = True
@@ -435,10 +425,3 @@ class Config:
             "password": cls.MT5_CONFIG["password"],
             "server": cls.MT5_CONFIG["server"]
         }
-    
-    @classmethod
-    def get_trading_mode(cls) -> TradingMode:
-        """Get current trading mode with validation"""
-        if not isinstance(cls.RISK_MANAGEMENT["CURRENT_MODE"], TradingMode):
-            return TradingMode.CONSERVATIVE
-        return cls.RISK_MANAGEMENT["CURRENT_MODE"]

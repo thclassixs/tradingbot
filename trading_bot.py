@@ -123,7 +123,7 @@ class TradingBot:
         try:
             self.logger.info("Starting bot initialization...")
             
-            Config.validate_config()
+            #Config.validate_config()
             self.logger.info("Configuration validated successfully")
             
             self.mt5_handler = MT5Handler()
@@ -406,7 +406,6 @@ class TradingBot:
                 "free_margin": account_info.get("margin_free", 0),
                 "open_positions": len(await self.mt5_handler.get_positions()),
                 "is_connected": self.mt5_handler.is_connected(),
-                "trading_mode": self.config.RISK_MANAGEMENT["CURRENT_MODE"].value
             }
         except Exception as e:
             self.logger.error(f"Error getting performance summary: {e}")

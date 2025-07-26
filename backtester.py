@@ -259,11 +259,11 @@ class Backtester:
 
 if __name__ == "__main__":
     # --- Configuration ---
-    START_DATE = "2025-05-01"
+    START_DATE = "2025-06-01"
     END_DATE = "2025-06-30"
     SYMBOL = "XAUUSDm"
-    TIMEFRAME = "H1"  # M1, M5, M15, M30, H1
-    INITIAL_BALANCE = 10000.0
+    TIMEFRAME = "M30"  # M1, M5, M15, M30, H1
+    INITIAL_BALANCE = 100.0
 
     async def main():
         backtester = Backtester(
