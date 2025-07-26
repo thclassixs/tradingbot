@@ -30,7 +30,7 @@ class SignalGenerator:
         self.risk_manager = risk_management
         
         # Configuration for signal evaluation
-        self.min_confluence_factors = 3  # Minimum number of confirming factors for a valid signal
+        self.min_confluence_factors = 4
         self.htf_timeframe = htf_timeframe
         self.fvg_sensitivity = fvg_sensitivity
         self.order_block_sensitivity = order_block_sensitivity
